@@ -26,7 +26,11 @@ export default {
     peerDepsExternal(),
     resolve(),
     commonjs(),
-    typescript({ useTsconfigDeclarationDir: true }),
+    typescript({
+      include: [ "*.ts+(|x)", "**/*.ts+(|x)" , "*.d.ts", "**/*.d.ts"],
+      exclude: [],
+      useTsconfigDeclarationDir: true
+    }),
     svgr({
       svgoConfig: {
         plugins: {
@@ -38,6 +42,12 @@ export default {
       assets: [
         "src/assets",
       ],
+    }),
+    // https://github.com/gregberge/svgr/issues/484
+    replace({
+      include: ["src/components/Icon/icons.tsx"],
+      preventAssignment: true,
+      "ReactComponent": "default"
     }),
     replace({
       ASSETS_PATH: JSON.stringify('./assets/'),

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
+import { ICONS } from './icons'
 
 export interface IconProps {
   name: string
@@ -18,19 +19,7 @@ const SvgWrapper = styled.div`
 `
 
 const Icon = (props: IconProps) => {
-  let [svg, setSvg] = useState(null)
-
-  useEffect(() => {
-    importSvg()
-  }, [])
-
-  const importSvg = async () => {
-    // @ts-ignore
-    let loadedSvg = await require(`${ASSETS_PATH || './assets/'}icons/${props.name}.svg`)
-    setSvg(loadedSvg.ReactComponent)
-  }
-
-  return <SvgWrapper {...props}>{svg || null}</SvgWrapper>
+  return <SvgWrapper {...props}>{ICONS[props.name]}</SvgWrapper>
 }
 
 Icon.defaultProps = {
