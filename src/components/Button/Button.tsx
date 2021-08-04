@@ -1,4 +1,5 @@
 import React from 'react'
+import useConfettis from '../../hooks/useConfettis'
 import { Wrapper } from './Button.styles'
 import { SIZES, THEMES } from './constants'
 
@@ -29,6 +30,7 @@ export interface ButtonProps extends BaseProps {
 }
 
 const Button = (props: ButtonProps) => {
+  const { ANIMATIONS } = useConfettis()
   return (
     // @ts-ignore
     <Wrapper
@@ -36,6 +38,9 @@ const Button = (props: ButtonProps) => {
       height={props.size && SIZES[props.size]}
       {...props}
       {...(props.theme ? THEMES[props.theme] : {})}
+      onClick={() => {
+        props.onClick && props.onClick()
+      }}
     />
   )
 }
