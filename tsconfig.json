@@ -27,7 +27,7 @@
     "baseUrl": "src",
     "noImplicitAny": false,
     "paths": {
-      "lib/*": ["lib/*"],
+      "dist/*": ["dist/*"],
       "components/*": [ "components/*" ]
     },
     "typeRoots": ["node_modules/@types", "src/@types"]
