@@ -154,3 +154,5 @@ export const ICONS: { [name: string]: ReactElement } = {
   'writing-type-report': <WritingTypeReport />,
   'zoo-point': <ZooPoint />
 }
+
+export default ICONS

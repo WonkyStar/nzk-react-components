@@ -20,15 +20,25 @@ export default {
       file: packageJson.module,
       format: "esm",
       sourcemap: true
-    }
+    },
+    {
+      file: `dist/${packageJson.name}.min.js`,
+      format: 'umd',
+      name: packageJson.name,
+      esModule: false,
+      exports: 'named',
+      sourcemap: true
+    },
   ],
   plugins: [
     peerDepsExternal(),
-    resolve(),
+    resolve({
+      browser: true
+    }),
     commonjs(),
     typescript({
       include: [ "*.ts+(|x)", "**/*.ts+(|x)" , "*.d.ts", "**/*.d.ts"],
-      exclude: [],
+      exclude: [ "*.stories.ts+(|x)", "**/*.stories.ts+(|x)" , "*.stories.d.ts+(|x)", "**/*.stories.d.ts+(|x)"],
       useTsconfigDeclarationDir: true
     }),
     svgr({

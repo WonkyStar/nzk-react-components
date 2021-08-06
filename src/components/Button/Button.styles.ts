@@ -5,13 +5,13 @@ import { getPadding, getSizeComparedToBase, getTextColor, getTextSize } from './
 
 
 export const getShadows = (props: BaseProps) => {
-  let light = getLuminance(props.backgroundColor)
-  let shadowColor =
+  const light = getLuminance(props.backgroundColor)
+  const shadowColor =
     props.shadowColor
     || light && darken(0.2, props.backgroundColor)
     || !light && lighten(0.2, props.backgroundColor)
-  let dropShadowColor = props.dropShadowColor || `rgba(0,0,0,0.3)`
-  let strokeColor =
+  const dropShadowColor = props.dropShadowColor || `rgba(0,0,0,0.3)`
+  const strokeColor =
     props.strokeColor
     || light && lighten(0.1, props.backgroundColor)
     || !light && darken(0.1, props.backgroundColor)

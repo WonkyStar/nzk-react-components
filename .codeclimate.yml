@@ -1,0 +1,35 @@
+plugins:
+  duplication:
+    enabled: true
+    config:
+      count_threshold: 3
+  eslint:
+    enabled: true
+    channel: "eslint-7"
+    config:
+      config: .eslintrc
+      extensions:
+        - .js
+        - .jsx
+        - .ts
+        - .tsx
+exclude_patterns:
+  - "config/"
+  - "db/"
+  - "dist/"
+  - "**/node_modules/"
+  - "script/"
+  - "**/spec/"
+  - "**/test/"
+  - "**/tests/"
+  - "**/vendor/"
+  - "**/vendors/"
+  - "**/*.test.js"
+  - "**/*.stories.js"
+checks:
+  identical-code:
+    config:
+      threshold: 25
+  similar-code:
+    config:
+      threshold: 75

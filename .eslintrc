@@ -1,0 +1,43 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".graphql", ".gql"]
+      }
+    }
+  },
+  "ignorePatterns": [
+    "**/*.stories.tsx",
+    "**/*.stories.ts",
+    "dist/"
+  ],
+  "rules": {
+    "import/extensions": ["error", "never", {
+      "svg": "always",
+      "graphql": "always",
+      "gql": "always"
+    }],
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "react/jsx-props-no-spreading": "off",
+    "react/destructuring-assignment": "off",
+    "arrow-body-style": "off",
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-use-before-define.md#how-to-use
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "no-shadow": "off"
+  }
+}

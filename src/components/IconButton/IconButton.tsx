@@ -20,10 +20,10 @@ export interface IconButtonProps extends ButtonProps {
 
 
 export default (props: IconButtonProps) => {
-  let W = (props.size ? SIZES[props.size] : props.height) || 0
+  const W = (props.size ? SIZES[props.size] : props.height) || 0
   return (
     <Wrapper overlap={0.3 * W}>
-      <Button {...props} round children={props.icon} />
+      <Button {...props} round>{props.icon}</Button>
       <Button {...props} />
     </Wrapper>
   )

@@ -1,0 +1,15 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+PREFIX="pre-commit:"
+
+fileList=$(git diff --diff-filter=d --cached --name-only)
+
+jsFileList=$(echo "$fileList" | grep -E '\.(js|jsx|ts|tsx)$')
+if [ ${#jsFileList} -gt 0 ]; then
+    if ! ./node_modules/.bin/eslint ${jsFileList[*]} "$@"; then
+        echo "$PREFIX Commit aborted."
+        echo "$PREFIX You can lint manually via 'yarn lint'.\n"
+        exit 1
+    fi
+fi

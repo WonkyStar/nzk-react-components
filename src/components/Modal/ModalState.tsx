@@ -19,16 +19,6 @@ const Overlay = styled.div`
 const ModalState = () => {
   const [modals, setModals] = useState<{ [key: string]: ReactElement }>({})
 
-  const open = (modal: ReactElement, key?: string) => {
-    const id = `${key || shortid.generate()}`
-    setModals(modals => {
-      let newModals = {...modals}
-      newModals[id] = React.cloneElement(modal, { id, dismiss: () => close(id) })
-      return newModals
-    })
-    return id
-  }
-
   const modalsStack = useMemo(() => {
     return Object.keys(modals).map(key => modals[key])
   }, [modals])
@@ -38,12 +28,22 @@ const ModalState = () => {
   }, [modals])
 
   const close = (key?: string) => {
-    let keyToRemove = key || lastModalKey
+    const keyToRemove = key || lastModalKey
     setModals(modals => {
-      let newModals = {...modals}
+      const newModals = {...modals}
       delete newModals[keyToRemove]
       return newModals
     })
+  }
+
+  const open = (modal: ReactElement, key?: string) => {
+    const id = `${key || shortid.generate()}`
+    setModals(modals => {
+      const newModals = {...modals}
+      newModals[id] = React.cloneElement(modal, { id, dismiss: () => close(id) })
+      return newModals
+    })
+    return id
   }
 
   return { open, close, modals: modalsStack }
@@ -61,7 +61,7 @@ const Modals = () => {
     <div onClick={e => {
       e.stopPropagation()
       e.preventDefault()
-    }}>
+    }} role="alert">
       {m}
     </div>
   </Overlay>)}</>

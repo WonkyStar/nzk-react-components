@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    "jsx": "react",
+    "strict": true,
+    "strictNullChecks": true,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "esModuleInterop": true,
     "target": "es5",
     "outDir": "lib",
     "lib": [
@@ -11,16 +17,20 @@
     "declarationDir": "lib",
     "allowJs": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "baseUrl": "src",
+    "noImplicitAny": false,
+    "paths": {
+      "lib/*": ["lib/*"],
+      "components/*": [ "components/*" ]
+    },
+    "typeRoots": ["node_modules/@types", "src/@types"]
   },
   "files": ["src/@types/svg.d.ts"],
   "include": [
