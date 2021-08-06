@@ -10,6 +10,9 @@ export const Wrapper = styled.div`
   height: calc(var(--size) + calc(var(--size) * 0.1));
   width: var(--size);
   box-sizing: content-box !important;
+  > * {
+    box-sizing: content-box !important;
+  }
 `
 
 export const AvatarImage = styled.div`
