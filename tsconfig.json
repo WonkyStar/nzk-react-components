@@ -7,14 +7,14 @@
     "removeComments": true,
     "esModuleInterop": true,
     "target": "es5",
-    "outDir": "lib",
-    "lib": [
+    "outDir": "dist",
+    "dist": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
     "declaration": true,
-    "declarationDir": "lib",
+    "declarationDir": "dist",
     "allowJs": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
@@ -38,6 +38,6 @@
   ],
   "exclude": [
       "node_modules",
-      "lib"
+      "dist"
   ]
 }
