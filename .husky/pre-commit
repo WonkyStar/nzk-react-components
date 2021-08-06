@@ -3,9 +3,11 @@
 
 PREFIX="pre-commit:"
 
-[ -n "$RELEASE" ] && exit 0
 fileList=$(git diff --diff-filter=d --cached --name-only)
 
+if [ ${#jsFileList} -eq 0 ]; then
+  exit 0
+fi
 
 jsFileList=$(echo "$fileList" | grep -E '\.(js|jsx|ts|tsx)$')
 if [ ${#jsFileList} -gt 0 ]; then
