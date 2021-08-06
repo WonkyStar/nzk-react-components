@@ -1,3 +1,4 @@
+import Avatar from './components/Avatar'
 import Button from "./components/Button"
 import Icon from './components/Icon'
 import IconButton from './components/IconButton'
@@ -12,6 +13,7 @@ export {
   IconButton,
   Modal,
   Icon,
+  Avatar,
   ModalProvider,
   useModalState,
   useAsync,

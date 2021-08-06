@@ -1,9 +1,11 @@
 #!/bin/sh
-# . "$(dirname "$0")/_/husky.sh"
+. "$(dirname "$0")/_/husky.sh"
 
 PREFIX="pre-commit:"
 
+[ -n "$RELEASE" ] && exit 0
 fileList=$(git diff --diff-filter=d --cached --name-only)
+
 
 jsFileList=$(echo "$fileList" | grep -E '\.(js|jsx|ts|tsx)$')
 if [ ${#jsFileList} -gt 0 ]; then
