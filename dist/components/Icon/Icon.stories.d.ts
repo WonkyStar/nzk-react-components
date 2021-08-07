@@ -4,3 +4,4 @@ import { IconProps } from "./Icon";
 declare const _default: Meta<import("@storybook/react").Args>;
 export default _default;
 export declare const Primary: Story<IconProps>;
+export declare const AllIcons: Story;
