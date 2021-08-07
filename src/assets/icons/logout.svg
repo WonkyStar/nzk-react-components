@@ -1,0 +1,20 @@
+<svg id="Icon_Logout" data-name="Icon Logout" xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <g id="Logout" transform="translate(0.41 0.82)">
+    <g id="Icon">
+      <g id="icon_Bottom" data-name="icon Bottom" transform="translate(16.16 21.394)">
+        <path id="Path_9" data-name="Path 9" d="M1819.49,59.335a6.11,6.11,0,0,1-6.11-6.11v-27.6a6.11,6.11,0,1,1,12.22,0v27.6A6.111,6.111,0,0,1,1819.49,59.335Z" transform="translate(-1776.06 -19.515)" fill="rgba(0,0,0,0.3)"/>
+        <path id="Path_12" data-name="Path 12" d="M1836.152,107.286a43.432,43.432,0,0,1-24.906-79.011,6.109,6.109,0,0,1,7.013,10.005,31.21,31.21,0,1,0,35.4-.267,6.11,6.11,0,1,1,6.864-10.11,43.432,43.432,0,0,1-24.366,79.383Z" transform="translate(-1792.723 -13.601)" fill="rgba(0,0,0,0.3)"/>
+      </g>
+      <g id="icon_Bottom-2" data-name="icon Bottom" transform="translate(16.16 12.748)">
+        <path id="Path_9-2" data-name="Path 9" d="M1819.49,59.335a6.11,6.11,0,0,1-6.11-6.11v-27.6a6.11,6.11,0,1,1,12.22,0v27.6A6.111,6.111,0,0,1,1819.49,59.335Z" transform="translate(-1776.06 -19.515)" fill="#960059"/>
+        <path id="Path_12-2" data-name="Path 12" d="M1836.152,107.286a43.432,43.432,0,0,1-24.906-79.011,6.109,6.109,0,0,1,7.013,10.005,31.21,31.21,0,1,0,35.4-.267,6.11,6.11,0,1,1,6.864-10.11,43.432,43.432,0,0,1-24.366,79.383Z" transform="translate(-1792.723 -13.601)" fill="#960059"/>
+      </g>
+      <g id="Icon_Top" data-name="Icon Top" transform="translate(16.16 4.323)">
+        <path id="Path_14" data-name="Path 14" d="M1836.152,102.625a43.432,43.432,0,0,1-24.906-79.011,6.109,6.109,0,0,1,7.013,10.005,31.209,31.209,0,1,0,35.4-.269,6.11,6.11,0,1,1,6.864-10.11,43.433,43.433,0,0,1-24.366,79.385Z" transform="translate(-1792.723 -8.938)" fill="#e5007e"/>
+        <path id="Path_13" data-name="Path 13" d="M1819.49,54.674a6.111,6.111,0,0,1-6.11-6.11v-27.6a6.11,6.11,0,1,1,12.22,0v27.6A6.111,6.111,0,0,1,1819.49,54.674Z" transform="translate(-1776.06 -14.852)" fill="#e5007e"/>
+      </g>
+      <ellipse id="Ellipse_13" data-name="Ellipse 13" cx="59.59" cy="59.59" rx="59.59" ry="59.59" fill="none"/>
+    </g>
+  </g>
+  <rect id="frame" width="120" height="120" fill="none"/>
+</svg>
