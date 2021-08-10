@@ -110,7 +110,7 @@ export const ICONS: { [name: string]: ReactElement } = {
   'challenges': <Challenges />,
   'chart': <Chart />,
   'checkmark': <Checkmark />,
-  'close copy': <Close />,
+  'close': <Close />,
   'collect': <Collect />,
   'comment': <Comment />,
   'controller': <Controller />,
