@@ -8088,7 +8088,7 @@ var ICONS = {
     'challenges': React__default.createElement(SvgChallenges, null),
     'chart': React__default.createElement(SvgChart, null),
     'checkmark': React__default.createElement(SvgCheckmark, null),
-    'close copy': React__default.createElement(SvgClosecopy, null),
+    'close': React__default.createElement(SvgClosecopy, null),
     'collect': React__default.createElement(SvgCollect, null),
     'comment': React__default.createElement(SvgComment, null),
     'controller': React__default.createElement(SvgController, null),
