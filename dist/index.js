@@ -98,6 +98,8 @@ function __makeTemplateObject(cooked, raw) {
     return cooked;
 }
 
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
 var reactIs$1 = {exports: {}};
 
 var reactIs_production_min = {};
@@ -1091,10 +1093,10 @@ var hoistNonReactStatics_cjs = hoistNonReactStatics;
 
 function v(){return (v=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r]);}return e}).apply(this,arguments)}var g=function(e,t){for(var n=[e[0]],r=0,o=t.length;r<o;r+=1)n.push(t[r],e[r+1]);return n},S=function(t){return null!==t&&"object"==typeof t&&"[object Object]"===(t.toString?t.toString():Object.prototype.toString.call(t))&&!reactIs$1.exports.typeOf(t)},w=Object.freeze([]),E=Object.freeze({});function b(e){return "function"==typeof e}function _(e){return "production"!==process.env.NODE_ENV&&"string"==typeof e&&e||e.displayName||e.name||"Component"}function N(e){return e&&"string"==typeof e.styledComponentId}var A="undefined"!=typeof process&&(process.env.REACT_APP_SC_ATTR||process.env.SC_ATTR)||"data-styled",I="undefined"!=typeof window&&"HTMLElement"in window,P=Boolean("boolean"==typeof SC_DISABLE_SPEEDY?SC_DISABLE_SPEEDY:"undefined"!=typeof process&&void 0!==process.env.REACT_APP_SC_DISABLE_SPEEDY&&""!==process.env.REACT_APP_SC_DISABLE_SPEEDY?"false"!==process.env.REACT_APP_SC_DISABLE_SPEEDY&&process.env.REACT_APP_SC_DISABLE_SPEEDY:"undefined"!=typeof process&&void 0!==process.env.SC_DISABLE_SPEEDY&&""!==process.env.SC_DISABLE_SPEEDY?"false"!==process.env.SC_DISABLE_SPEEDY&&process.env.SC_DISABLE_SPEEDY:"production"!==process.env.NODE_ENV),R="production"!==process.env.NODE_ENV?{1:"Cannot create styled-component for component: %s.\n\n",2:"Can't collect styles once you've consumed a `ServerStyleSheet`'s styles! `ServerStyleSheet` is a one off instance for each server-side render cycle.\n\n- Are you trying to reuse it across renders?\n- Are you accidentally calling collectStyles twice?\n\n",3:"Streaming SSR is only supported in a Node.js environment; Please do not try to call this method in the browser.\n\n",4:"The `StyleSheetManager` expects a valid target or sheet prop!\n\n- Does this error occur on the client and is your target falsy?\n- Does this error occur on the server and is the sheet falsy?\n\n",5:"The clone method cannot be used on the client!\n\n- Are you running in a client-like environment on the server?\n- Are you trying to run SSR on the client?\n\n",6:"Trying to insert a new style tag, but the given Node is unmounted!\n\n- Are you using a custom target that isn't mounted?\n- Does your document not have a valid head element?\n- Have you accidentally removed a style tag manually?\n\n",7:'ThemeProvider: Please return an object from your "theme" prop function, e.g.\n\n```js\ntheme={() => ({})}\n```\n\n',8:'ThemeProvider: Please make your "theme" prop an object.\n\n',9:"Missing document `<head>`\n\n",10:"Cannot find a StyleSheet instance. Usually this happens if there are multiple copies of styled-components loaded at once. Check out this issue for how to troubleshoot and fix the common cases where this situation can happen: https://github.com/styled-components/styled-components/issues/1941#issuecomment-417862021\n\n",11:"_This error was replaced with a dev-time warning, it will be deleted for v4 final._ [createGlobalStyle] received children which will not be rendered. Please use the component without passing children elements.\n\n",12:"It seems you are interpolating a keyframe declaration (%s) into an untagged string. This was supported in styled-components v3, but is not longer supported in v4 as keyframes are now injected on-demand. Please wrap your string in the css\\`\\` helper which ensures the styles are injected correctly. See https://www.styled-components.com/docs/api#css\n\n",13:"%s is not a styled component and cannot be referred to via component selector. See https://www.styled-components.com/docs/advanced#referring-to-other-components for more details.\n\n",14:'ThemeProvider: "theme" prop is required.\n\n',15:"A stylis plugin has been supplied that is not named. We need a name for each plugin to be able to prevent styling collisions between different stylis configurations within the same app. Before you pass your plugin to `<StyleSheetManager stylisPlugins={[]}>`, please make sure each plugin is uniquely-named, e.g.\n\n```js\nObject.defineProperty(importedPlugin, 'name', { value: 'some-unique-name' });\n```\n\n",16:"Reached the limit of how many styled components may be created at group %s.\nYou may only create up to 1,073,741,824 components. If you're creating components dynamically,\nas for instance in your render method then you may be running into this limitation.\n\n",17:"CSSStyleSheet could not be found on HTMLStyleElement.\nHas styled-components' style tag been unmounted or altered by another script?\n"}:{};function D(){for(var e=arguments.length<=0?void 0:arguments[0],t=[],n=1,r=arguments.length;n<r;n+=1)t.push(n<0||arguments.length<=n?void 0:arguments[n]);return t.forEach((function(t){e=e.replace(/%[a-z]/,t);})),e}function j(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];throw "production"===process.env.NODE_ENV?new Error("An error occurred. See https://git.io/JUIaE#"+e+" for more information."+(n.length>0?" Args: "+n.join(", "):"")):new Error(D.apply(void 0,[R[e]].concat(n)).trim())}var T=function(){function e(e){this.groupSizes=new Uint32Array(512),this.length=512,this.tag=e;}var t=e.prototype;return t.indexOfGroup=function(e){for(var t=0,n=0;n<e;n++)t+=this.groupSizes[n];return t},t.insertRules=function(e,t){if(e>=this.groupSizes.length){for(var n=this.groupSizes,r=n.length,o=r;e>=o;)(o<<=1)<0&&j(16,""+e);this.groupSizes=new Uint32Array(o),this.groupSizes.set(n),this.length=o;for(var i=r;i<o;i++)this.groupSizes[i]=0;}for(var s=this.indexOfGroup(e+1),a=0,c=t.length;a<c;a++)this.tag.insertRule(s,t[a])&&(this.groupSizes[e]++,s++);},t.clearGroup=function(e){if(e<this.length){var t=this.groupSizes[e],n=this.indexOfGroup(e),r=n+t;this.groupSizes[e]=0;for(var o=n;o<r;o++)this.tag.deleteRule(n);}},t.getGroup=function(e){var t="";if(e>=this.length||0===this.groupSizes[e])return t;for(var n=this.groupSizes[e],r=this.indexOfGroup(e),o=r+n,i=r;i<o;i++)t+=this.tag.getRule(i)+"/*!sc*/\n";return t},e}(),k=new Map,x=new Map,V=1,B=function(e){if(k.has(e))return k.get(e);for(;x.has(V);)V++;var t=V++;return "production"!==process.env.NODE_ENV&&((0|t)<0||t>1<<30)&&j(16,""+t),k.set(e,t),x.set(t,e),t},M=function(e){return x.get(e)},z=function(e,t){k.set(e,t),x.set(t,e);},L="style["+A+'][data-styled-version="5.3.0"]',G=new RegExp("^"+A+'\\.g(\\d+)\\[id="([\\w\\d-]+)"\\].*?"([^"]*)'),F=function(e,t,n){for(var r,o=n.split(","),i=0,s=o.length;i<s;i++)(r=o[i])&&e.registerName(t,r);},Y=function(e,t){for(var n=t.innerHTML.split("/*!sc*/\n"),r=[],o=0,i=n.length;o<i;o++){var s=n[o].trim();if(s){var a=s.match(G);if(a){var c=0|parseInt(a[1],10),u=a[2];0!==c&&(z(u,c),F(e,u,a[3]),e.getTag().insertRules(c,r)),r.length=0;}else r.push(s);}}},q=function(){return "undefined"!=typeof window&&void 0!==window.__webpack_nonce__?window.__webpack_nonce__:null},H=function(e){var t=document.head,n=e||t,r=document.createElement("style"),o=function(e){for(var t=e.childNodes,n=t.length;n>=0;n--){var r=t[n];if(r&&1===r.nodeType&&r.hasAttribute(A))return r}}(n),i=void 0!==o?o.nextSibling:null;r.setAttribute(A,"active"),r.setAttribute("data-styled-version","5.3.0");var s=q();return s&&r.setAttribute("nonce",s),n.insertBefore(r,i),r},$=function(){function e(e){var t=this.element=H(e);t.appendChild(document.createTextNode("")),this.sheet=function(e){if(e.sheet)return e.sheet;for(var t=document.styleSheets,n=0,r=t.length;n<r;n++){var o=t[n];if(o.ownerNode===e)return o}j(17);}(t),this.length=0;}var t=e.prototype;return t.insertRule=function(e,t){try{return this.sheet.insertRule(t,e),this.length++,!0}catch(e){return !1}},t.deleteRule=function(e){this.sheet.deleteRule(e),this.length--;},t.getRule=function(e){var t=this.sheet.cssRules[e];return void 0!==t&&"string"==typeof t.cssText?t.cssText:""},e}(),W=function(){function e(e){var t=this.element=H(e);this.nodes=t.childNodes,this.length=0;}var t=e.prototype;return t.insertRule=function(e,t){if(e<=this.length&&e>=0){var n=document.createTextNode(t),r=this.nodes[e];return this.element.insertBefore(n,r||null),this.length++,!0}return !1},t.deleteRule=function(e){this.element.removeChild(this.nodes[e]),this.length--;},t.getRule=function(e){return e<this.length?this.nodes[e].textContent:""},e}(),U=function(){function e(e){this.rules=[],this.length=0;}var t=e.prototype;return t.insertRule=function(e,t){return e<=this.length&&(this.rules.splice(e,0,t),this.length++,!0)},t.deleteRule=function(e){this.rules.splice(e,1),this.length--;},t.getRule=function(e){return e<this.length?this.rules[e]:""},e}(),J=I,X={isServer:!I,useCSSOMInjection:!P},Z=function(){function e(e,t,n){void 0===e&&(e=E),void 0===t&&(t={}),this.options=v({},X,{},e),this.gs=t,this.names=new Map(n),!this.options.isServer&&I&&J&&(J=!1,function(e){for(var t=document.querySelectorAll(L),n=0,r=t.length;n<r;n++){var o=t[n];o&&"active"!==o.getAttribute(A)&&(Y(e,o),o.parentNode&&o.parentNode.removeChild(o));}}(this));}e.registerId=function(e){return B(e)};var t=e.prototype;return t.reconstructWithOptions=function(t,n){return void 0===n&&(n=!0),new e(v({},this.options,{},t),this.gs,n&&this.names||void 0)},t.allocateGSInstance=function(e){return this.gs[e]=(this.gs[e]||0)+1},t.getTag=function(){return this.tag||(this.tag=(n=(t=this.options).isServer,r=t.useCSSOMInjection,o=t.target,e=n?new U(o):r?new $(o):new W(o),new T(e)));var e,t,n,r,o;},t.hasNameForId=function(e,t){return this.names.has(e)&&this.names.get(e).has(t)},t.registerName=function(e,t){if(B(e),this.names.has(e))this.names.get(e).add(t);else {var n=new Set;n.add(t),this.names.set(e,n);}},t.insertRules=function(e,t,n){this.registerName(e,t),this.getTag().insertRules(B(e),n);},t.clearNames=function(e){this.names.has(e)&&this.names.get(e).clear();},t.clearRules=function(e){this.getTag().clearGroup(B(e)),this.clearNames(e);},t.clearTag=function(){this.tag=void 0;},t.toString=function(){return function(e){for(var t=e.getTag(),n=t.length,r="",o=0;o<n;o++){var i=M(o);if(void 0!==i){var s=e.names.get(i),a=t.getGroup(o);if(void 0!==s&&0!==a.length){var c=A+".g"+o+'[id="'+i+'"]',u="";void 0!==s&&s.forEach((function(e){e.length>0&&(u+=e+",");})),r+=""+a+c+'{content:"'+u+'"}/*!sc*/\n';}}}return r}(this)},e}(),K=/(a)(d)/gi,Q=function(e){return String.fromCharCode(e+(e>25?39:97))};function ee(e){var t,n="";for(t=Math.abs(e);t>52;t=t/52|0)n=Q(t%52)+n;return (Q(t%52)+n).replace(K,"$1-$2")}var te=function(e,t){for(var n=t.length;n;)e=33*e^t.charCodeAt(--n);return e},ne=function(e){return te(5381,e)};function re(e){for(var t=0;t<e.length;t+=1){var n=e[t];if(b(n)&&!N(n))return !1}return !0}var oe=ne("5.3.0"),ie=function(){function e(e,t,n){this.rules=e,this.staticRulesId="",this.isStatic="production"===process.env.NODE_ENV&&(void 0===n||n.isStatic)&&re(e),this.componentId=t,this.baseHash=te(oe,t),this.baseStyle=n,Z.registerId(t);}return e.prototype.generateAndInjectStyles=function(e,t,n){var r=this.componentId,o=[];if(this.baseStyle&&o.push(this.baseStyle.generateAndInjectStyles(e,t,n)),this.isStatic&&!n.hash)if(this.staticRulesId&&t.hasNameForId(r,this.staticRulesId))o.push(this.staticRulesId);else {var i=Ne(this.rules,e,t,n).join(""),s=ee(te(this.baseHash,i.length)>>>0);if(!t.hasNameForId(r,s)){var a=n(i,"."+s,void 0,r);t.insertRules(r,s,a);}o.push(s),this.staticRulesId=s;}else {for(var c=this.rules.length,u=te(this.baseHash,n.hash),l="",d=0;d<c;d++){var h=this.rules[d];if("string"==typeof h)l+=h,"production"!==process.env.NODE_ENV&&(u=te(u,h+d));else if(h){var p=Ne(h,e,t,n),f=Array.isArray(p)?p.join(""):p;u=te(u,f+d),l+=f;}}if(l){var m=ee(u>>>0);if(!t.hasNameForId(r,m)){var y=n(l,"."+m,void 0,r);t.insertRules(r,m,y);}o.push(m);}}return o.join(" ")},e}(),se=/^\s*\/\/.*$/gm,ae=[":","[",".","#"];function ce(e){var t,n,r,o,i=void 0===e?E:e,s=i.options,a=void 0===s?E:s,c=i.plugins,u=void 0===c?w:c,l=new stylis_min(a),d=[],h=function(e){function t(t){if(t)try{e(t+"}");}catch(e){}}return function(n,r,o,i,s,a,c,u,l,d){switch(n){case 1:if(0===l&&64===r.charCodeAt(0))return e(r+";"),"";break;case 2:if(0===u)return r+"/*|*/";break;case 3:switch(u){case 102:case 112:return e(o[0]+r),"";default:return r+(0===d?"/*|*/":"")}case-2:r.split("/*|*/}").forEach(t);}}}((function(e){d.push(e);})),f=function(e,r,i){return 0===r&&-1!==ae.indexOf(i[n.length])||i.match(o)?e:"."+t};function m(e,i,s,a){void 0===a&&(a="&");var c=e.replace(se,""),u=i&&s?s+" "+i+" { "+c+" }":c;return t=a,n=i,r=new RegExp("\\"+n+"\\b","g"),o=new RegExp("(\\"+n+"\\b){2,}"),l(s||!i?"":i,u)}return l.use([].concat(u,[function(e,t,o){2===e&&o.length&&o[0].lastIndexOf(n)>0&&(o[0]=o[0].replace(r,f));},h,function(e){if(-2===e){var t=d;return d=[],t}}])),m.hash=u.length?u.reduce((function(e,t){return t.name||j(15),te(e,t.name)}),5381).toString():"",m}var ue=React__default['default'].createContext();ue.Consumer;var de=React__default['default'].createContext(),he=(de.Consumer,new Z),pe=ce();function fe(){return React.useContext(ue)||he}function me(){return React.useContext(de)||pe}var ve=function(){function e(e,t){var n=this;this.inject=function(e,t){void 0===t&&(t=pe);var r=n.name+t.hash;e.hasNameForId(n.id,r)||e.insertRules(n.id,r,t(n.rules,r,"@keyframes"));},this.toString=function(){return j(12,String(n.name))},this.name=e,this.id="sc-keyframes-"+e,this.rules=t;}return e.prototype.getName=function(e){return void 0===e&&(e=pe),this.name+e.hash},e}(),ge=/([A-Z])/,Se=/([A-Z])/g,we=/^ms-/,Ee=function(e){return "-"+e.toLowerCase()};function be(e){return ge.test(e)?e.replace(Se,Ee).replace(we,"-ms-"):e}var _e=function(e){return null==e||!1===e||""===e};function Ne(e,n,r,o){if(Array.isArray(e)){for(var i,s=[],a=0,c=e.length;a<c;a+=1)""!==(i=Ne(e[a],n,r,o))&&(Array.isArray(i)?s.push.apply(s,i):s.push(i));return s}if(_e(e))return "";if(N(e))return "."+e.styledComponentId;if(b(e)){if("function"!=typeof(l=e)||l.prototype&&l.prototype.isReactComponent||!n)return e;var u=e(n);return "production"!==process.env.NODE_ENV&&reactIs$1.exports.isElement(u)&&console.warn(_(e)+" is not a styled component and cannot be referred to via component selector. See https://www.styled-components.com/docs/advanced#referring-to-other-components for more details."),Ne(u,n,r,o)}var l;return e instanceof ve?r?(e.inject(r,o),e.getName(o)):e:S(e)?function e(t,n){var r,o,i=[];for(var s in t)t.hasOwnProperty(s)&&!_e(t[s])&&(S(t[s])?i.push.apply(i,e(t[s],s)):b(t[s])?i.push(be(s)+":",t[s],";"):i.push(be(s)+": "+(r=s,null==(o=t[s])||"boolean"==typeof o||""===o?"":"number"!=typeof o||0===o||r in unitlessKeys?String(o).trim():o+"px")+";"));return n?[n+" {"].concat(i,["}"]):i}(e):e.toString()}function Ae(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];return b(e)||S(e)?Ne(g(w,[e].concat(n))):0===n.length&&1===e.length&&"string"==typeof e[0]?e:Ne(g(e,n))}var Ce=/invalid hook call/i,Ie=new Set,Pe=function(e,t){if("production"!==process.env.NODE_ENV){var n="The component "+e+(t?' with the id of "'+t+'"':"")+" has been created dynamically.\nYou may see this warning because you've called styled inside another component.\nTo resolve this only create new StyledComponents outside of any render method and function component.";try{React.useRef(),Ie.has(n)||(console.warn(n),Ie.add(n));}catch(e){Ce.test(e.message)&&Ie.delete(n);}}},Oe=function(e,t,n){return void 0===n&&(n=E),e.theme!==n.theme&&e.theme||t||n.theme},Re=/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~-]+/g,De=/(^-|-$)/g;function je(e){return e.replace(Re,"-").replace(De,"")}var Te=function(e){return ee(ne(e)>>>0)};function ke(e){return "string"==typeof e&&("production"===process.env.NODE_ENV||e.charAt(0)===e.charAt(0).toLowerCase())}var xe=function(e){return "function"==typeof e||"object"==typeof e&&null!==e&&!Array.isArray(e)},Ve=function(e){return "__proto__"!==e&&"constructor"!==e&&"prototype"!==e};function Be(e,t,n){var r=e[n];xe(t)&&xe(r)?Me(r,t):e[n]=t;}function Me(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];for(var o=0,i=n;o<i.length;o++){var s=i[o];if(xe(s))for(var a in s)Ve(a)&&Be(e,s[a],a);}return e}var ze=React__default['default'].createContext();ze.Consumer;var Fe={};function Ye(e,t,n){var o=N(e),s=!ke(e),a=t.attrs,c=void 0===a?w:a,d=t.componentId,h=void 0===d?function(e,t){var n="string"!=typeof e?"sc":je(e);Fe[n]=(Fe[n]||0)+1;var r=n+"-"+Te("5.3.0"+n+Fe[n]);return t?t+"-"+r:r}(t.displayName,t.parentComponentId):d,p=t.displayName,f=void 0===p?function(e){return ke(e)?"styled."+e:"Styled("+_(e)+")"}(e):p,g=t.displayName&&t.componentId?je(t.displayName)+"-"+t.componentId:t.componentId||h,S=o&&e.attrs?Array.prototype.concat(e.attrs,c).filter(Boolean):c,A=t.shouldForwardProp;o&&e.shouldForwardProp&&(A=t.shouldForwardProp?function(n,r,o){return e.shouldForwardProp(n,r,o)&&t.shouldForwardProp(n,r,o)}:e.shouldForwardProp);var C,I=new ie(n,g,o?e.componentStyle:void 0),P=I.isStatic&&0===c.length,O=function(e,t){return function(e,t,n,r){var o=e.attrs,s=e.componentStyle,a=e.defaultProps,c=e.foldedComponentIds,d=e.shouldForwardProp,h=e.styledComponentId,p=e.target;"production"!==process.env.NODE_ENV&&React.useDebugValue(h);var f=function(e,t,n){void 0===e&&(e=E);var r=v({},t,{theme:e}),o={};return n.forEach((function(e){var t,n,i,s=e;for(t in b(s)&&(s=s(r)),s)r[t]=o[t]="className"===t?(n=o[t],i=s[t],n&&i?n+" "+i:n||i):s[t];})),[r,o]}(Oe(t,React.useContext(ze),a)||E,t,o),y=f[0],g=f[1],S=function(e,t,n,r){var o=fe(),i=me(),s=t?e.generateAndInjectStyles(E,o,i):e.generateAndInjectStyles(n,o,i);return "production"!==process.env.NODE_ENV&&React.useDebugValue(s),"production"!==process.env.NODE_ENV&&!t&&r&&r(s),s}(s,r,y,"production"!==process.env.NODE_ENV?e.warnTooManyClasses:void 0),w=n,_=g.$as||t.$as||g.as||t.as||p,N=ke(_),A=g!==t?v({},t,{},g):t,C={};for(var I in A)"$"!==I[0]&&"as"!==I&&("forwardedAs"===I?C.as=A[I]:(d?d(I,index,_):!N||index(I))&&(C[I]=A[I]));return t.style&&g.style!==t.style&&(C.style=v({},t.style,{},g.style)),C.className=Array.prototype.concat(c,h,S!==h?S:null,t.className,g.className).filter(Boolean).join(" "),C.ref=w,React.createElement(_,C)}(C,e,t,P)};return O.displayName=f,(C=React__default['default'].forwardRef(O)).attrs=S,C.componentStyle=I,C.displayName=f,C.shouldForwardProp=A,C.foldedComponentIds=o?Array.prototype.concat(e.foldedComponentIds,e.styledComponentId):w,C.styledComponentId=g,C.target=o?e.target:e,C.withComponent=function(e){var r=t.componentId,o=function(e,t){if(null==e)return {};var n,r,o={},i=Object.keys(e);for(r=0;r<i.length;r++)n=i[r],t.indexOf(n)>=0||(o[n]=e[n]);return o}(t,["componentId"]),i=r&&r+"-"+(ke(e)?e:je(_(e)));return Ye(e,v({},o,{attrs:S,componentId:i}),n)},Object.defineProperty(C,"defaultProps",{get:function(){return this._foldedDefaultProps},set:function(t){this._foldedDefaultProps=o?Me({},e.defaultProps,t):t;}}),"production"!==process.env.NODE_ENV&&(Pe(f,g),C.warnTooManyClasses=function(e,t){var n={},r=!1;return function(o){if(!r&&(n[o]=!0,Object.keys(n).length>=200)){var i=t?' with the id of "'+t+'"':"";console.warn("Over 200 classes were generated for component "+e+i+".\nConsider using the attrs method, together with a style object for frequently changed styles.\nExample:\n  const Component = styled.div.attrs(props => ({\n    style: {\n      background: props.background,\n    },\n  }))`width: 100%;`\n\n  <Component />"),r=!0,n={};}}}(f,g)),C.toString=function(){return "."+C.styledComponentId},s&&hoistNonReactStatics_cjs(C,e,{attrs:!0,componentStyle:!0,displayName:!0,foldedComponentIds:!0,shouldForwardProp:!0,styledComponentId:!0,target:!0,withComponent:!0}),C}var qe=function(e){return function e(t,r,o){if(void 0===o&&(o=E),!reactIs$1.exports.isValidElementType(r))return j(1,String(r));var i=function(){return t(r,o,Ae.apply(void 0,arguments))};return i.withConfig=function(n){return e(t,r,v({},o,{},n))},i.attrs=function(n){return e(t,r,v({},o,{attrs:Array.prototype.concat(o.attrs,n).filter(Boolean)}))},i}(Ye,e)};["a","abbr","address","area","article","aside","audio","b","base","bdi","bdo","big","blockquote","body","br","button","canvas","caption","cite","code","col","colgroup","data","datalist","dd","del","details","dfn","dialog","div","dl","dt","em","embed","fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6","head","header","hgroup","hr","html","i","iframe","img","input","ins","kbd","keygen","label","legend","li","link","main","map","mark","marquee","menu","menuitem","meta","meter","nav","noscript","object","ol","optgroup","option","output","p","param","picture","pre","progress","q","rp","rt","ruby","s","samp","script","section","select","small","source","span","strong","style","sub","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","title","tr","track","u","ul","var","video","wbr","circle","clipPath","defs","ellipse","foreignObject","g","image","line","linearGradient","marker","mask","path","pattern","polygon","polyline","radialGradient","rect","stop","svg","text","textPath","tspan"].forEach((function(e){qe[e]=qe(e);}));"production"!==process.env.NODE_ENV&&"undefined"!=typeof navigator&&"ReactNative"===navigator.product&&console.warn("It looks like you've imported 'styled-components' on React Native.\nPerhaps you're looking to import 'styled-components/native'?\nRead more about this at https://www.styled-components.com/docs/basics#react-native"),"production"!==process.env.NODE_ENV&&"test"!==process.env.NODE_ENV&&(window["__styled-components-init__"]=window["__styled-components-init__"]||0,1===window["__styled-components-init__"]&&console.warn("It looks like there are several instances of 'styled-components' initialized in this application. This may cause dynamic styles to not render properly, errors during the rehydration process, a missing theme prop, and makes your application bigger without good reason.\n\nSee https://s-c.sh/2BAXzed for more info."),window["__styled-components-init__"]+=1);var styled = qe;
 
-var Wrapper$3 = styled.div(templateObject_1$5 || (templateObject_1$5 = __makeTemplateObject(["\n  position: relative;\n  --border-color: ", ";\n  --shadow-color: ", ";\n  --dropshadow-color: ", ";\n  --size: ", ";\n  height: calc(var(--size) + calc(var(--size) * 0.1));\n  width: var(--size);\n  box-sizing: content-box !important;\n  > * {\n    box-sizing: content-box !important;\n  }\n"], ["\n  position: relative;\n  --border-color: ", ";\n  --shadow-color: ", ";\n  --dropshadow-color: ", ";\n  --size: ", ";\n  height: calc(var(--size) + calc(var(--size) * 0.1));\n  width: var(--size);\n  box-sizing: content-box !important;\n  > * {\n    box-sizing: content-box !important;\n  }\n"])), function (props) { var _a; return (_a = props.colors) === null || _a === void 0 ? void 0 : _a.border; }, function (props) { var _a; return (_a = props.colors) === null || _a === void 0 ? void 0 : _a.shadow; }, function (props) { var _a; return (_a = props.colors) === null || _a === void 0 ? void 0 : _a.dropshadow; }, function (props) { return props.size; });
-var AvatarImage = styled.div(templateObject_2$2 || (templateObject_2$2 = __makeTemplateObject(["\n  height: calc(var(--size) - calc(var(--size) * 0.1));\n  width: calc(100% - calc(var(--size) * 0.1));\n  background-image: url(", ");\n  background-size: cover;\n  background-position: center;\n  border: calc(var(--size) * 0.05) solid var(--border-color);\n  box-shadow: 0 calc(var(--size) * 0.05) 0 var(--shadow-color), 0 calc(var(--size) * 0.1) 0 var(--dropshadow-color);\n  background-color: #ebebeb;\n  border-radius: 50%;\n  overflow: hidden;\n"], ["\n  height: calc(var(--size) - calc(var(--size) * 0.1));\n  width: calc(100% - calc(var(--size) * 0.1));\n  background-image: url(", ");\n  background-size: cover;\n  background-position: center;\n  border: calc(var(--size) * 0.05) solid var(--border-color);\n  box-shadow: 0 calc(var(--size) * 0.05) 0 var(--shadow-color), 0 calc(var(--size) * 0.1) 0 var(--dropshadow-color);\n  background-color: #ebebeb;\n  border-radius: 50%;\n  overflow: hidden;\n"])), function (props) { return props.src; });
-var Flag = styled.div(templateObject_3$2 || (templateObject_3$2 = __makeTemplateObject(["\n  position: absolute;\n  height: calc(var(--size) * 0.35);\n  width: calc(var(--size) * 0.35);\n  top: 0;\n  right: 0;\n  background-image: url(", ");\n  background-size: cover;\n  background-position: center;\n  border-radius: 50%;\n  border: calc(var(--size) * 0.6 * 0.05) solid var(--border-color);\n  box-shadow: 0 calc(var(--size) * 0.6 * 0.05) 0 var(--shadow-color), 0 calc(var(--size) * 0.6 * 0.1) 0 var(--dropshadow-color);\n  \n"], ["\n  position: absolute;\n  height: calc(var(--size) * 0.35);\n  width: calc(var(--size) * 0.35);\n  top: 0;\n  right: 0;\n  background-image: url(", ");\n  background-size: cover;\n  background-position: center;\n  border-radius: 50%;\n  border: calc(var(--size) * 0.6 * 0.05) solid var(--border-color);\n  box-shadow: 0 calc(var(--size) * 0.6 * 0.05) 0 var(--shadow-color), 0 calc(var(--size) * 0.6 * 0.1) 0 var(--dropshadow-color);\n  \n"])), function (props) { return props.src; });
-var templateObject_1$5, templateObject_2$2, templateObject_3$2;
+var Wrapper$3 = styled.div(templateObject_1$7 || (templateObject_1$7 = __makeTemplateObject(["\n  position: relative;\n  --border-color: ", ";\n  --shadow-color: ", ";\n  --dropshadow-color: ", ";\n  --size: ", ";\n  height: calc(var(--size) + calc(var(--size) * 0.1));\n  width: var(--size);\n  box-sizing: content-box !important;\n  > * {\n    box-sizing: content-box !important;\n  }\n"], ["\n  position: relative;\n  --border-color: ", ";\n  --shadow-color: ", ";\n  --dropshadow-color: ", ";\n  --size: ", ";\n  height: calc(var(--size) + calc(var(--size) * 0.1));\n  width: var(--size);\n  box-sizing: content-box !important;\n  > * {\n    box-sizing: content-box !important;\n  }\n"])), function (props) { var _a; return (_a = props.colors) === null || _a === void 0 ? void 0 : _a.border; }, function (props) { var _a; return (_a = props.colors) === null || _a === void 0 ? void 0 : _a.shadow; }, function (props) { var _a; return (_a = props.colors) === null || _a === void 0 ? void 0 : _a.dropshadow; }, function (props) { return props.size; });
+var AvatarImage = styled.div(templateObject_2$4 || (templateObject_2$4 = __makeTemplateObject(["\n  height: calc(var(--size) - calc(var(--size) * 0.1));\n  width: calc(100% - calc(var(--size) * 0.1));\n  background-image: url(", ");\n  background-size: cover;\n  background-position: center;\n  border: calc(var(--size) * 0.05) solid var(--border-color);\n  box-shadow: 0 calc(var(--size) * 0.05) 0 var(--shadow-color), 0 calc(var(--size) * 0.1) 0 var(--dropshadow-color);\n  background-color: #ebebeb;\n  border-radius: 50%;\n  overflow: hidden;\n"], ["\n  height: calc(var(--size) - calc(var(--size) * 0.1));\n  width: calc(100% - calc(var(--size) * 0.1));\n  background-image: url(", ");\n  background-size: cover;\n  background-position: center;\n  border: calc(var(--size) * 0.05) solid var(--border-color);\n  box-shadow: 0 calc(var(--size) * 0.05) 0 var(--shadow-color), 0 calc(var(--size) * 0.1) 0 var(--dropshadow-color);\n  background-color: #ebebeb;\n  border-radius: 50%;\n  overflow: hidden;\n"])), function (props) { return props.src; });
+var Flag = styled.div(templateObject_3$3 || (templateObject_3$3 = __makeTemplateObject(["\n  position: absolute;\n  height: calc(var(--size) * 0.35);\n  width: calc(var(--size) * 0.35);\n  top: 0;\n  right: 0;\n  background-image: url(", ");\n  background-size: cover;\n  background-position: center;\n  border-radius: 50%;\n  border: calc(var(--size) * 0.6 * 0.05) solid var(--border-color);\n  box-shadow: 0 calc(var(--size) * 0.6 * 0.05) 0 var(--shadow-color), 0 calc(var(--size) * 0.6 * 0.1) 0 var(--dropshadow-color);\n  \n"], ["\n  position: absolute;\n  height: calc(var(--size) * 0.35);\n  width: calc(var(--size) * 0.35);\n  top: 0;\n  right: 0;\n  background-image: url(", ");\n  background-size: cover;\n  background-position: center;\n  border-radius: 50%;\n  border: calc(var(--size) * 0.6 * 0.05) solid var(--border-color);\n  box-shadow: 0 calc(var(--size) * 0.6 * 0.05) 0 var(--shadow-color), 0 calc(var(--size) * 0.6 * 0.1) 0 var(--dropshadow-color);\n  \n"])), function (props) { return props.src; });
+var templateObject_1$7, templateObject_2$4, templateObject_3$3;
 
 var Avatar = function (props) {
     var countryCode = React.useMemo(function () {
@@ -2218,12 +2220,12 @@ var getShadows = function (props) {
     var strokeColor = props.strokeColor
         || light && curriedLighten(0.1, props.backgroundColor)
         || !light && curriedDarken(0.1, props.backgroundColor);
-    return Ae(templateObject_1$4 || (templateObject_1$4 = __makeTemplateObject(["\n    box-shadow: 0 ", "px 0 ", ",\n      0 ", "px 0 ", ",\n      inset 0 0px 0px ", "px ", ";\n\n    :active {\n      transform: translateY(", "px);\n      box-shadow: 0 ", "px 0 ", ",\n        inset 0 0px 0px ", "px ", ";\n    }\n  "], ["\n    box-shadow: 0 ", "px 0 ", ",\n      0 ", "px 0 ", ",\n      inset 0 0px 0px ", "px ", ";\n\n    :active {\n      transform: translateY(", "px);\n      box-shadow: 0 ", "px 0 ", ",\n        inset 0 0px 0px ", "px ", ";\n    }\n  "])), getSizeComparedToBase(props, 5), shadowColor, getSizeComparedToBase(props, 12), dropShadowColor, getSizeComparedToBase(props, 5), strokeColor, getSizeComparedToBase(props, 7), getSizeComparedToBase(props, 5), shadowColor, getSizeComparedToBase(props, 5), strokeColor);
+    return Ae(templateObject_1$6 || (templateObject_1$6 = __makeTemplateObject(["\n    box-shadow: 0 ", "px 0 ", ",\n      0 ", "px 0 ", ",\n      inset 0 0px 0px ", "px ", ";\n\n    :active {\n      transform: translateY(", "px);\n      box-shadow: 0 ", "px 0 ", ",\n        inset 0 0px 0px ", "px ", ";\n    }\n  "], ["\n    box-shadow: 0 ", "px 0 ", ",\n      0 ", "px 0 ", ",\n      inset 0 0px 0px ", "px ", ";\n\n    :active {\n      transform: translateY(", "px);\n      box-shadow: 0 ", "px 0 ", ",\n        inset 0 0px 0px ", "px ", ";\n    }\n  "])), getSizeComparedToBase(props, 5), shadowColor, getSizeComparedToBase(props, 12), dropShadowColor, getSizeComparedToBase(props, 5), strokeColor, getSizeComparedToBase(props, 7), getSizeComparedToBase(props, 5), shadowColor, getSizeComparedToBase(props, 5), strokeColor);
 };
-var Wrapper$2 = styled.div(templateObject_6$1 || (templateObject_6$1 = __makeTemplateObject(["\n  position: relative;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  font-family: 'Rammetto One';\n  border-radius: 1000px;\n  cursor: pointer;\n  user-select: none;\n  ", ";\n  ", "\n  ", "\n  ", "\n\n  svg {\n    height: 100%;\n    width: 100%;\n  }\n"], ["\n  position: relative;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  font-family: 'Rammetto One';\n  border-radius: 1000px;\n  cursor: pointer;\n  user-select: none;\n  ", ";\n  ", "\n  ", "\n  ", "\n\n  svg {\n    height: 100%;\n    width: 100%;\n  }\n"])), function (props) { return Ae(templateObject_2$1 || (templateObject_2$1 = __makeTemplateObject(["\n    background-color: ", ";\n    height: ", "px;\n    margin-bottom: ", "px;\n    color: ", ";\n    font-size: ", ";\n    padding: ", ";\n    ", ";\n    filter: ", ";\n  "], ["\n    background-color: ", ";\n    height: ", "px;\n    margin-bottom: ", "px;\n    color: ", ";\n    font-size: ", ";\n    padding: ", ";\n    ", ";\n    filter: ", ";\n  "])), props.backgroundColor, props.height, getSizeComparedToBase(props, 12), getTextColor(props), getTextSize(props), getPadding(props), getShadows(props), props.disabled ? 'grayscale(100%)' : 'none'); }, function (props) { return props.fullWidth && Ae(templateObject_3$1 || (templateObject_3$1 = __makeTemplateObject(["width: 100%;"], ["width: 100%;"]))); }, function (props) { return props.wiggle && Ae(templateObject_4$1 || (templateObject_4$1 = __makeTemplateObject(["\n  animation: wiggle alternate-reverse 2s linear infinite;\n  animation-delay: ", "s;\n    @keyframes wiggle {\n      0% {\n        transform: rotate(-3deg);\n      }\n      10% {\n        transform: rotate(3deg);\n      }\n      20% {\n        transform: rotate(0deg);\n      }\n      100% {\n        transform: rotate(0deg);\n      }\n    }\n  "], ["\n  animation: wiggle alternate-reverse 2s linear infinite;\n  animation-delay: ", "s;\n    @keyframes wiggle {\n      0% {\n        transform: rotate(-3deg);\n      }\n      10% {\n        transform: rotate(3deg);\n      }\n      20% {\n        transform: rotate(0deg);\n      }\n      100% {\n        transform: rotate(0deg);\n      }\n    }\n  "])), Math.random()); }, function (props) {
-    return props.round && Ae(templateObject_5$1 || (templateObject_5$1 = __makeTemplateObject(["\n      width: ", "px;\n      padding: 0;\n      flex-shrink: 0;\n    "], ["\n      width: ", "px;\n      padding: 0;\n      flex-shrink: 0;\n    "])), props.height);
+var Wrapper$2 = styled.div(templateObject_6$2 || (templateObject_6$2 = __makeTemplateObject(["\n  position: relative;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  font-family: 'Rammetto One';\n  border-radius: 1000px;\n  cursor: pointer;\n  user-select: none;\n  ", ";\n  ", "\n  ", "\n  ", "\n\n  svg {\n    height: 100%;\n    width: 100%;\n  }\n"], ["\n  position: relative;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  font-family: 'Rammetto One';\n  border-radius: 1000px;\n  cursor: pointer;\n  user-select: none;\n  ", ";\n  ", "\n  ", "\n  ", "\n\n  svg {\n    height: 100%;\n    width: 100%;\n  }\n"])), function (props) { return Ae(templateObject_2$3 || (templateObject_2$3 = __makeTemplateObject(["\n    background-color: ", ";\n    height: ", "px;\n    margin-bottom: ", "px;\n    color: ", ";\n    font-size: ", ";\n    padding: ", ";\n    ", ";\n    filter: ", ";\n  "], ["\n    background-color: ", ";\n    height: ", "px;\n    margin-bottom: ", "px;\n    color: ", ";\n    font-size: ", ";\n    padding: ", ";\n    ", ";\n    filter: ", ";\n  "])), props.backgroundColor, props.height, getSizeComparedToBase(props, 12), getTextColor(props), getTextSize(props), getPadding(props), getShadows(props), props.disabled ? 'grayscale(100%)' : 'none'); }, function (props) { return props.fullWidth && Ae(templateObject_3$2 || (templateObject_3$2 = __makeTemplateObject(["width: 100%;"], ["width: 100%;"]))); }, function (props) { return props.wiggle && Ae(templateObject_4$2 || (templateObject_4$2 = __makeTemplateObject(["\n  animation: wiggle alternate-reverse 2s linear infinite;\n  animation-delay: ", "s;\n    @keyframes wiggle {\n      0% {\n        transform: rotate(-3deg);\n      }\n      10% {\n        transform: rotate(3deg);\n      }\n      20% {\n        transform: rotate(0deg);\n      }\n      100% {\n        transform: rotate(0deg);\n      }\n    }\n  "], ["\n  animation: wiggle alternate-reverse 2s linear infinite;\n  animation-delay: ", "s;\n    @keyframes wiggle {\n      0% {\n        transform: rotate(-3deg);\n      }\n      10% {\n        transform: rotate(3deg);\n      }\n      20% {\n        transform: rotate(0deg);\n      }\n      100% {\n        transform: rotate(0deg);\n      }\n    }\n  "])), Math.random()); }, function (props) {
+    return props.round && Ae(templateObject_5$2 || (templateObject_5$2 = __makeTemplateObject(["\n      width: ", "px;\n      padding: 0;\n      flex-shrink: 0;\n    "], ["\n      width: ", "px;\n      padding: 0;\n      flex-shrink: 0;\n    "])), props.height);
 });
-var templateObject_1$4, templateObject_2$1, templateObject_3$1, templateObject_4$1, templateObject_5$1, templateObject_6$1;
+var templateObject_1$6, templateObject_2$3, templateObject_3$2, templateObject_4$2, templateObject_5$2, templateObject_6$2;
 
 var THEMES = {
     primary: {
@@ -8879,30 +8881,30 @@ var ICONS = {
     'drawing-tool-arrow-right': React__default['default'].createElement(SvgDrawingToolArrowRight, null)
 };
 
-var SvgWrapper = styled.div(templateObject_1$3 || (templateObject_1$3 = __makeTemplateObject(["\n  height: ", ";\n  width: ", ";\n  display: inline-flex;\n\n  svg {\n    width: 100% !important;\n    height: 100% !important;\n  }\n"], ["\n  height: ", ";\n  width: ", ";\n  display: inline-flex;\n\n  svg {\n    width: 100% !important;\n    height: 100% !important;\n  }\n"])), function (props) { return props.size; }, function (props) { return props.size; });
+var SvgWrapper = styled.div(templateObject_1$5 || (templateObject_1$5 = __makeTemplateObject(["\n  height: ", ";\n  width: ", ";\n  display: inline-flex;\n\n  svg {\n    width: 100% !important;\n    height: 100% !important;\n  }\n"], ["\n  height: ", ";\n  width: ", ";\n  display: inline-flex;\n\n  svg {\n    width: 100% !important;\n    height: 100% !important;\n  }\n"])), function (props) { return props.size; }, function (props) { return props.size; });
 var Icon = function (props) {
     return React__default['default'].createElement(SvgWrapper, __assign({}, props), React__default['default'].cloneElement(ICONS[props.name], props));
 };
 Icon.defaultProps = {
     size: null
 };
-var templateObject_1$3;
+var templateObject_1$5;
 
-var Wrapper$1 = styled.div(templateObject_1$2 || (templateObject_1$2 = __makeTemplateObject(["\n  display: flex;\n  > :first-child {\n    z-index: 2;\n  }\n  > :nth-child(2) {\n    margin-left: -", "px;\n    z-index: 1;\n  }\n"], ["\n  display: flex;\n  > :first-child {\n    z-index: 2;\n  }\n  > :nth-child(2) {\n    margin-left: -", "px;\n    z-index: 1;\n  }\n"])), function (props) { return props.overlap; });
+var Wrapper$1 = styled.div(templateObject_1$4 || (templateObject_1$4 = __makeTemplateObject(["\n  display: flex;\n  > :first-child {\n    z-index: 2;\n  }\n  > :nth-child(2) {\n    margin-left: -", "px;\n    z-index: 1;\n  }\n"], ["\n  display: flex;\n  > :first-child {\n    z-index: 2;\n  }\n  > :nth-child(2) {\n    margin-left: -", "px;\n    z-index: 1;\n  }\n"])), function (props) { return props.overlap; });
 var IconButton = (function (props) {
     var W = (props.size ? SIZES[props.size] : props.height) || 0;
     return (React__default['default'].createElement(Wrapper$1, { overlap: 0.3 * W },
         React__default['default'].createElement(Button, __assign({}, props, { round: true }), props.icon),
         React__default['default'].createElement(Button, __assign({}, props))));
 });
-var templateObject_1$2;
+var templateObject_1$4;
 
-var Wrapper = styled.div(templateObject_1$1 || (templateObject_1$1 = __makeTemplateObject(["\n  position: relative;\n  background-color: #341644;\n  border-radius: 45px;\n  padding-bottom: 15px;\n  padding: 20px 40px;\n  max-width: 760px;\n  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);\n  box-sizing: border-box;\n  color: #fff;\n  display: inline-flex;\n  flex-direction: column;\n  min-width: 340px;\n"], ["\n  position: relative;\n  background-color: #341644;\n  border-radius: 45px;\n  padding-bottom: 15px;\n  padding: 20px 40px;\n  max-width: 760px;\n  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);\n  box-sizing: border-box;\n  color: #fff;\n  display: inline-flex;\n  flex-direction: column;\n  min-width: 340px;\n"])));
-var Title = styled.div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  color: #fff;\n  font-family: 'Rammetto One';\n  text-align: center;\n  font-size: 26px;\n  margin-bottom: 10px;\n"], ["\n  color: #fff;\n  font-family: 'Rammetto One';\n  text-align: center;\n  font-size: 26px;\n  margin-bottom: 10px;\n"])));
-var Content = styled.div(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  background-color: #ffffff0a;\n  flex: 1;\n  border-radius: 20px;\n  font-size: 18px;\n  height: 100%;\n  padding: 20px 15px;\n  ", "\n"], ["\n  background-color: #ffffff0a;\n  flex: 1;\n  border-radius: 20px;\n  font-size: 18px;\n  height: 100%;\n  padding: 20px 15px;\n  ", "\n"])), function (props) { return props.hasError && Ae(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    box-shadow: 0px 0px 3px 1px #ff000055;\n  "], ["\n    box-shadow: 0px 0px 3px 1px #ff000055;\n  "]))); });
-var Actions = styled.div(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n  display: flex;\n  justify-content: center;\n  margin-top: 15px;\n  > * { margin-right: 10px; }\n  > :last-child { margin-right: 0; }\n"], ["\n  display: flex;\n  justify-content: center;\n  margin-top: 15px;\n  > * { margin-right: 10px; }\n  > :last-child { margin-right: 0; }\n"])));
-var QuitButton = styled.div(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n  position: absolute;\n  top: 0;\n  right: 0;\n  transform: translate(11px, -16px);\n"], ["\n  position: absolute;\n  top: 0;\n  right: 0;\n  transform: translate(11px, -16px);\n"])));
-var templateObject_1$1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6;
+var Wrapper = styled.div(templateObject_1$3 || (templateObject_1$3 = __makeTemplateObject(["\n  position: relative;\n  background-color: #341644;\n  border-radius: 45px;\n  padding-bottom: 15px;\n  padding: 20px 40px;\n  max-width: 760px;\n  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);\n  box-sizing: border-box;\n  color: #fff;\n  display: inline-flex;\n  flex-direction: column;\n  min-width: 340px;\n"], ["\n  position: relative;\n  background-color: #341644;\n  border-radius: 45px;\n  padding-bottom: 15px;\n  padding: 20px 40px;\n  max-width: 760px;\n  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);\n  box-sizing: border-box;\n  color: #fff;\n  display: inline-flex;\n  flex-direction: column;\n  min-width: 340px;\n"])));
+var Title = styled.div(templateObject_2$2 || (templateObject_2$2 = __makeTemplateObject(["\n  color: #fff;\n  font-family: 'Rammetto One';\n  text-align: center;\n  font-size: 26px;\n  margin-bottom: 10px;\n"], ["\n  color: #fff;\n  font-family: 'Rammetto One';\n  text-align: center;\n  font-size: 26px;\n  margin-bottom: 10px;\n"])));
+var Content = styled.div(templateObject_4$1 || (templateObject_4$1 = __makeTemplateObject(["\n  background-color: #ffffff0a;\n  flex: 1;\n  border-radius: 20px;\n  font-size: 18px;\n  height: 100%;\n  padding: 20px 15px;\n  ", "\n"], ["\n  background-color: #ffffff0a;\n  flex: 1;\n  border-radius: 20px;\n  font-size: 18px;\n  height: 100%;\n  padding: 20px 15px;\n  ", "\n"])), function (props) { return props.hasError && Ae(templateObject_3$1 || (templateObject_3$1 = __makeTemplateObject(["\n    box-shadow: 0px 0px 3px 1px #ff000055;\n  "], ["\n    box-shadow: 0px 0px 3px 1px #ff000055;\n  "]))); });
+var Actions = styled.div(templateObject_5$1 || (templateObject_5$1 = __makeTemplateObject(["\n  display: flex;\n  justify-content: center;\n  margin-top: 15px;\n  > * { margin-right: 10px; }\n  > :last-child { margin-right: 0; }\n"], ["\n  display: flex;\n  justify-content: center;\n  margin-top: 15px;\n  > * { margin-right: 10px; }\n  > :last-child { margin-right: 0; }\n"])));
+var QuitButton = styled.div(templateObject_6$1 || (templateObject_6$1 = __makeTemplateObject(["\n  position: absolute;\n  top: 0;\n  right: 0;\n  transform: translate(11px, -16px);\n"], ["\n  position: absolute;\n  top: 0;\n  right: 0;\n  transform: translate(11px, -16px);\n"])));
+var templateObject_1$3, templateObject_2$2, templateObject_3$1, templateObject_4$1, templateObject_5$1, templateObject_6$1;
 
 var Modal = function (props) {
     var title = React.useMemo(function () {
@@ -9291,7 +9293,7 @@ function createContainer(useHook) {
   };
 }
 
-var Overlay = styled.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: ", ";\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  z-index: 999999999;\n"], ["\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: ", ";\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  z-index: 999999999;\n"])), function (props) { return props.active ? 'rgba(0,0,0,0.7)' : 'rgba(0,0,0,0)'; });
+var Overlay = styled.div(templateObject_1$2 || (templateObject_1$2 = __makeTemplateObject(["\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: ", ";\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  z-index: 999999999;\n"], ["\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: ", ";\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  z-index: 999999999;\n"])), function (props) { return props.active ? 'rgba(0,0,0,0.7)' : 'rgba(0,0,0,0)'; });
 var ModalState = function () {
     var _a = React.useState({}), modals = _a[0], setModals = _a[1];
     var modalsStack = React.useMemo(function () {
@@ -9336,7 +9338,7 @@ var ModalProvider = function (props) {
         React__default['default'].createElement(Modals, null),
         React__default['default'].cloneElement(props.children, props));
 };
-var templateObject_1;
+var templateObject_1$2;
 
 var initialProps = {
     asyncFunc: function () { },
@@ -10073,8 +10075,1277 @@ var useMountState = function () {
     return mountedRef.current;
 };
 
+var getToolbarWidth = function (props) {
+    if (props.mode === 'portrait')
+        return '100%';
+    return props.buttonSize + 10 + "px";
+};
+var getToolbarHeight = function (props) {
+    if (props.mode === 'landscape')
+        return '100%';
+    return props.buttonSize + 10 + "px";
+};
+var Container$1 = styled.div(templateObject_1$1 || (templateObject_1$1 = __makeTemplateObject(["\n  position: relative;\n  width: 100%;\n  height: ", ";\n  max-width: ", "px;\n  max-height: ", "px;\n  display: flex;\n  flex-shrink: none;\n  flex-direction: ", ";\n  top: ", ";\n  left: 50%;\n  transform: translate(-50%, -50%);\n  * {\n    box-sizing: border-box;\n  }\n"], ["\n  position: relative;\n  width: 100%;\n  height: ", ";\n  max-width: ", "px;\n  max-height: ", "px;\n  display: flex;\n  flex-shrink: none;\n  flex-direction: ", ";\n  top: ", ";\n  left: 50%;\n  transform: translate(-50%, -50%);\n  * {\n    box-sizing: border-box;\n  }\n"])), function (props) { return "calc(100% - " + props.offsetTop + "px)"; }, function (props) { return props.maxWidth; }, function (props) { return props.maxHeight; }, function (props) { return props.mode === 'landscape' ? 'row' : 'column'; }, function (props) { return "calc(50% - " + props.offsetTop / 2 + "px)"; });
+var ButtonGroup = styled.div(templateObject_2$1 || (templateObject_2$1 = __makeTemplateObject(["\n  display: flex;\n  flex-shrink: none;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  > div {\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"], ["\n  display: flex;\n  flex-shrink: none;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  > div {\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"])), function (props) { return props.mode === 'landscape' ? Math.floor(props.buttonSize / 5) + "px" : 0; }, function (props) { return props.mode === 'portrait' ? Math.floor(props.buttonSize / 5) + "px" : 0; });
+styled.div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  background-color: rgba(255, 255, 255, .5);\n  border-radius: ", "px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  padding-left: ", ";\n  padding-right: ", ";\n  display: flex;\n  height: 70%;\n  flex-wrap: ", ";\n  justify-content: center;\n  align-items: center;\n  overflow: hidden;\n  > div {\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"], ["\n  background-color: rgba(255, 255, 255, .5);\n  border-radius: ", "px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  padding-left: ", ";\n  padding-right: ", ";\n  display: flex;\n  height: 70%;\n  flex-wrap: ", ";\n  justify-content: center;\n  align-items: center;\n  overflow: hidden;\n  > div {\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"])), function (props) { return props.buttonSize; }, function (props) { return props.mode === 'portrait' ? '8px' : 0; }, function (props) { return props.mode === 'portrait' ? '8px' : 0; }, function (props) { return props.mode === 'landscape' ? 'wrap' : 'no-wrap'; }, function (props) { return props.mode === 'landscape' ? Math.floor(props.buttonSize / 5) + "px" : 0; }, function (props) { return props.mode === 'portrait' ? Math.floor(props.buttonSize / 5) + "px" : 0; });
+styled.div(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  overflow: hidden;\n"], ["\n  overflow: hidden;\n"])));
+var ColourOpacityToggle = styled.div(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n  background-color: #ebebeb;\n  border: 6px solid #d9d9d9;\n  box-shadow: 0px 4px 0px rgba(0,0,0, .5);\n  border-radius: ", "px;\n  width: ", ";\n  padding-bottom: ", ";\n  padding-right: ", ";\n  display: flex;\n  flex-shrink: none;\n  flex-wrap: ", ";\n  justify-content: center;\n  align-items: center;\n  position: relative;\n  > div {\n    transform: scale(1.2);\n    &:first-child {\n      position: relative;\n      top: ", ";\n      left: ", ";\n    }\n  }\n"], ["\n  background-color: #ebebeb;\n  border: 6px solid #d9d9d9;\n  box-shadow: 0px 4px 0px rgba(0,0,0, .5);\n  border-radius: ", "px;\n  width: ", ";\n  padding-bottom: ", ";\n  padding-right: ", ";\n  display: flex;\n  flex-shrink: none;\n  flex-wrap: ", ";\n  justify-content: center;\n  align-items: center;\n  position: relative;\n  > div {\n    transform: scale(1.2);\n    &:first-child {\n      position: relative;\n      top: ", ";\n      left: ", ";\n    }\n  }\n"])), function (props) { return props.buttonSize; }, function (props) { return props.mode === 'landscape' ? props.buttonSize + props.buttonSize * 0.2 + "px" : 'auto'; }, function (props) { return props.mode === 'landscape' ? '4px' : '0px'; }, function (props) { return props.mode === 'landscape' ? '0px' : '4px'; }, function (props) { return props.mode === 'landscape' ? 'wrap' : 'no-wrap'; }, function (props) { return props.mode === 'landscape' ? '4px' : '0px'; }, function (props) { return props.mode === 'portrait' ? '4px' : '0px'; });
+var OpacityButton = styled.div(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n  width: ", "px;\n  height: ", "px;\n  cursor: pointer;\n"], ["\n  width: ", "px;\n  height: ", "px;\n  cursor: pointer;\n"])), function (props) { return props.buttonSize; }, function (props) { return props.buttonSize; });
+var LeftToolbarContainer = styled.div(templateObject_7 || (templateObject_7 = __makeTemplateObject(["\n  position: relative;\n  width: ", ";\n  height: ", ";\n  order: ", ";\n  display: flex;\n  flex-direction: ", ";\n  justify-content: space-between;\n  align-items: center;\n"], ["\n  position: relative;\n  width: ", ";\n  height: ", ";\n  order: ", ";\n  display: flex;\n  flex-direction: ", ";\n  justify-content: space-between;\n  align-items: center;\n"])), function (props) { return getToolbarWidth(props); }, function (props) { return getToolbarHeight(props); }, function (props) { return props.mode === 'landscape' ? 1 : 2; }, function (props) { return props.mode === 'landscape' ? 'column' : 'row'; });
+var RightToolbarContainer = styled.div(templateObject_8 || (templateObject_8 = __makeTemplateObject(["\n  position: relative;\n  width: ", ";\n  max-height: ", ";\n  order: 3;\n  justify-content: space-between;\n  display: flex;\n  flex-direction: ", ";\n  margin-top: ", ";\n  align-items: center;\n"], ["\n  position: relative;\n  width: ", ";\n  max-height: ", ";\n  order: 3;\n  justify-content: space-between;\n  display: flex;\n  flex-direction: ", ";\n  margin-top: ", ";\n  align-items: center;\n"])), function (props) { return getToolbarWidth(props); }, function (props) { return getToolbarHeight(props); }, function (props) { return props.mode === 'landscape' ? 'column' : 'row'; }, function (props) { return props.mode === 'portrait' ? '10px' : '0px'; });
+var SketchContainer = styled.div(templateObject_9 || (templateObject_9 = __makeTemplateObject(["\n  position: relative;\n  flex: 1 1 auto;\n  margin-left: ", ";\n  margin-right: ", ";\n  margin-bottom: ", ";\n  order: ", ";\n"], ["\n  position: relative;\n  flex: 1 1 auto;\n  margin-left: ", ";\n  margin-right: ", ";\n  margin-bottom: ", ";\n  order: ", ";\n"])), function (props) { return props.mode === 'landscape' ? '10px' : '0px'; }, function (props) { return props.mode === 'landscape' ? '20px' : '0px'; }, function (props) { return props.mode === 'landscape' ? '0px' : '10px'; }, function (props) { return props.mode === 'landscape' ? 2 : 1; });
+var PaperBackground = styled.div(templateObject_10 || (templateObject_10 = __makeTemplateObject(["\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  background-color: #ebebeb;\n  box-shadow: 0px 4px 0px #C7C7C6;\n\n  &:before, &:after {\n    z-index: -1;\n    position: absolute;\n    content: \"\";\n    bottom: 7px;\n    left: 10px;\n    width: 50%;\n    top: 80%;\n    max-width: 300px;\n    background: rgba(0,0,0,.3);\n    box-shadow: 0 15px 0px rgba(0,0,0,.3);\n    transform: rotate(-3deg);\n  }\n  &:after {\n    transform: rotate(3deg);\n    right: 10px;\n    left: auto;\n  }\n"], ["\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  background-color: #ebebeb;\n  box-shadow: 0px 4px 0px #C7C7C6;\n\n  &:before, &:after {\n    z-index: -1;\n    position: absolute;\n    content: \"\";\n    bottom: 7px;\n    left: 10px;\n    width: 50%;\n    top: 80%;\n    max-width: 300px;\n    background: rgba(0,0,0,.3);\n    box-shadow: 0 15px 0px rgba(0,0,0,.3);\n    transform: rotate(-3deg);\n  }\n  &:after {\n    transform: rotate(3deg);\n    right: 10px;\n    left: auto;\n  }\n"])));
+var ModalOverlay = styled.div(templateObject_11 || (templateObject_11 = __makeTemplateObject(["\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  z-index: 100;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"], ["\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  z-index: 100;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"])));
+var templateObject_1$1, templateObject_2$1, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11;
+
+function useDebounce(value, delay) {
+    var _a = React.useState(value), debouncedValue = _a[0], setDebouncedValue = _a[1];
+    React.useEffect(function () {
+        var timer = setTimeout(function () { return setDebouncedValue(value); }, delay || 500);
+        return function () {
+            clearTimeout(timer);
+        };
+    }, [value, delay]);
+    return debouncedValue;
+}
+
+function useEventListener(eventName, handler, element) {
+    var savedHandler = React.useRef();
+    React.useEffect(function () {
+        var targetElement = (element === null || element === void 0 ? void 0 : element.current) || window;
+        if (!(targetElement && targetElement.addEventListener)) {
+            return;
+        }
+        if (savedHandler.current !== handler) {
+            savedHandler.current = handler;
+        }
+        var eventListener = function (event) {
+            if (!!(savedHandler === null || savedHandler === void 0 ? void 0 : savedHandler.current)) {
+                savedHandler.current(event);
+            }
+        };
+        targetElement.addEventListener(eventName, eventListener);
+        return function () {
+            targetElement.removeEventListener(eventName, eventListener);
+        };
+    }, [eventName, element, handler]);
+}
+
+function useElementSize(elementRef) {
+    var _a = React.useState({
+        width: 0,
+        height: 0,
+    }), size = _a[0], setSize = _a[1];
+    var updateSize = React.useCallback(function () {
+        var node = elementRef === null || elementRef === void 0 ? void 0 : elementRef.current;
+        if (node) {
+            setSize({
+                width: node.offsetWidth || 0,
+                height: node.offsetHeight || 0,
+            });
+        }
+    }, [elementRef]);
+    React.useEffect(function () {
+        updateSize();
+    }, []);
+    useEventListener('resize', updateSize);
+    return size;
+}
+
+var Container = styled.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  align-content: flex-start;\n  flex-wrap: ", ";\n  height: ", ";\n  width: ", ";\n"], ["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  align-content: flex-start;\n  flex-wrap: ", ";\n  height: ", ";\n  width: ", ";\n"])), function (props) { return props.mode === 'landscape' ? 'wrap' : 'no-wrap'; }, function (props) { return props.mode === 'portrait' ? 'auto' : '80%'; }, function (props) { return props.mode === 'portrait' ? '80%' : 'auto'; });
+var ScrollContainer = styled.div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  height: ", ";\n  background-color: rgba(255, 255, 255, .5);\n  border-radius: ", "px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  padding-left: ", ";\n  padding-right: ", ";\n  margin-bottom: ", ";\n  margin-left: ", ";\n  margin-right: ", ";\n  position: relative;\n  flex: 1 1 auto;\n  display: flex;\n  flex-wrap: ", ";\n  justify-content: ", ";;\n  align-items: center;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n  overflow: scroll;\n  scroll-behavior: smooth;\n  &::-webkit-scrollbar {\n    display: none;\n  }\n  > div {\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"], ["\n  height: ", ";\n  background-color: rgba(255, 255, 255, .5);\n  border-radius: ", "px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  padding-left: ", ";\n  padding-right: ", ";\n  margin-bottom: ", ";\n  margin-left: ", ";\n  margin-right: ", ";\n  position: relative;\n  flex: 1 1 auto;\n  display: flex;\n  flex-wrap: ", ";\n  justify-content: ", ";;\n  align-items: center;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n  overflow: scroll;\n  scroll-behavior: smooth;\n  &::-webkit-scrollbar {\n    display: none;\n  }\n  > div {\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"])), function (props) { return "calc(100% - " + 3.5 * props.size + "px)"; }, function (props) { return props.size; }, function (props) { return props.mode === 'portrait' ? '8px' : 0; }, function (props) { return props.mode === 'portrait' ? '8px' : 0; }, function (props) { return props.mode === 'portrait' ? '0px' : '7px'; }, function (props) { return props.mode === 'portrait' ? '7px' : '0px'; }, function (props) { return props.mode === 'portrait' ? '7px' : '0px'; }, function (props) { return props.mode === 'landscape' ? 'wrap' : 'no-wrap'; }, function (props) { return props.mode === 'landscape' ? 'center' : 'flex-start'; }, function (props) { return props.mode === 'landscape' ? Math.floor(props.size / 5) + "px" : 0; }, function (props) { return props.mode === 'portrait' ? Math.floor(props.size / 5) + "px" : 0; });
+var templateObject_1, templateObject_2;
+
+var nzkSketch = {exports: {}};
+
+(function (module, exports) {
+(function (global, factory) {
+  module.exports = factory() ;
+}(commonjsGlobal, (function () {
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+  }
+
+  var NzkSketchStrokeModel =
+  /*#__PURE__*/
+  function () {
+    function NzkSketchStrokeModel(style, firstPoint) {
+      _classCallCheck(this, NzkSketchStrokeModel);
+
+      this.style = style;
+      this.points = [];
+
+      if (firstPoint) {
+        this.points.push({
+          s: firstPoint,
+          h: null
+        });
+      }
+    }
+
+    _createClass(NzkSketchStrokeModel, [{
+      key: "length",
+      value: function length() {
+        return this.points.length;
+      }
+    }, {
+      key: "lastPoint",
+      value: function lastPoint() {
+        return this.points[this.points.length - 1].s;
+      }
+    }, {
+      key: "addPoint",
+      value: function addPoint(newPoint) {
+        this.points[this.points.length - 1].h = {
+          x: (this.points[this.points.length - 1].s.x + newPoint.x) / 2,
+          y: (this.points[this.points.length - 1].s.y + newPoint.y) / 2
+        };
+        return this.points.push({
+          s: newPoint,
+          h: null
+        });
+      }
+    }, {
+      key: "serialize",
+      value: function serialize() {
+        return {
+          points: this.points,
+          style: this.style
+        };
+      }
+    }, {
+      key: "deserialize",
+      value: function deserialize(serialized) {
+        this.style = serialized.style;
+        this.points = serialized.points || [];
+      }
+    }]);
+
+    return NzkSketchStrokeModel;
+  }();
+
+  var NzkSketchModel =
+  /*#__PURE__*/
+  function () {
+    function NzkSketchModel() {
+      _classCallCheck(this, NzkSketchModel);
+
+      this.colour = [0, 0, 0];
+      this.eraser = false;
+      this.fill = false;
+      this.opacity = 1.0;
+      this.size = 15;
+      this.scale = window.devicePixelRatio >= 1.5 ? 2 : 1;
+      this.actions = [];
+      this.lastActionIndex = -1;
+      this.currentStroke = null;
+    }
+
+    _createClass(NzkSketchModel, [{
+      key: "sizeScaled",
+      value: function sizeScaled() {
+        return this.size * this.scale;
+      }
+    }, {
+      key: "generateStyleKey",
+      value: function generateStyleKey() {
+        return "".concat(this.eraser || this.opacity === 1.0 ? 'opaque' : 'transparent').concat(this.eraser ? 'Eraser' : 'Colour').concat(this.fill ? 'Fill' : 'Stroke');
+      }
+    }, {
+      key: "getStyle",
+      value: function getStyle() {
+        return {
+          opacity: this.opacity,
+          colour: this.colour,
+          eraser: this.eraser,
+          size: this.sizeScaled(),
+          key: this.generateStyleKey()
+        };
+      }
+    }, {
+      key: "initStroke",
+      value: function initStroke(newPoint) {
+        if (this.canRedo()) {
+          if (this.lastActionIndex === -1) {
+            this.actions = [];
+          } else {
+            this.actions = this.actions.slice(0, this.lastActionIndex + 1);
+          }
+        }
+
+        this.currentStroke = new NzkSketchStrokeModel(this.getStyle(), newPoint);
+      }
+    }, {
+      key: "continueStroke",
+      value: function continueStroke(newPoint) {
+        this.currentStroke.addPoint(newPoint);
+      }
+    }, {
+      key: "saveStroke",
+      value: function saveStroke() {
+        this.actions.push({
+          type: 'stroke',
+          object: this.currentStroke
+        });
+        this.currentStroke = null;
+        this.lastActionIndex++;
+      }
+    }, {
+      key: "canUndo",
+      value: function canUndo() {
+        return this.lastActionIndex > -1;
+      }
+    }, {
+      key: "canRedo",
+      value: function canRedo() {
+        return this.lastActionIndex < this.actions.length - 1;
+      }
+    }, {
+      key: "reset",
+      value: function reset() {
+        this.actions = [];
+        this.lastActionIndex = -1;
+        return this.currentStroke = null;
+      }
+    }, {
+      key: "serialize",
+      value: function serialize() {
+        var serialized = {
+          colour: this.colour,
+          opacity: this.opacity,
+          size: this.size,
+          scale: this.scale,
+          lastActionIndex: this.lastActionIndex
+        };
+        serialized.actions = [];
+        this.actions.forEach(function (action) {
+          serialized.actions.push({
+            type: action.type,
+            object: action.object.serialize()
+          });
+        });
+
+        if (this.currentStroke) {
+          serialized.currentStroke = this.currentStroke.serialize();
+        }
+
+        return serialized;
+      }
+    }, {
+      key: "deserialize",
+      value: function deserialize() {
+        var _this = this;
+
+        var serialized = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+        if (serialized.colour !== undefined) {
+          this.colour = serialized.colour;
+        }
+
+        if (serialized.opacity !== undefined) {
+          this.opacity = serialized.opacity;
+        }
+
+        if (serialized.size !== undefined) {
+          this.size = serialized.size;
+        }
+
+        if (serialized.scale !== undefined) {
+          this.scale = serialized.scale;
+        }
+
+        if (serialized.lastActionIndex !== undefined) {
+          this.lastActionIndex = serialized.lastActionIndex;
+        }
+
+        if (serialized.actions) {
+          this.actions = [];
+          serialized.actions.forEach(function (action) {
+            if (action.type === 'stroke') {
+              var stroke = new NzkSketchStrokeModel();
+              stroke.deserialize(action.object);
+
+              _this.actions.push({
+                type: action.type,
+                object: stroke
+              });
+            }
+          });
+        }
+
+        if (serialized.currentStroke !== undefined) {
+          this.currentStroke = new NzkSketchStrokeModel();
+          this.currentStroke.deserialize(serialized.currentStroke);
+        }
+      }
+    }]);
+
+    return NzkSketchModel;
+  }();
+
+  var NZKSketch =
+  /*#__PURE__*/
+  function () {
+    function NZKSketch() {
+      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      _classCallCheck(this, NZKSketch);
+
+      if (!props.containerEl) {
+        throw new Error("NZKSketch requires a containerEl property");
+      }
+
+      if (!props.width && props.height) {
+        throw new Error("NZKSketch requires fixed width and height properties");
+      }
+
+      this.containerEl = props.containerEl; // Size
+
+      this.width = props.containerEl.offsetWidth;
+      this.height = props.containerEl.offsetHeight;
+      this.scale = window.devicePixelRatio >= 1.5 ? 2 : 1;
+      this.widthScaled = this.width * this.scale;
+      this.heightScaled = this.height * this.scale;
+      this.template = props.template; // Model init
+
+      this.model = new NzkSketchModel(); // Canvas layers
+
+      if (this.template) {
+        this.initTemplateCanvas(this.template);
+      }
+
+      this.initDrawingCanvas();
+      this.initBufferCanvas();
+      this.initCacheCanvas(); // Interaction layer
+
+      this.initInteractionLayer(); // Drawing settings
+
+      this.initDrawAnimations();
+      this.setDrawingStyle(this.model.getStyle(), this.bufferCanvasCtx);
+      this.isDrawing = false;
+
+      this.onChange = props.onChange || function () {};
+
+      if (props.sketchData) {
+        this.deserialize(props.sketchData);
+        this.drawExistingSketch();
+      }
+    } //
+    // Public API
+    //
+
+
+    _createClass(NZKSketch, [{
+      key: "setBrush",
+      value: function setBrush(_ref) {
+        var colour = _ref.colour,
+            size = _ref.size,
+            opacity = _ref.opacity,
+            fill = _ref.fill,
+            eraser = _ref.eraser;
+
+        if (colour !== undefined) {
+          this.model.colour = colour;
+        }
+
+        if (size !== undefined) {
+          this.model.size = size;
+        }
+
+        if (opacity !== undefined) {
+          this.model.opacity = opacity;
+        }
+
+        if (fill !== undefined) {
+          this.model.fill = fill;
+        }
+
+        if (eraser !== undefined) {
+          this.model.eraser = eraser;
+        }
+      }
+    }, {
+      key: "export",
+      value: function _export() {
+        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        options.crop = options.crop || false;
+        options.maxWidth = options.maxWidth || false;
+        options.maxHeight = options.maxHeight || false;
+        var canvasToExport = null; // If there is a template merge the drawing onto it and export that
+
+        if (this.template) {
+          this.templateCanvasCtx.drawImage(this.drawingCanvasCtx.canvas, 0, 0, this.widthScaled, this.heightScaled);
+          canvasToExport = this.templateCanvasCtx;
+        } else {
+          canvasToExport = this.drawingCanvasCtx;
+        }
+
+        var box = {
+          topLeftX: 0,
+          topLeftY: 0,
+          width: this.widthScaled,
+          height: this.heightScaled
+        };
+
+        if (options.crop) {
+          box = this.findBoundingBox(canvasToExport);
+        }
+
+        var shrinkRatio = 1;
+        var widthShrinkRatio = 1;
+        var heightShrinkRatio = 1;
+
+        if (options.maxWidth && box.width > options.maxWidth) {
+          widthShrinkRatio = box.width / options.maxWidth;
+        }
+
+        if (options.maxHeight && box.height > options.maxHeight) {
+          heightShrinkRatio = box.height / options.maxHeight;
+        }
+
+        shrinkRatio = Math.max(widthShrinkRatio, heightShrinkRatio);
+        this.initExportCanvas();
+        this.exportCanvas.setAttribute('width', box.width / shrinkRatio);
+        this.exportCanvas.setAttribute('height', box.height / shrinkRatio);
+        this.exportCanvasCtx.globalCompositeOperation = 'copy';
+        this.exportCanvasCtx.drawImage(canvasToExport.canvas, box.topLeftX, box.topLeftY, box.width, box.height, 0, 0, box.width / shrinkRatio, box.height / shrinkRatio);
+        var image = this.exportCanvas.toDataURL();
+        this.removeExportCanvas();
+        return image;
+      }
+    }, {
+      key: "undo",
+      value: function undo() {
+        if (!this.model.canUndo()) return;
+        this.model.lastActionIndex--;
+        this.drawingCanvasCtx.clearRect(0, 0, this.widthScaled, this.heightScaled);
+
+        for (var i = 0; i <= this.model.lastActionIndex; i++) {
+          if (this.model.actions[i].type === 'stroke') {
+            this.drawUndoStroke(this.model.actions[i].object);
+          }
+        }
+      }
+    }, {
+      key: "redo",
+      value: function redo() {
+        if (!this.model.canRedo()) return;
+        this.model.lastActionIndex++;
+        var action = this.model.actions[this.model.lastActionIndex];
+
+        if (action.type === 'stroke') {
+          this.drawUndoStroke(action.object);
+        }
+      }
+    }, {
+      key: "canUndo",
+      value: function canUndo() {
+        return this.model.canUndo();
+      }
+    }, {
+      key: "canRedo",
+      value: function canRedo() {
+        return this.model.canRedo();
+      }
+    }, {
+      key: "restart",
+      value: function restart() {
+        this.model.reset();
+        this.drawingCanvasCtx.clearRect(0, 0, this.widthScaled, this.heightScaled);
+        this.onChange();
+      }
+    }, {
+      key: "serialize",
+      value: function serialize() {
+        return this.model.serialize();
+      }
+    }, {
+      key: "deserialize",
+      value: function deserialize(serialized) {
+        this.model.deserialize(serialized);
+      }
+    }, {
+      key: "getNumberOfActions",
+      value: function getNumberOfActions() {
+        return this.model.lastActionIndex + 1;
+      } //
+      // Internal helpers
+      //
+
+    }, {
+      key: "setCanvasSize",
+      value: function setCanvasSize(canvas) {
+        canvas.width = this.widthScaled;
+        canvas.height = this.heightScaled;
+      }
+    }, {
+      key: "setLayerStyle",
+      value: function setLayerStyle(el) {
+        el.style.width = "".concat(this.width, "px");
+        el.style.height = "".concat(this.height, "px");
+        el.style.position = 'absolute';
+        el.style.left = '0px';
+        el.style.top = '0px';
+      }
+    }, {
+      key: "initTemplateCanvas",
+      value: function initTemplateCanvas(template) {
+        this.templateCanvas = document.createElement('canvas');
+        this.templateCanvasCtx = this.templateCanvas.getContext('2d');
+        this.setCanvasSize(this.templateCanvas);
+        this.setLayerStyle(this.templateCanvas);
+        this.templateCanvasCtx.drawImage(template, 0, 0, this.widthScaled, this.heightScaled);
+        this.templateCanvas.style.zIndex = 0;
+        this.containerEl.appendChild(this.templateCanvas);
+      }
+    }, {
+      key: "initDrawingCanvas",
+      value: function initDrawingCanvas() {
+        this.drawingCanvas = document.createElement('canvas');
+        this.drawingCanvasCtx = this.drawingCanvas.getContext('2d');
+        this.setCanvasSize(this.drawingCanvas);
+        this.setLayerStyle(this.drawingCanvas);
+        this.drawingCanvas.style.zIndex = 1;
+        this.containerEl.appendChild(this.drawingCanvas);
+      }
+    }, {
+      key: "initBufferCanvas",
+      value: function initBufferCanvas() {
+        this.bufferCanvas = document.createElement('canvas');
+        this.bufferCanvasCtx = this.bufferCanvas.getContext('2d');
+        this.setCanvasSize(this.bufferCanvas);
+        this.setLayerStyle(this.bufferCanvas);
+        this.bufferCanvas.style.zIndex = 2;
+        this.containerEl.appendChild(this.bufferCanvas);
+      }
+    }, {
+      key: "initCacheCanvas",
+      value: function initCacheCanvas() {
+        this.cacheCanvas = document.createElement('canvas');
+        this.cacheCanvasCtx = this.cacheCanvas.getContext('2d');
+        this.setCanvasSize(this.cacheCanvas);
+        this.setLayerStyle(this.cacheCanvas);
+        this.cacheCanvas.style.display = 'none';
+        this.containerEl.appendChild(this.cacheCanvas);
+      }
+    }, {
+      key: "initExportCanvas",
+      value: function initExportCanvas() {
+        this.exportCanvas = document.createElement('canvas');
+        this.exportCanvasCtx = this.exportCanvas.getContext('2d');
+        this.setCanvasSize(this.exportCanvas);
+        this.setLayerStyle(this.exportCanvas);
+        this.exportCanvas.style.display = 'none';
+        this.containerEl.appendChild(this.exportCanvas);
+      }
+    }, {
+      key: "removeExportCanvas",
+      value: function removeExportCanvas() {
+        this.exportCanvas.remove();
+      }
+    }, {
+      key: "initInteractionLayer",
+      value: function initInteractionLayer() {
+        var _this = this;
+
+        this.interactionLayerEl = document.createElement('div');
+        this.setLayerStyle(this.interactionLayerEl);
+        this.interactionLayerEl.style.zIndex = 3;
+        this.onStartMouseDraw = this.onStartMouseDraw.bind(this);
+        this.onMoveMouseDraw = this.onMoveMouseDraw.bind(this);
+        this.onEndMouseDraw = this.onEndMouseDraw.bind(this);
+        this.interactionLayerEl.addEventListener("mousedown", this.onStartMouseDraw);
+        this.interactionLayerEl.addEventListener("mousemove", this.onMoveMouseDraw);
+        this.interactionLayerEl.addEventListener("mouseup", this.onEndMouseDraw);
+        this.interactionLayerEl.addEventListener("mouseleave", this.onEndMouseDraw);
+        this.interactionLayerEl.addEventListener("mouseenter", function (ev) {
+          if (ev.buttons > 0) {
+            _this.onStartMouseDraw(ev);
+          }
+        }, false);
+        this.onStartTouchDraw = this.onStartTouchDraw.bind(this);
+        this.onMoveTouchDraw = this.onMoveTouchDraw.bind(this);
+        this.onEndTouchDraw = this.onEndTouchDraw.bind(this);
+        this.interactionLayerEl.addEventListener("touchstart", this.onStartTouchDraw);
+        this.interactionLayerEl.addEventListener("touchmove", this.onMoveTouchDraw);
+        this.interactionLayerEl.addEventListener("touchend", this.onEndTouchDraw);
+        this.interactionLayerEl.addEventListener("touchcancel", this.onEndTouchDraw);
+        this.containerEl.appendChild(this.interactionLayerEl);
+      }
+    }, {
+      key: "initDrawAnimations",
+      value: function initDrawAnimations() {
+        this.drawUndo = {
+          transparentEraserFill: this.drawTransparentFillFinal,
+          transparentEraserStroke: this.drawStrokeFinal,
+          transparentColourFill: this.drawTransparentFillFinal,
+          transparentColourStroke: this.drawStrokeFinal,
+          opaqueEraserFill: this.drawEraserUndoingFillFinal,
+          opaqueEraserStroke: this.drawEraserUndoingFinal,
+          opaqueColourFill: this.drawFillFinal,
+          opaqueColourStroke: this.drawStrokeFinal
+        };
+        this.drawFinished = {
+          transparentEraserFill: this.drawTransparentFillFinal,
+          transparentEraserStroke: this.drawStrokeFinal,
+          transparentColourFill: this.drawTransparentFillFinal,
+          transparentColourStroke: this.drawStrokeFinal,
+          opaqueEraserFill: this.drawEraserFillFinal,
+          opaqueEraserStroke: this.drawEraser,
+          opaqueColourFill: this.drawFillFinal,
+          opaqueColourStroke: this.drawStrokeFinal
+        };
+        this.drawAnimation = {
+          transparentEraserFill: this.drawFillAndStroke,
+          transparentEraserStroke: this.drawFillAndStroke,
+          transparentColourFill: this.drawFillAndStroke,
+          transparentColourStroke: this.drawFillAndStroke,
+          opaqueEraserFill: this.drawEraser,
+          opaqueEraserStroke: this.drawEraser,
+          opaqueColourFill: this.drawFillAndStroke,
+          opaqueColourStroke: this.drawFillAndStroke
+        };
+      }
+    }, {
+      key: "getMousePoint",
+      value: function getMousePoint(ev) {
+        var rect = this.interactionLayerEl.getBoundingClientRect();
+        return {
+          x: (ev.clientX - rect.left) * this.scale,
+          y: (ev.clientY - rect.top) * this.scale
+        };
+      }
+    }, {
+      key: "getTouchPoint",
+      value: function getTouchPoint(ev) {
+        var rect = this.interactionLayerEl.getBoundingClientRect();
+        return {
+          x: (ev.touches[0].clientX - rect.left) * this.scale,
+          y: (ev.touches[0].clientY - rect.top) * this.scale
+        };
+      }
+    }, {
+      key: "onStartMouseDraw",
+      value: function onStartMouseDraw(ev) {
+        ev.preventDefault();
+        this.startDraw(this.getMousePoint(ev));
+      }
+    }, {
+      key: "onStartTouchDraw",
+      value: function onStartTouchDraw(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        this.startDraw(this.getTouchPoint(ev));
+      }
+    }, {
+      key: "onMoveMouseDraw",
+      value: function onMoveMouseDraw(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        this.continueDraw(this.getMousePoint(ev));
+      }
+    }, {
+      key: "onMoveTouchDraw",
+      value: function onMoveTouchDraw(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        this.continueDraw(this.getTouchPoint(ev));
+      }
+    }, {
+      key: "onEndMouseDraw",
+      value: function onEndMouseDraw(ev) {
+        this.endDraw();
+      }
+    }, {
+      key: "onEndTouchDraw",
+      value: function onEndTouchDraw(ev) {
+        this.endDraw();
+      }
+    }, {
+      key: "startDraw",
+      value: function startDraw(point) {
+        this.isDrawing = true;
+        this.model.initStroke(point);
+
+        if (this.model.currentStroke.style.eraser && this.model.currentStroke.style.opacity === 1.0) {
+          this.cacheCanvasCtx.globalCompositeOperation = "copy";
+          this.cacheCanvasCtx.drawImage(this.drawingCanvasCtx.canvas, 0, 0, this.widthScaled, this.heightScaled);
+          this.setDrawingStyle(this.model.currentStroke.style, this.drawingCanvasCtx);
+        }
+
+        this.setDrawingStyle(this.model.currentStroke.style, this.bufferCanvasCtx);
+        this.strokeAnimation();
+      }
+    }, {
+      key: "continueDraw",
+      value: function continueDraw(point) {
+        if (!this.isDrawing) return false;
+        this.model.continueStroke(point);
+      }
+    }, {
+      key: "endDraw",
+      value: function endDraw() {
+        if (!this.model.currentStroke) return;
+        this.isDrawing = false;
+        this.endStrokeAnimation();
+        this.bufferCanvasCtx.clearRect(0, 0, this.widthScaled, this.heightScaled);
+        this.drawFinishedStroke(this.model.currentStroke);
+        this.model.saveStroke();
+        this.onChange();
+      }
+    }, {
+      key: "drawExistingSketch",
+      value: function drawExistingSketch() {
+        var _this2 = this;
+
+        if (this.model.lastActionIndex > -1) {
+          this.model.actions.forEach(function (action) {
+            if (action.type === 'stroke') {
+              _this2.drawExistingStroke(action.object);
+            }
+          });
+        }
+      }
+    }, {
+      key: "setDrawingStyle",
+      value: function setDrawingStyle(style, ctx) {
+        var colour = "rgba(".concat(style.colour[0], ", ").concat(style.colour[1], ", ").concat(style.colour[2], ", ").concat(style.opacity, ")");
+        ctx.strokeStyle = colour;
+        ctx.fillStyle = colour;
+        ctx.lineWidth = style.size;
+        ctx.lineJoin = "round";
+        ctx.lineCap = "round";
+      }
+    }, {
+      key: "strokeAnimation",
+      value: function strokeAnimation() {
+        var _this3 = this;
+
+        this.drawAnimationStroke(this.model.currentStroke);
+        this.reqStroke = window.requestAnimationFrame(function () {
+          return _this3.strokeAnimation.apply(_this3);
+        });
+      }
+    }, {
+      key: "drawAnimationStroke",
+      value: function drawAnimationStroke(stroke) {
+        this.drawAnimation[stroke.style.key].apply(this, [stroke]);
+      }
+    }, {
+      key: "endStrokeAnimation",
+      value: function endStrokeAnimation() {
+        window.cancelAnimationFrame(this.reqStroke);
+        this.reqStroke = 0;
+      }
+    }, {
+      key: "drawUndoStroke",
+      value: function drawUndoStroke(stroke) {
+        this.setDrawingStyle(stroke.style, this.drawingCanvasCtx);
+        this.drawUndo[stroke.style.key].apply(this, [stroke]);
+      }
+    }, {
+      key: "drawFinishedStroke",
+      value: function drawFinishedStroke(stroke) {
+        if (!stroke) return;
+        this.setDrawingStyle(stroke.style, this.drawingCanvasCtx);
+        this.drawFinished[stroke.style.key].apply(this, [stroke]);
+      }
+    }, {
+      key: "drawExistingStroke",
+      value: function drawExistingStroke(stroke) {
+        this.setDrawingStyle(stroke.style, this.drawingCanvasCtx);
+        this.drawFinished[stroke.style.key].apply(this, [stroke, false]);
+      }
+    }, {
+      key: "trace",
+      value: function trace(stroke, ctx) {
+        var nbPoints = stroke.length();
+        ctx.beginPath();
+
+        if (nbPoints < 3) {
+          ctx.moveTo(stroke.points[0].s.x, stroke.points[0].s.y);
+          ctx.lineTo(stroke.points[nbPoints - 1].s.x + 0.001, stroke.points[nbPoints - 1].s.y + 0.001);
+        } else {
+          ctx.moveTo(stroke.points[0].s.x, stroke.points[0].s.y);
+          var i, len, move, ref;
+          ref = stroke.points.slice(1, +(nbPoints - 2) + 1 || 9e9);
+
+          for (i = 0, len = ref.length; i < len; i++) {
+            move = ref[i];
+            ctx.quadraticCurveTo(move.s.x, move.s.y, move.h.x, move.h.y);
+          }
+        }
+      }
+    }, {
+      key: "drawTransparentFillFinal",
+      value: function drawTransparentFillFinal(stroke) {
+        this.cacheCanvasCtx.clearRect(0, 0, this.widthScaled, this.heightScaled);
+        this.cacheCanvasCtx.globalCompositeOperation = "source-over";
+        this.setDrawingStyle(Object.assign({}, stroke.style, {
+          opacity: 1
+        }), this.cacheCanvasCtx);
+        this.trace(stroke, this.cacheCanvasCtx);
+        this.cacheCanvasCtx.closePath();
+        this.cacheCanvasCtx.stroke();
+        this.cacheCanvasCtx.fill();
+        this.drawingCanvasCtx.globalCompositeOperation = "source-over";
+        this.drawingCanvasCtx.globalAlpha = stroke.style.opacity;
+        this.drawingCanvasCtx.drawImage(this.cacheCanvasCtx.canvas, 0, 0, this.widthScaled, this.heightScaled);
+        this.drawingCanvasCtx.globalAlpha = 1.0;
+      }
+    }, {
+      key: "drawStrokeFinal",
+      value: function drawStrokeFinal(stroke) {
+        this.drawingCanvasCtx.globalCompositeOperation = "source-over";
+        this.trace(stroke, this.drawingCanvasCtx);
+        this.drawingCanvasCtx.stroke();
+      }
+    }, {
+      key: "drawFillFinal",
+      value: function drawFillFinal(stroke) {
+        this.drawingCanvasCtx.globalCompositeOperation = "source-over";
+        this.trace(stroke, this.drawingCanvasCtx);
+        this.drawingCanvasCtx.closePath();
+        this.drawingCanvasCtx.fill();
+        this.drawingCanvasCtx.stroke();
+      }
+    }, {
+      key: "drawFillAndStroke",
+      value: function drawFillAndStroke(stroke) {
+        this.bufferCanvasCtx.clearRect(0, 0, this.widthScaled, this.heightScaled);
+        this.trace(stroke, this.bufferCanvasCtx);
+        this.setDrawingStyle(Object.assign({}, stroke.style, {
+          opacity: 1
+        }), this.bufferCanvasCtx);
+        this.bufferCanvasCtx.globalAlpha = stroke.style.opacity;
+
+        if (this.model.fill) {
+          this.bufferCanvasCtx.closePath();
+          this.bufferCanvasCtx.fill();
+        }
+
+        this.bufferCanvasCtx.stroke();
+      }
+    }, {
+      key: "drawEraserUndoingFinal",
+      value: function drawEraserUndoingFinal(stroke) {
+        this.drawingCanvasCtx.globalCompositeOperation = "destination-out";
+        this.trace(stroke, this.drawingCanvasCtx);
+        this.drawingCanvasCtx.stroke();
+      }
+    }, {
+      key: "drawEraserUndoingFillFinal",
+      value: function drawEraserUndoingFillFinal(stroke) {
+        this.drawingCanvasCtx.globalCompositeOperation = "destination-out";
+        this.trace(stroke, this.drawingCanvasCtx);
+        this.drawingCanvasCtx.closePath();
+        this.drawingCanvasCtx.fill();
+        this.drawingCanvasCtx.stroke();
+      }
+    }, {
+      key: "drawEraser",
+      value: function drawEraser(stroke) {
+        var copy = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+        if (copy) {
+          this.drawingCanvasCtx.globalCompositeOperation = "copy";
+          this.drawingCanvasCtx.drawImage(this.cacheCanvasCtx.canvas, 0, 0, this.widthScaled, this.heightScaled);
+        }
+
+        this.drawingCanvasCtx.globalCompositeOperation = "destination-out";
+        this.trace(stroke, this.drawingCanvasCtx);
+        this.drawingCanvasCtx.stroke();
+      }
+    }, {
+      key: "drawEraserFillFinal",
+      value: function drawEraserFillFinal(stroke) {
+        var copy = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+        if (copy) {
+          this.drawingCanvasCtx.globalCompositeOperation = "copy";
+          this.drawingCanvasCtx.drawImage(this.cacheCanvasCtx.canvas, 0, 0, this.widthScaled, this.heightScaled);
+        }
+
+        this.drawingCanvasCtx.globalCompositeOperation = "destination-out";
+        this.trace(stroke, this.drawingCanvasCtx);
+        this.drawingCanvasCtx.closePath();
+        this.drawingCanvasCtx.fill();
+        this.drawingCanvasCtx.stroke();
+      }
+    }, {
+      key: "findBoundingBox",
+      value: function findBoundingBox(ctx) {
+        var imageData = ctx.getImageData(0, 0, this.widthScaled, this.heightScaled);
+        var box = {
+          topLeftX: this.widthScaled,
+          topLeftY: this.heightScaled,
+          bottomRightX: 0,
+          bottomRightY: 0
+        };
+
+        for (var x = 0; x < this.widthScaled; x++) {
+          for (var y = 0; y < this.heightScaled; y++) {
+            var pixelPosition = (y * this.widthScaled + x) * 4 + 3;
+
+            if (imageData.data[pixelPosition] > 0) {
+              if (x < box.topLeftX) box.topLeftX = x;
+              if (y < box.topLeftY) box.topLeftY = y;
+              if (x > box.bottomRightX) box.bottomRightX = x;
+              if (y > box.bottomRightY) box.bottomRightY = y;
+            }
+          }
+        }
+
+        box.width = box.bottomRightX - box.topLeftX;
+        box.height = box.bottomRightY - box.topLeftY;
+        return box;
+      }
+    }]);
+
+    return NZKSketch;
+  }();
+
+  return NZKSketch;
+
+})));
+}(nzkSketch));
+
+var NZKSketch = nzkSketch.exports;
+
+var BrushSize = {
+    small: 7,
+    medium: 21,
+    large: 42
+};
+var Colours = [
+    { rgb: [53, 162, 218], hex: '#35a2da' },
+    { rgb: [0, 156, 149], hex: '#009c95' },
+    { rgb: [0, 137, 54], hex: '#008936' },
+    { rgb: [147, 192, 31], hex: '#93c01f' },
+    { rgb: [201, 216, 0], hex: '#c9d800' },
+    { rgb: [255, 236, 0], hex: '#ffec00' },
+    { rgb: [255, 145, 0], hex: '#ff9100' },
+    { rgb: [255, 0, 25], hex: '#ff0019' },
+    { rgb: [255, 0, 164], hex: '#ff00a4' },
+    { rgb: [186, 13, 108], hex: '#ba0d6c' },
+    { rgb: [135, 0, 198], hex: '#8700c6' },
+    { rgb: [104, 59, 17], hex: '#683b11' },
+    { rgb: [29, 29, 27], hex: '#1d1d1b' },
+    { rgb: [134, 134, 134], hex: '#868686' },
+    { rgb: [255, 255, 255], hex: '#FFFFFF' },
+];
+var DrawingToolState = function () {
+    var sketchRef = React.useRef(null);
+    var _a = React.useState(true), autoCache = _a[0], setAutoCache = _a[1];
+    var _b = React.useState('nzk-sketch-cache'), cacheKey = _b[0], setCacheKey = _b[1];
+    var _c = React.useState(BrushSize.small), brushSize = _c[0], setBrushSize = _c[1];
+    var _d = React.useState('line'), brushType = _d[0], setBrushType = _d[1];
+    var _e = React.useState(Colours[0]), currentColour = _e[0], setCurrentColour = _e[1];
+    var _f = React.useState(1), brushOpacity = _f[0], setBruchOpacity = _f[1];
+    var setSketchRef = React.useCallback(function (node) {
+        sketchRef.current = node;
+        sketchRef.current.setBrush({
+            size: brushSize,
+            colour: currentColour.rgb,
+            opacity: brushOpacity,
+            fill: brushType === 'fill',
+            eraser: brushType === 'eraser'
+        });
+    }, []);
+    React.useEffect(function () {
+        if (sketchRef && sketchRef.current)
+            sketchRef.current.setBrush({
+                size: brushSize,
+                colour: currentColour.rgb,
+                opacity: brushOpacity,
+                fill: brushType === 'fill',
+                eraser: brushType === 'eraser'
+            });
+    }, [sketchRef.current, brushSize, currentColour, brushOpacity, brushType]);
+    var onSketchChange = function () {
+        if (!autoCache || !sketchRef.current)
+            return;
+        window.localStorage.setItem(cacheKey, JSON.stringify(sketchRef.current.serialize()));
+    };
+    var clearCache = function () {
+        window.localStorage.removeItem(cacheKey);
+    };
+    var initSketch = function (containerEl) {
+        var data;
+        if (sketchRef.current) {
+            data = sketchRef.current.serialize();
+        }
+        else {
+            var cachedRawData = window.localStorage.getItem(cacheKey);
+            if (cachedRawData) {
+                data = JSON.parse(cachedRawData);
+            }
+        }
+        setSketchRef(new NZKSketch({
+            containerEl: containerEl,
+            sketchData: data,
+            onChange: onSketchChange
+        }));
+    };
+    var exportSketch = function (options) {
+        if (options === void 0) { options = { crop: true }; }
+        if (sketchRef.current) {
+            sketchRef.current.export(options);
+        }
+    };
+    var undo = function () {
+        if (sketchRef.current)
+            sketchRef.current.undo();
+    };
+    var redo = function () {
+        if (sketchRef.current)
+            sketchRef.current.redo();
+    };
+    var restart = function () {
+        if (sketchRef.current)
+            sketchRef.current.restart();
+    };
+    return {
+        initSketch: initSketch,
+        exportSketch: exportSketch,
+        currentColour: currentColour,
+        setCurrentColour: setCurrentColour,
+        brushOpacity: brushOpacity,
+        setBruchOpacity: setBruchOpacity,
+        brushSize: brushSize,
+        setBrushSize: setBrushSize,
+        brushType: brushType,
+        setBrushType: setBrushType,
+        undo: undo,
+        redo: redo,
+        restart: restart,
+        onSketchChange: onSketchChange,
+        setCacheKey: setCacheKey,
+        setAutoCache: setAutoCache,
+        clearCache: clearCache
+    };
+};
+var DrawingToolProviderContainer = createContainer(DrawingToolState);
+var DrawingToolProvider = DrawingToolProviderContainer.Provider;
+var useDrawingTool = DrawingToolProviderContainer.useContainer;
+
+var ColourToolbar = function (props) {
+    var scrollRef = React.useRef(null);
+    var _a = React.useState(true), disableScrollUp = _a[0], setDisableScrollUp = _a[1];
+    var _b = React.useState(false), disableScrollDown = _b[0], setDisableScrollDown = _b[1];
+    var setCurrentColour = useDrawingTool().setCurrentColour;
+    var onScroll = function (e) {
+        if (props.mode === 'landscape') {
+            if (e.target.scrollTop === 0) {
+                setDisableScrollUp(true);
+            }
+            else if (disableScrollUp) {
+                setDisableScrollUp(false);
+            }
+            if ((e.target.scrollHeight - e.target.scrollTop) <= e.target.clientHeight + 3) {
+                setDisableScrollDown(true);
+            }
+            else {
+                setDisableScrollDown(false);
+            }
+        }
+        else {
+            if (e.target.scrollLeft === 0) {
+                setDisableScrollUp(true);
+            }
+            else if (disableScrollUp) {
+                setDisableScrollUp(false);
+            }
+            if ((e.target.scrollWidth - e.target.scrollLeft) <= e.target.clientWidth + 3) {
+                setDisableScrollDown(true);
+            }
+            else {
+                setDisableScrollDown(false);
+            }
+        }
+    };
+    var onClickUp = function () {
+        if (!disableScrollUp && scrollRef && scrollRef.current) {
+            if (props.mode === 'landscape') {
+                scrollRef.current.scrollTop = Math.max(0, scrollRef.current.scrollTop - props.size * 3);
+            }
+            else {
+                scrollRef.current.scrollLeft = Math.max(0, scrollRef.current.scrollLeft - props.size * 3);
+            }
+        }
+    };
+    var onClickDown = function () {
+        if (!disableScrollDown && scrollRef && scrollRef.current) {
+            if (props.mode === 'landscape') {
+                scrollRef.current.scrollTop = Math.min(scrollRef.current.scrollHeight, scrollRef.current.scrollTop + props.size * 3);
+            }
+            else {
+                scrollRef.current.scrollLeft = Math.min(scrollRef.current.scrollWidth, scrollRef.current.scrollLeft + props.size * 3);
+            }
+        }
+    };
+    return React__default['default'].createElement(Container, { mode: props.mode, size: props.size },
+        React__default['default'].createElement(Button, { disabled: disableScrollUp, round: true, height: props.size, theme: "white", onClick: onClickUp },
+            React__default['default'].createElement(Icon, { name: props.mode === 'landscape' ? 'drawing-tool-arrow-up' : 'drawing-tool-arrow-left', fill: disableScrollUp ? '#c2bebe' : props.currentColour.hex })),
+        React__default['default'].createElement(ScrollContainer, { ref: scrollRef, onScroll: onScroll, mode: props.mode, size: props.size }, Colours.map(function (c) { return (React__default['default'].createElement(Button, { key: c.hex, height: Math.floor(props.size * .9), round: true, dropShadowColor: "transparent", backgroundColor: c.hex, strokeColor: c.hex, onClick: function () { return setCurrentColour(c); } })); })),
+        React__default['default'].createElement(Button, { disabled: disableScrollDown, round: true, height: props.size, theme: "white", onClick: onClickDown },
+            React__default['default'].createElement(Icon, { name: props.mode === 'landscape' ? 'drawing-tool-arrow-down' : 'drawing-tool-arrow-right', fill: disableScrollDown ? '#c2bebe' : props.currentColour.hex })));
+};
+ColourToolbar.defaultProps = {
+    mode: 'landcape',
+    size: 80,
+    onSelectColour: function () { },
+    currentColor: Colours[0]
+};
+
+var Drawing = function (props) {
+    var containerRef = React.useRef(null);
+    var sketchOuterRef = React.useRef(null);
+    var sketchInnerRef = React.useRef(null);
+    var _a = useElementSize(containerRef), containerWidth = _a.width, containerHeight = _a.height;
+    var debouncedContainerWidth = useDebounce(containerWidth, 1000);
+    var debouncedContainerHeight = useDebounce(containerHeight, 1000);
+    var _b = React.useState('landscape'), mode = _b[0], setMode = _b[1];
+    var _c = React.useState(1280), maxContainerWidth = _c[0], setMaxContainerWidth = _c[1];
+    var _d = React.useState(960), maxContainerHeight = _d[0], setMaxContainerHeight = _d[1];
+    var _e = React.useState(50), buttonSize = _e[0], setButtonSize = _e[1];
+    var _f = React.useState(true), resizing = _f[0], setResizing = _f[1];
+    var _g = React.useState(false), showRestartConfirmModal = _g[0], setShowRestartConfirmModal = _g[1];
+    var _h = useDrawingTool(), initSketch = _h.initSketch, currentColour = _h.currentColour, brushOpacity = _h.brushOpacity, setBruchOpacity = _h.setBruchOpacity, brushSize = _h.brushSize, setBrushSize = _h.setBrushSize, brushType = _h.brushType, setBrushType = _h.setBrushType, undo = _h.undo, redo = _h.redo, restart = _h.restart, setCacheKey = _h.setCacheKey, setAutoCache = _h.setAutoCache;
+    React.useEffect(function () {
+        if (typeof props.disableAutoCache === 'boolean') {
+            setAutoCache(!props.disableAutoCache);
+        }
+        if (props.cacheKey)
+            setCacheKey(props.cacheKey);
+    }, []);
+    React.useLayoutEffect(function () {
+        if (debouncedContainerHeight !== containerHeight || debouncedContainerWidth !== containerWidth) {
+            setResizing(true);
+        }
+        else if (containerWidth > 0 && containerHeight > 0) {
+            setResizing(false);
+        }
+    }, [debouncedContainerWidth, debouncedContainerHeight, containerWidth, containerHeight]);
+    React.useLayoutEffect(function () {
+        setMaxContainerHeight(containerWidth * 1.4);
+        setMaxContainerWidth(containerHeight * 1.4);
+        if (containerWidth < containerHeight && containerWidth < 1024) {
+            setButtonSize(Math.floor(containerWidth / 11) * 0.85);
+            setMode('portrait');
+        }
+        else {
+            setButtonSize(Math.floor(containerHeight / 11) * 0.85);
+            setMode('landscape');
+        }
+    }, [containerWidth, containerHeight]);
+    React.useEffect(function () {
+        if (!resizing && sketchInnerRef.current) {
+            initSketch(sketchInnerRef.current);
+        }
+    }, [resizing, sketchInnerRef]);
+    var onClickRestart = function () {
+        setShowRestartConfirmModal(true);
+    };
+    var strokeBrushColour = getLuminance(currentColour.hex) > 0.05 ? curriedDarken(0.15, currentColour.hex) : curriedLighten(0.1, currentColour.hex);
+    var deselectedButtonColourProps = {
+        theme: 'white'
+    };
+    var selectedButtonColourProps = {
+        backgroundColor: currentColour.hex,
+        strokeColor: strokeBrushColour,
+        dropShadowColor: 'rgba(0,0,0,.3)',
+        shadowColor: 'rgba(0,0,0,.5)'
+    };
+    var eraserBrushColourProps = (brushType === 'eraser' ? selectedButtonColourProps : deselectedButtonColourProps);
+    var fillBrushColourProps = (brushType === 'fill' ? selectedButtonColourProps : deselectedButtonColourProps);
+    var lineBrushColourProps = (brushType === 'line' ? selectedButtonColourProps : deselectedButtonColourProps);
+    var smallLineColourProps = (brushSize === BrushSize.small ? selectedButtonColourProps : deselectedButtonColourProps);
+    var mediumLineColourProps = (brushSize === BrushSize.medium ? selectedButtonColourProps : deselectedButtonColourProps);
+    var largeLineColourProps = (brushSize === BrushSize.large ? selectedButtonColourProps : deselectedButtonColourProps);
+    var sketchStyles;
+    if (!resizing && sketchOuterRef && sketchOuterRef.current) {
+        sketchStyles = {
+            width: sketchOuterRef.current.offsetWidth + "px",
+            height: sketchOuterRef.current.offsetHeight + "px"
+        };
+    }
+    return React__default['default'].createElement(Container$1, { mode: mode, ref: containerRef, offsetTop: 0, maxWidth: maxContainerWidth, maxHeight: maxContainerHeight },
+        React__default['default'].createElement(LeftToolbarContainer, { mode: mode, buttonSize: buttonSize },
+            React__default['default'].createElement(ButtonGroup, { mode: mode, buttonSize: buttonSize },
+                React__default['default'].createElement(Button, { height: buttonSize, round: true, theme: 'red', onClick: onClickRestart },
+                    React__default['default'].createElement(Icon, { name: 'trash-white' }))),
+            React__default['default'].createElement(ButtonGroup, { mode: mode, buttonSize: buttonSize },
+                React__default['default'].createElement(Button, { height: buttonSize, round: true, theme: "white", onClick: undo },
+                    React__default['default'].createElement(Icon, { fill: currentColour.hex, name: 'drawing-tool-undo' })),
+                React__default['default'].createElement(Button, { height: buttonSize, round: true, theme: "white", onClick: redo },
+                    React__default['default'].createElement(Icon, { fill: currentColour.hex, name: 'drawing-tool-redo' }))),
+            !props.disableCameraUpload && React__default['default'].createElement(ButtonGroup, { mode: mode, buttonSize: buttonSize },
+                React__default['default'].createElement(Button, { height: buttonSize, round: true, theme: 'purple', onClick: function () { } },
+                    React__default['default'].createElement(Icon, { name: 'drawing-tool-camera' }))),
+            React__default['default'].createElement(ButtonGroup, { mode: mode, buttonSize: buttonSize },
+                React__default['default'].createElement(Button, __assign({ height: buttonSize, round: true }, eraserBrushColourProps, { onClick: function () { return setBrushType('eraser'); } }),
+                    React__default['default'].createElement(Icon, { fill: brushType === 'eraser' ? 'white' : currentColour.hex, name: 'drawing-tool-eraser' })),
+                React__default['default'].createElement(Button, __assign({ height: buttonSize, round: true }, fillBrushColourProps, { onClick: function () { return setBrushType('fill'); } }),
+                    React__default['default'].createElement(Icon, { fill: brushType === 'fill' ? 'white' : currentColour.hex, name: 'drawing-tool-fill-brush' })),
+                React__default['default'].createElement(Button, __assign({ height: buttonSize, round: true }, lineBrushColourProps, { onClick: function () { return setBrushType('line'); } }),
+                    React__default['default'].createElement(Icon, { fill: brushType === 'line' ? 'white' : currentColour.hex, name: 'drawing-tool-line-brush' })),
+                React__default['default'].createElement(Button, __assign({ height: buttonSize, round: true }, smallLineColourProps, { onClick: function () { return setBrushSize(BrushSize.small); } }),
+                    React__default['default'].createElement(Icon, { fill: brushSize === BrushSize.small ? 'white' : currentColour.hex, name: 'drawing-tool-small-line' })),
+                React__default['default'].createElement(Button, __assign({ height: buttonSize, round: true }, mediumLineColourProps, { onClick: function () { return setBrushSize(BrushSize.medium); } }),
+                    React__default['default'].createElement(Icon, { fill: brushSize === BrushSize.medium ? 'white' : currentColour.hex, name: 'drawing-tool-medium-line' })),
+                React__default['default'].createElement(Button, __assign({ height: buttonSize, round: true }, largeLineColourProps, { onClick: function () { return setBrushSize(BrushSize.large); } }),
+                    React__default['default'].createElement(Icon, { fill: brushSize === BrushSize.large ? 'white' : currentColour.hex, name: 'drawing-tool-large-line' })))),
+        React__default['default'].createElement(SketchContainer, { mode: mode, ref: sketchOuterRef },
+            props.showPaperBackground && React__default['default'].createElement(PaperBackground, null),
+            sketchStyles && React__default['default'].createElement("div", { style: sketchStyles, ref: sketchInnerRef })),
+        React__default['default'].createElement(RightToolbarContainer, { mode: mode, buttonSize: buttonSize },
+            React__default['default'].createElement(ColourToolbar, { mode: mode, size: buttonSize, currentColour: currentColour }),
+            React__default['default'].createElement(ColourOpacityToggle, { mode: mode, buttonSize: Math.floor(buttonSize * .8) },
+                React__default['default'].createElement(OpacityButton, { mode: mode, buttonSize: Math.floor(buttonSize * .9), onClick: function () { return setBruchOpacity(0.5); } },
+                    React__default['default'].createElement(Icon, { fill: brushOpacity === 1 ? '#7A7A79' : currentColour.hex, name: 'drawing-tool-opacity-half' })),
+                React__default['default'].createElement(OpacityButton, { mode: mode, buttonSize: Math.floor(buttonSize * .9), onClick: function () { return setBruchOpacity(1); } },
+                    React__default['default'].createElement(Icon, { fill: brushOpacity < 1 ? '#7A7A79' : currentColour.hex, name: 'drawing-tool-opacity-full' })))),
+        showRestartConfirmModal && React__default['default'].createElement(ModalOverlay, null,
+            React__default['default'].createElement(Modal, { title: "Are you sure?", actions: [
+                    React__default['default'].createElement(Button, { key: 'confirm', size: "regular", theme: "confirm", onClick: function () {
+                            restart();
+                            setShowRestartConfirmModal(false);
+                        } }, "Yes"),
+                    React__default['default'].createElement(Button, { key: 'cancel', size: "regular", theme: "red", onClick: function () {
+                            setShowRestartConfirmModal(false);
+                        } }, "No")
+                ] })));
+};
+Drawing.defaultProps = {
+    showPaperBackground: true,
+    disableCameraUpload: false,
+    disableAutoCache: false,
+    cacheKey: 'nzk-sketch-cache'
+};
+
 exports.Avatar = Avatar;
 exports.Button = Button;
+exports.DrawingTool = Drawing;
+exports.DrawingToolProvider = DrawingToolProvider;
 exports.Icon = Icon;
 exports.IconButton = IconButton;
 exports.Modal = Modal;
