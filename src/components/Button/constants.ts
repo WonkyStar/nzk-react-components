@@ -53,6 +53,12 @@ export const THEMES: { [key: string]: Theme } = {
     backgroundColor: '#FEC532',
     strokeColor: '#FEE13A',
     shadowColor: '#C59928'
+  },
+  'white': {
+    color: '',
+    backgroundColor: '#EEEEEE',
+    strokeColor: '#D9D9D9',
+    shadowColor: '#8E9197'
   }
 }
 

@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   background-color: #341644;
   border-radius: 45px;
   padding-bottom: 15px;
-  padding: 20px 20px;
+  padding: 20px 40px;
   max-width: 760px;
   box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);
   box-sizing: border-box;
@@ -19,7 +19,7 @@ export const Title = styled.div`
   color: #fff;
   font-family: 'Rammetto One';
   text-align: center;
-  font-size: 24px;
+  font-size: 26px;
   margin-bottom: 10px;
 `
 
@@ -27,6 +27,7 @@ export const Content = styled.div`
   background-color: #ffffff0a;
   flex: 1;
   border-radius: 20px;
+  font-size: 18px;
   height: 100%;
   padding: 20px 15px;
   ${(props: { hasError: boolean }) => props.hasError && css`

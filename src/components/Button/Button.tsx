@@ -20,7 +20,7 @@ export interface BaseProps {
 // @ts-ignore
 export interface ButtonProps extends BaseProps {
   size?: 'x-small' | 'small' | 'regular' | 'large' | 'x-large' | 'xx-large';
-  theme?: 'confirm' | 'primary' | 'the-pink' | 'purple' | 'red' | 'orange' | 'green' | 'yellow';
+  theme?: 'confirm' | 'primary' | 'the-pink' | 'purple' | 'red' | 'orange' | 'green' | 'yellow' | 'white';
   height?: number;
   backgroundColor?: string;
   children?: any;

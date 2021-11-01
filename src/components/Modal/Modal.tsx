@@ -1,9 +1,10 @@
 import React, { ReactElement, useMemo } from 'react'
 import Button from '../Button/Button'
+import Icon from '../Icon/Icon'
 import * as s from './Modal.styles'
 
 export interface ModalProps {
-  children: ReactElement | string,
+  children?: ReactElement | string,
   title?: string,
   message?: string,
   errorMessage?: string,
@@ -31,13 +32,13 @@ const Modal = (props: ModalProps) => {
   return <s.Wrapper>
     { props.dismiss && <s.QuitButton onClick={props.dismiss}>
       <Button round theme='red' size='regular'>
-        X
+        <Icon name='close' />
       </Button>
     </s.QuitButton> }
     <s.Title>{title}</s.Title>
-    <s.Content hasError={Boolean(props.errorMessage && true)}>
+    { content && <s.Content hasError={Boolean(props.errorMessage && true)}>
       { content }
-    </s.Content>
+    </s.Content> }
     <s.Actions>
       {
         Array.isArray(actions) && actions.map(action => action)

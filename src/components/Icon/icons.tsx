@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { ReactComponent as AboutUs } from '../../assets/icons/about-us.svg'
 import { ReactComponent as Activities } from '../../assets/icons/activities.svg'
 import { ReactComponent as Archive } from '../../assets/icons/archive.svg'
@@ -100,8 +100,25 @@ import { ReactComponent as WritingTypePoem } from '../../assets/icons/writing-ty
 import { ReactComponent as WritingTypeReport } from '../../assets/icons/writing-type-report.svg'
 import { ReactComponent as Writing } from '../../assets/icons/writing.svg'
 import { ReactComponent as ZooPoint } from '../../assets/icons/zoo-point.svg'
+import { ReactComponent as DrawingToolCamera } from '../../assets/icons/drawing-tool-camera.svg'
+import { ReactComponent as DrawingToolUndo } from '../../assets/icons/drawing-tool-undo.svg'
+import { ReactComponent as DrawingToolRedo } from '../../assets/icons/drawing-tool-redo.svg'
+import { ReactComponent as DrawingToolEraser } from '../../assets/icons/drawing-tool-eraser.svg'
+import { ReactComponent as DrawingToolFillBrush } from '../../assets/icons/drawing-tool-fill-brush.svg'
+import { ReactComponent as DrawingToolLineBrush } from '../../assets/icons/drawing-tool-line-brush.svg'
+import { ReactComponent as DrawingToolSmallLine } from '../../assets/icons/drawing-tool-small-line.svg'
+import { ReactComponent as DrawingToolMediumLine } from '../../assets/icons/drawing-tool-medium-line.svg'
+import { ReactComponent as DrawingToolLargeLine } from '../../assets/icons/drawing-tool-large-line.svg'
+import { ReactComponent as DrawingToolOpacityHalf } from '../../assets/icons/drawing-tool-opacity-half.svg'
+import { ReactComponent as DrawingToolOpacityFull } from '../../assets/icons/drawing-tool-opacity-full.svg'
+import { ReactComponent as DrawingToolArrowUp } from '../../assets/icons/drawing-tool-arrow-up.svg'
+import { ReactComponent as DrawingToolArrowDown } from '../../assets/icons/drawing-tool-arrow-down.svg'
+import { ReactComponent as DrawingToolArrowLeft } from '../../assets/icons/drawing-tool-arrow-left.svg'
+import { ReactComponent as DrawingToolArrowRight } from '../../assets/icons/drawing-tool-arrow-right.svg'
 
-export const ICONS: { [name: string]: ReactElement } = {
+import { IconProps } from './Icon'
+
+export const ICONS = {
   'activities': <Activities />,
   'archive': <Archive />,
   'arrow-left': <ArrowLeft />,
@@ -203,6 +220,21 @@ export const ICONS: { [name: string]: ReactElement } = {
   'users': <Users />,
   'video': <Video />,
   'whatsapp': <Whatsapp />,
+  'drawing-tool-undo': <DrawingToolUndo />,
+  'drawing-tool-redo': <DrawingToolRedo />,
+  'drawing-tool-camera': <DrawingToolCamera />,
+  'drawing-tool-eraser': <DrawingToolEraser />,
+  'drawing-tool-fill-brush': <DrawingToolFillBrush />,
+  'drawing-tool-line-brush': <DrawingToolLineBrush />,
+  'drawing-tool-small-line': <DrawingToolSmallLine />,
+  'drawing-tool-medium-line': <DrawingToolMediumLine />,
+  'drawing-tool-large-line': <DrawingToolLargeLine />,
+  'drawing-tool-opacity-half': <DrawingToolOpacityHalf />,
+  'drawing-tool-opacity-full': <DrawingToolOpacityFull />,
+  'drawing-tool-arrow-up': <DrawingToolArrowUp  />,
+  'drawing-tool-arrow-down': <DrawingToolArrowDown  />,
+  'drawing-tool-arrow-left': <DrawingToolArrowLeft  />,
+  'drawing-tool-arrow-right': <DrawingToolArrowRight  />
 }
 
 export default ICONS
