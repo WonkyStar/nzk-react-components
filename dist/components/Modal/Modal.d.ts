@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 export interface ModalProps {
-    children: ReactElement | string;
+    children?: ReactElement | string;
     title?: string;
     message?: string;
     errorMessage?: string;
