@@ -97,8 +97,9 @@ const DrawingToolState = () => {
 
   const exportSketch = (options = { crop: true }) => {
     if (sketchRef.current) {
-      sketchRef.current.export(options)
-    }
+      return sketchRef.current.export(options)
+    } 
+    return ''
   }
 
   const undo = () => {
