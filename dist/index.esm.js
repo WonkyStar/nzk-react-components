@@ -11314,5 +11314,5 @@ Drawing.defaultProps = {
     cacheKey: 'nzk-sketch-cache'
 };
 
-export { Avatar, Button, Drawing as DrawingTool, DrawingToolProvider, Icon, IconButton, Modal, ModalProvider, useAsync, useConfettis, useModalState, useMountState };
+export { Avatar, Button, Drawing as DrawingTool, DrawingToolProvider, Icon, IconButton, Modal, ModalProvider, useAsync, useConfettis, useDrawingTool, useModalState, useMountState };
 //# sourceMappingURL=index.esm.js.map

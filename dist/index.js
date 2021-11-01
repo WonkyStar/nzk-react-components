@@ -11352,6 +11352,7 @@ exports.Modal = Modal;
 exports.ModalProvider = ModalProvider;
 exports.useAsync = useAsync;
 exports.useConfettis = useConfettis;
+exports.useDrawingTool = useDrawingTool;
 exports.useModalState = useModalState;
 exports.useMountState = useMountState;
 //# sourceMappingURL=index.js.map
