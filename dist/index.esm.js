@@ -11080,8 +11080,9 @@ var DrawingToolState = function () {
     var exportSketch = function (options) {
         if (options === void 0) { options = { crop: true }; }
         if (sketchRef.current) {
-            sketchRef.current.export(options);
+            return sketchRef.current.export(options);
         }
+        return '';
     };
     var undo = function () {
         if (sketchRef.current)
