@@ -161,7 +161,7 @@ export default class Sketch {
 
   mergeImage(data: SketchActionMergeData, saveAction = true) {
     // @ts-ignore
-    this.drawingLayer.ctx?.drawImage(data.image, data.x, data.y)
+    this.drawingLayer.ctx.drawImage(data.image, data.x, data.y)
     if (saveAction) {
       this.model.saveMergeImage(data)
     }
@@ -379,111 +379,91 @@ export default class Sketch {
   }
 
 	drawFinishedStroke(stroke) {
-    if (stroke && this.drawingLayer.ctx) {
-      setDrawingStyle(stroke.style, this.drawingLayer.ctx)
-      this.drawFinished[stroke.style.type].apply(this, [stroke])
-    }
+    setDrawingStyle(stroke.style, this.drawingLayer.ctx)
+    this.drawFinished[stroke.style.type].apply(this, [stroke])
   }
 
 	drawExistingStroke (stroke) {
-    if (stroke && this.drawingLayer.ctx) {
-      setDrawingStyle(stroke.style, this.drawingLayer.ctx)
-      this.drawFinished[stroke.style.type].apply(this, [stroke, false])
-    }
+    setDrawingStyle(stroke.style, this.drawingLayer.ctx)
+    this.drawFinished[stroke.style.type].apply(this, [stroke, false])
   }
 
   drawTransparentFillFinal(stroke) {
-    if (stroke && this.drawingLayer.ctx && this.cacheLayer.ctx) {
-      this.cacheLayer.clear()
-      this.cacheLayer.ctx.globalCompositeOperation = "source-over"
-      setDrawingStyle({ ...stroke.style, opacity: 1 }, this.cacheLayer.ctx)
-      trace(stroke, this.cacheLayer.ctx)
-      this.cacheLayer.ctx.closePath()
-      this.cacheLayer.ctx.stroke()
-      this.cacheLayer.ctx.fill()
+    this.cacheLayer.clear()
+    this.cacheLayer.ctx.globalCompositeOperation = "source-over"
+    setDrawingStyle({ ...stroke.style, opacity: 1 }, this.cacheLayer.ctx)
+    trace(stroke, this.cacheLayer.ctx)
+    this.cacheLayer.ctx.closePath()
+    this.cacheLayer.ctx.stroke()
+    this.cacheLayer.ctx.fill()
 
-      this.drawingLayer.ctx.globalCompositeOperation = "source-over"
-      this.drawingLayer.ctx.globalAlpha = stroke.style.opacity
-      this.drawingLayer.ctx.drawImage(this.cacheLayer.ctx.canvas, 0, 0, this.width, this.height)
-      this.drawingLayer.ctx.globalAlpha = 1.0
-    }
+    this.drawingLayer.ctx.globalCompositeOperation = "source-over"
+    this.drawingLayer.ctx.globalAlpha = stroke.style.opacity
+    this.drawingLayer.ctx.drawImage(this.cacheLayer.ctx.canvas, 0, 0, this.width, this.height)
+    this.drawingLayer.ctx.globalAlpha = 1.0
   }
 
   drawStrokeFinal(stroke) {
-    if (stroke && this.drawingLayer.ctx) {
-      this.drawingLayer.ctx.globalCompositeOperation = "source-over"
-      trace(stroke, this.drawingLayer.ctx)
-      this.drawingLayer.ctx.stroke()
-    }
+    this.drawingLayer.ctx.globalCompositeOperation = "source-over"
+    trace(stroke, this.drawingLayer.ctx)
+    this.drawingLayer.ctx.stroke()
   }
 
   drawFillFinal(stroke) {
-    if (stroke && this.drawingLayer.ctx) {
-      this.drawingLayer.ctx.globalCompositeOperation = "source-over"
-      trace(stroke, this.drawingLayer.ctx)
-      this.drawingLayer.ctx.closePath()
-      this.drawingLayer.ctx.fill()
-      this.drawingLayer.ctx.stroke()
-    }
+    this.drawingLayer.ctx.globalCompositeOperation = "source-over"
+    trace(stroke, this.drawingLayer.ctx)
+    this.drawingLayer.ctx.closePath()
+    this.drawingLayer.ctx.fill()
+    this.drawingLayer.ctx.stroke()
   }
 
 	drawFillAndStroke(stroke) {
-    if (stroke && this.bufferLayer.ctx) {
-      this.bufferLayer.clear()
-      trace(stroke, this.bufferLayer.ctx)
-      setDrawingStyle({ ...stroke.style, opacity: 1 }, this.bufferLayer.ctx)
-      this.bufferLayer.ctx.globalAlpha = stroke.style.opacity
-      if(this.model.fill) {
-        this.bufferLayer.ctx.closePath()
-        this.bufferLayer.ctx.fill()
-      }
-      this.bufferLayer.ctx.stroke()
+    this.bufferLayer.clear()
+    trace(stroke, this.bufferLayer.ctx)
+    setDrawingStyle({ ...stroke.style, opacity: 1 }, this.bufferLayer.ctx)
+    this.bufferLayer.ctx.globalAlpha = stroke.style.opacity
+    if(this.model.fill) {
+      this.bufferLayer.ctx.closePath()
+      this.bufferLayer.ctx.fill()
     }
+    this.bufferLayer.ctx.stroke()
   }
 
 	drawEraserUndoingFinal(stroke) {
-    if (stroke && this.drawingLayer.ctx) {
-      this.drawingLayer.ctx.globalCompositeOperation = "destination-out"
-      trace(stroke, this.drawingLayer.ctx)
-      this.drawingLayer.ctx.stroke()
-    }
+    this.drawingLayer.ctx.globalCompositeOperation = "destination-out"
+    trace(stroke, this.drawingLayer.ctx)
+    this.drawingLayer.ctx.stroke()
   }
 
 	drawEraserUndoingFillFinal(stroke) {
-    if (stroke && this.drawingLayer.ctx) {
-      this.drawingLayer.ctx.globalCompositeOperation = "destination-out"
-      trace(stroke, this.drawingLayer.ctx)
-      this.drawingLayer.ctx.closePath()
-      this.drawingLayer.ctx.fill()
-      this.drawingLayer.ctx.stroke()
-    }
+    this.drawingLayer.ctx.globalCompositeOperation = "destination-out"
+    trace(stroke, this.drawingLayer.ctx)
+    this.drawingLayer.ctx.closePath()
+    this.drawingLayer.ctx.fill()
+    this.drawingLayer.ctx.stroke()
   }
 
 	drawEraser(stroke, copy = true) {
-		if (stroke && this.drawingLayer.ctx && this.cacheLayer.ctx) {
-      if (copy) {
-        this.drawingLayer.ctx.globalCompositeOperation = "copy"
-        this.drawingLayer.ctx.drawImage(this.cacheLayer.ctx.canvas, 0, 0, this.width, this.height)
-      }
-      this.drawingLayer.ctx.globalCompositeOperation = "destination-out"
-      trace(stroke, this.drawingLayer.ctx)
-      this.drawingLayer.ctx.stroke()
+    if (copy) {
+      this.drawingLayer.ctx.globalCompositeOperation = "copy"
+      this.drawingLayer.ctx.drawImage(this.cacheLayer.ctx.canvas, 0, 0, this.width, this.height)
     }
+    this.drawingLayer.ctx.globalCompositeOperation = "destination-out"
+    trace(stroke, this.drawingLayer.ctx)
+    this.drawingLayer.ctx.stroke()
   }
 
 	drawEraserFillFinal(stroke, copy = true){
-    if (stroke && this.drawingLayer.ctx && this.cacheLayer.ctx) {
-      if(copy) {
-        this.drawingLayer.ctx.globalCompositeOperation = "copy"
-        this.drawingLayer.ctx.drawImage(this.cacheLayer.ctx.canvas, 0, 0, this.width, this.height)
-      }
-
-      this.drawingLayer.ctx.globalCompositeOperation = "destination-out"
-      trace(stroke, this.drawingLayer.ctx)
-      this.drawingLayer.ctx.closePath()
-      this.drawingLayer.ctx.fill()
-      this.drawingLayer.ctx.stroke()
+    if(copy) {
+      this.drawingLayer.ctx.globalCompositeOperation = "copy"
+      this.drawingLayer.ctx.drawImage(this.cacheLayer.ctx.canvas, 0, 0, this.width, this.height)
     }
+
+    this.drawingLayer.ctx.globalCompositeOperation = "destination-out"
+    trace(stroke, this.drawingLayer.ctx)
+    this.drawingLayer.ctx.closePath()
+    this.drawingLayer.ctx.fill()
+    this.drawingLayer.ctx.stroke()
   }
 
   findBoundingBox(ctx) {

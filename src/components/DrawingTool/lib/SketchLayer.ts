@@ -25,7 +25,7 @@ export default class SketchLayer {
 
   readonly canvas: HTMLCanvasElement
   
-  readonly ctx: null | CanvasRenderingContext2D
+  readonly ctx: CanvasRenderingContext2D
 
   constructor (props: Props) {
     this.pixelRatioScale = props.pixelRatioScale || window.devicePixelRatio >= 1.5 ? 2 : 1
@@ -36,7 +36,7 @@ export default class SketchLayer {
     this.height = this.naturalHeight * this.pixelRatioScale
 
     this.canvas = document.createElement('canvas')
-    this.ctx = this.canvas.getContext('2d')
+    this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
 
     this.canvas.style.position = 'absolute'
     this.canvas.style.pointerEvents = 'none'
@@ -70,20 +70,20 @@ export default class SketchLayer {
   }
 
   clear () {
-    this.ctx?.clearRect(0, 0, this.width, this.height)
+    this.ctx.clearRect(0, 0, this.width, this.height)
   }
 
   drawImageToFit (image) {
     const scale = Math.min(this.width / image.width, this.height / image.height)
     const x = (this.width / 2) - (image.width / 2) * scale
     const y = (this.height / 2) - (image.height / 2) * scale
-    this.ctx?.drawImage(image, 0, 0, image.width, image.height, x, y, image.width * scale, image.height * scale)
+    this.ctx.drawImage(image, 0, 0, image.width, image.height, x, y, image.width * scale, image.height * scale)
   }
 
   drawImageToFill (image) {
     const scale = Math.max(this.width / image.width, this.height / image.height)
     const x = (this.width / 2) - (image.width / 2) * scale
     const y = (this.height / 2) - (image.height / 2) * scale
-    this.ctx?.drawImage(image, 0, 0, image.width, image.height, x, y, image.width * scale, image.height * scale)
+    this.ctx.drawImage(image, 0, 0, image.width, image.height, x, y, image.width * scale, image.height * scale)
   }
 }
