@@ -98,8 +98,6 @@ function __makeTemplateObject(cooked, raw) {
     return cooked;
 }
 
-var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
 var reactIs$1 = {exports: {}};
 
 var reactIs_production_min = {};
@@ -10156,879 +10154,691 @@ var Container = styled.div(templateObject_1 || (templateObject_1 = __makeTemplat
 var ScrollContainer = styled.div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  height: ", ";\n  background-color: rgba(255, 255, 255, .5);\n  border-radius: ", "px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  padding-left: ", ";\n  padding-right: ", ";\n  margin-bottom: ", ";\n  margin-left: ", ";\n  margin-right: ", ";\n  position: relative;\n  flex: 1 1 auto;\n  display: flex;\n  flex-wrap: ", ";\n  justify-content: ", ";;\n  align-items: center;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n  overflow: scroll;\n  scroll-behavior: smooth;\n  &::-webkit-scrollbar {\n    display: none;\n  }\n  > div {\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"], ["\n  height: ", ";\n  background-color: rgba(255, 255, 255, .5);\n  border-radius: ", "px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  padding-left: ", ";\n  padding-right: ", ";\n  margin-bottom: ", ";\n  margin-left: ", ";\n  margin-right: ", ";\n  position: relative;\n  flex: 1 1 auto;\n  display: flex;\n  flex-wrap: ", ";\n  justify-content: ", ";;\n  align-items: center;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n  overflow: scroll;\n  scroll-behavior: smooth;\n  &::-webkit-scrollbar {\n    display: none;\n  }\n  > div {\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"])), function (props) { return "calc(100% - " + 3.5 * props.size + "px)"; }, function (props) { return props.size; }, function (props) { return props.mode === 'portrait' ? '8px' : 0; }, function (props) { return props.mode === 'portrait' ? '8px' : 0; }, function (props) { return props.mode === 'portrait' ? '0px' : '7px'; }, function (props) { return props.mode === 'portrait' ? '7px' : '0px'; }, function (props) { return props.mode === 'portrait' ? '7px' : '0px'; }, function (props) { return props.mode === 'landscape' ? 'wrap' : 'no-wrap'; }, function (props) { return props.mode === 'landscape' ? 'center' : 'flex-start'; }, function (props) { return props.mode === 'landscape' ? Math.floor(props.size / 5) + "px" : 0; }, function (props) { return props.mode === 'portrait' ? Math.floor(props.size / 5) + "px" : 0; });
 var templateObject_1, templateObject_2;
 
-var nzkSketch = {exports: {}};
-
-(function (module, exports) {
-(function (global, factory) {
-  module.exports = factory() ;
-}(commonjsGlobal, (function () {
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
+var SketchLayer = (function () {
+    function SketchLayer(props) {
+        this.x = 0;
+        this.y = 0;
+        this.pixelRatioScale = 1;
+        this.pixelRatioScale = props.pixelRatioScale || window.devicePixelRatio >= 1.5 ? 2 : 1;
+        this.naturalWidth = props.width;
+        this.naturalHeight = props.height;
+        this.width = this.naturalWidth * this.pixelRatioScale;
+        this.height = this.naturalHeight * this.pixelRatioScale;
+        this.canvas = document.createElement('canvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.canvas.style.position = 'absolute';
+        this.canvas.style.pointerEvents = 'none';
+        this.setSize(this.naturalWidth, this.naturalHeight, this.width, this.height);
+        if (props.x)
+            this.x = props.x;
+        if (props.y)
+            this.y = props.y;
+        this.setPosition(this.x, this.y);
     }
-  }
+    SketchLayer.prototype.setSize = function (naturalWidth, naturalHeight, width, height) {
+        this.canvas.style.width = naturalWidth + "px";
+        this.canvas.style.height = naturalHeight + "px";
+        this.canvas.width = width;
+        this.canvas.height = height;
+    };
+    SketchLayer.prototype.setPosition = function (x, y) {
+        this.canvas.style.left = x + "px";
+        this.canvas.style.top = y + "px";
+    };
+    SketchLayer.prototype.hide = function () {
+        this.canvas.style.display = 'none';
+    };
+    SketchLayer.prototype.show = function () {
+        this.canvas.style.display = 'block';
+    };
+    SketchLayer.prototype.clear = function () {
+        var _a;
+        (_a = this.ctx) === null || _a === void 0 ? void 0 : _a.clearRect(0, 0, this.width, this.height);
+    };
+    SketchLayer.prototype.drawImageToFit = function (image) {
+        var _a;
+        var scale = Math.min(this.width / image.width, this.height / image.height);
+        var x = (this.width / 2) - (image.width / 2) * scale;
+        var y = (this.height / 2) - (image.height / 2) * scale;
+        (_a = this.ctx) === null || _a === void 0 ? void 0 : _a.drawImage(image, 0, 0, image.width, image.height, x, y, image.width * scale, image.height * scale);
+    };
+    SketchLayer.prototype.drawImageToFill = function (image) {
+        var _a;
+        var scale = Math.max(this.width / image.width, this.height / image.height);
+        var x = (this.width / 2) - (image.width / 2) * scale;
+        var y = (this.height / 2) - (image.height / 2) * scale;
+        (_a = this.ctx) === null || _a === void 0 ? void 0 : _a.drawImage(image, 0, 0, image.width, image.height, x, y, image.width * scale, image.height * scale);
+    };
+    return SketchLayer;
+}());
 
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
+var createInteractionSurface = (function (props) {
+    var scale = props.devicePixelRatio || window.devicePixelRatio >= 1.5 ? 2 : 1;
+    var el = document.createElement('div');
+    el.style.width = props.width + "px";
+    el.style.height = props.height + "px";
+    el.style.position = 'absolute';
+    el.style.left = '0px';
+    el.style.top = '0px';
+    var getMousePoint = function (ev) {
+        var rect = el.getBoundingClientRect();
+        return {
+            x: (ev.clientX - rect.left) * scale,
+            y: (ev.clientY - rect.top) * scale
+        };
+    };
+    var getTouchPoint = function (ev) {
+        var rect = el.getBoundingClientRect();
+        return {
+            x: (ev.touches[0].clientX - rect.left) * scale,
+            y: (ev.touches[0].clientY - rect.top) * scale
+        };
+    };
+    var wrapMouseEvent = function (ev, handler) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        handler(getMousePoint(ev));
+    };
+    var wrapTouchEvent = function (ev, handler) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        handler(getTouchPoint(ev));
+    };
+    el.addEventListener("mousedown", function (ev) { return wrapMouseEvent(ev, props.onTouchStart); });
+    el.addEventListener("mousemove", function (ev) { return wrapMouseEvent(ev, props.onTouchMove); });
+    el.addEventListener("mouseup", function (ev) { return wrapMouseEvent(ev, props.onTouchEnd); });
+    el.addEventListener("mouseleave", function (ev) { return wrapMouseEvent(ev, props.onTouchLeave); });
+    el.addEventListener("mouseenter", function (ev) {
+        if (ev.buttons > 0) {
+            wrapMouseEvent(ev, props.onTouchStart);
+        }
+    });
+    el.addEventListener("touchstart", function (ev) { return wrapTouchEvent(ev, props.onTouchStart); });
+    el.addEventListener("touchmove", function (ev) { return wrapTouchEvent(ev, props.onTouchMove); });
+    el.addEventListener("touchend", function (ev) { return wrapTouchEvent(ev, props.onTouchEnd); });
+    el.addEventListener("touchcancel", function (ev) { return wrapTouchEvent(ev, props.onTouchEnd); });
+    return el;
+});
+
+var SketchStrokeModel = (function () {
+    function SketchStrokeModel(style, firstPoint) {
+        if (style) {
+            this.style = style;
+        }
+        this.points = [];
+        if (firstPoint) {
+            this.points.push({
+                s: firstPoint,
+                h: null
+            });
+        }
     }
-  }
-
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    return Constructor;
-  }
-
-  var NzkSketchStrokeModel =
-  /*#__PURE__*/
-  function () {
-    function NzkSketchStrokeModel(style, firstPoint) {
-      _classCallCheck(this, NzkSketchStrokeModel);
-
-      this.style = style;
-      this.points = [];
-
-      if (firstPoint) {
-        this.points.push({
-          s: firstPoint,
-          h: null
-        });
-      }
-    }
-
-    _createClass(NzkSketchStrokeModel, [{
-      key: "length",
-      value: function length() {
+    SketchStrokeModel.prototype.length = function () {
         return this.points.length;
-      }
-    }, {
-      key: "lastPoint",
-      value: function lastPoint() {
+    };
+    SketchStrokeModel.prototype.lastPoint = function () {
         return this.points[this.points.length - 1].s;
-      }
-    }, {
-      key: "addPoint",
-      value: function addPoint(newPoint) {
+    };
+    SketchStrokeModel.prototype.addPoint = function (newPoint) {
         this.points[this.points.length - 1].h = {
-          x: (this.points[this.points.length - 1].s.x + newPoint.x) / 2,
-          y: (this.points[this.points.length - 1].s.y + newPoint.y) / 2
+            x: (this.points[this.points.length - 1].s.x + newPoint.x) / 2,
+            y: (this.points[this.points.length - 1].s.y + newPoint.y) / 2
         };
         return this.points.push({
-          s: newPoint,
-          h: null
+            s: newPoint,
+            h: null
         });
-      }
-    }, {
-      key: "serialize",
-      value: function serialize() {
+    };
+    SketchStrokeModel.prototype.serialize = function () {
         return {
-          points: this.points,
-          style: this.style
+            points: this.points,
+            style: this.style
         };
-      }
-    }, {
-      key: "deserialize",
-      value: function deserialize(serialized) {
+    };
+    SketchStrokeModel.prototype.deserialize = function (serialized) {
+        if (!serialized)
+            return;
         this.style = serialized.style;
         this.points = serialized.points || [];
-      }
-    }]);
+    };
+    return SketchStrokeModel;
+}());
 
-    return NzkSketchStrokeModel;
-  }();
-
-  var NzkSketchModel =
-  /*#__PURE__*/
-  function () {
-    function NzkSketchModel() {
-      _classCallCheck(this, NzkSketchModel);
-
-      this.colour = [0, 0, 0];
-      this.eraser = false;
-      this.fill = false;
-      this.opacity = 1.0;
-      this.size = 15;
-      this.scale = window.devicePixelRatio >= 1.5 ? 2 : 1;
-      this.actions = [];
-      this.lastActionIndex = -1;
-      this.currentStroke = null;
-    }
-
-    _createClass(NzkSketchModel, [{
-      key: "sizeScaled",
-      value: function sizeScaled() {
-        return this.size * this.scale;
-      }
-    }, {
-      key: "generateStyleKey",
-      value: function generateStyleKey() {
-        return "".concat(this.eraser || this.opacity === 1.0 ? 'opaque' : 'transparent').concat(this.eraser ? 'Eraser' : 'Colour').concat(this.fill ? 'Fill' : 'Stroke');
-      }
-    }, {
-      key: "getStyle",
-      value: function getStyle() {
-        return {
-          opacity: this.opacity,
-          colour: this.colour,
-          eraser: this.eraser,
-          size: this.sizeScaled(),
-          key: this.generateStyleKey()
-        };
-      }
-    }, {
-      key: "initStroke",
-      value: function initStroke(newPoint) {
-        if (this.canRedo()) {
-          if (this.lastActionIndex === -1) {
-            this.actions = [];
-          } else {
-            this.actions = this.actions.slice(0, this.lastActionIndex + 1);
-          }
-        }
-
-        this.currentStroke = new NzkSketchStrokeModel(this.getStyle(), newPoint);
-      }
-    }, {
-      key: "continueStroke",
-      value: function continueStroke(newPoint) {
-        this.currentStroke.addPoint(newPoint);
-      }
-    }, {
-      key: "saveStroke",
-      value: function saveStroke() {
-        this.actions.push({
-          type: 'stroke',
-          object: this.currentStroke
-        });
-        this.currentStroke = null;
-        this.lastActionIndex++;
-      }
-    }, {
-      key: "canUndo",
-      value: function canUndo() {
-        return this.lastActionIndex > -1;
-      }
-    }, {
-      key: "canRedo",
-      value: function canRedo() {
-        return this.lastActionIndex < this.actions.length - 1;
-      }
-    }, {
-      key: "reset",
-      value: function reset() {
+var SketchModel = (function () {
+    function SketchModel(props) {
+        this.colour = [0, 0, 0];
+        this.eraser = false;
+        this.fill = false;
+        this.opacity = 1.0;
+        this.size = 7;
+        this.pixelRatioScale = 1;
         this.actions = [];
         this.lastActionIndex = -1;
-        return this.currentStroke = null;
-      }
-    }, {
-      key: "serialize",
-      value: function serialize() {
-        var serialized = {
-          colour: this.colour,
-          opacity: this.opacity,
-          size: this.size,
-          scale: this.scale,
-          lastActionIndex: this.lastActionIndex
+        this.currentStroke = null;
+        this.pixelRatioScale = props.pixelRatioScale;
+    }
+    SketchModel.prototype.generateStyleType = function () {
+        return "" + (this.eraser || this.opacity === 1.0 ? 'opaque' : 'transparent') + (this.eraser ? 'Eraser' : 'Colour') + (this.fill ? 'Fill' : 'Stroke');
+    };
+    SketchModel.prototype.getStyle = function () {
+        return {
+            opacity: this.opacity,
+            colour: this.colour,
+            eraser: this.eraser,
+            size: this.size * this.pixelRatioScale,
+            type: this.generateStyleType()
         };
-        serialized.actions = [];
-        this.actions.forEach(function (action) {
-          serialized.actions.push({
-            type: action.type,
-            object: action.object.serialize()
-          });
-        });
-
+    };
+    SketchModel.prototype.initStroke = function (newPoint) {
+        if (this.canRedo()) {
+            if (this.lastActionIndex === -1) {
+                this.actions = [];
+            }
+            else {
+                this.actions = this.actions.slice(0, this.lastActionIndex + 1);
+            }
+        }
+        this.currentStroke = new SketchStrokeModel(this.getStyle(), newPoint);
+    };
+    SketchModel.prototype.continueStroke = function (newPoint) {
         if (this.currentStroke) {
-          serialized.currentStroke = this.currentStroke.serialize();
+            this.currentStroke.addPoint(newPoint);
         }
-
-        return serialized;
-      }
-    }, {
-      key: "deserialize",
-      value: function deserialize() {
-        var _this = this;
-
-        var serialized = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-        if (serialized.colour !== undefined) {
-          this.colour = serialized.colour;
+    };
+    SketchModel.prototype.saveStroke = function () {
+        if (this.currentStroke) {
+            this.actions.push({
+                type: 'STROKE',
+                model: this.currentStroke
+            });
+            this.currentStroke = null;
+            this.lastActionIndex += 1;
         }
-
-        if (serialized.opacity !== undefined) {
-          this.opacity = serialized.opacity;
+    };
+    SketchModel.prototype.saveMergeImage = function (mergeParams) {
+        this.actions.push({
+            type: 'IMAGE_MERGE',
+            data: mergeParams
+        });
+    };
+    SketchModel.prototype.canUndo = function () {
+        return this.lastActionIndex > -1;
+    };
+    SketchModel.prototype.canRedo = function () {
+        return this.lastActionIndex < this.actions.length - 1;
+    };
+    SketchModel.prototype.reset = function () {
+        this.actions = [];
+        this.lastActionIndex = -1;
+        if (this.currentStroke) {
+            this.currentStroke = null;
         }
-
-        if (serialized.size !== undefined) {
-          this.size = serialized.size;
-        }
-
-        if (serialized.scale !== undefined) {
-          this.scale = serialized.scale;
-        }
-
-        if (serialized.lastActionIndex !== undefined) {
-          this.lastActionIndex = serialized.lastActionIndex;
-        }
-
-        if (serialized.actions) {
-          this.actions = [];
-          serialized.actions.forEach(function (action) {
-            if (action.type === 'stroke') {
-              var stroke = new NzkSketchStrokeModel();
-              stroke.deserialize(action.object);
-
-              _this.actions.push({
+    };
+    SketchModel.prototype.serialize = function () {
+        var serialized = {
+            colour: this.colour,
+            opacity: this.opacity,
+            size: this.size,
+            lastActionIndex: this.lastActionIndex,
+            actions: [],
+            currentStroke: null
+        };
+        this.actions.forEach(function (action) {
+            var serializedObject;
+            if (action.type === 'STROKE' && action.model) {
+                serializedObject = action.model.serialize();
+            }
+            serialized.actions.push({
                 type: action.type,
-                object: stroke
-              });
-            }
-          });
+                data: serializedObject
+            });
+        });
+        if (this.currentStroke) {
+            serialized.currentStroke = this.currentStroke.serialize();
         }
-
-        if (serialized.currentStroke !== undefined) {
-          this.currentStroke = new NzkSketchStrokeModel();
-          this.currentStroke.deserialize(serialized.currentStroke);
-        }
-      }
-    }]);
-
-    return NzkSketchModel;
-  }();
-
-  var NZKSketch =
-  /*#__PURE__*/
-  function () {
-    function NZKSketch() {
-      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      _classCallCheck(this, NZKSketch);
-
-      if (!props.containerEl) {
-        throw new Error("NZKSketch requires a containerEl property");
-      }
-
-      if (!props.width && props.height) {
-        throw new Error("NZKSketch requires fixed width and height properties");
-      }
-
-      this.containerEl = props.containerEl; // Size
-
-      this.width = props.containerEl.offsetWidth;
-      this.height = props.containerEl.offsetHeight;
-      this.scale = window.devicePixelRatio >= 1.5 ? 2 : 1;
-      this.widthScaled = this.width * this.scale;
-      this.heightScaled = this.height * this.scale;
-      this.template = props.template; // Model init
-
-      this.model = new NzkSketchModel(); // Canvas layers
-
-      if (this.template) {
-        this.initTemplateCanvas(this.template);
-      }
-
-      this.initDrawingCanvas();
-      this.initBufferCanvas();
-      this.initCacheCanvas(); // Interaction layer
-
-      this.initInteractionLayer(); // Drawing settings
-
-      this.initDrawAnimations();
-      this.setDrawingStyle(this.model.getStyle(), this.bufferCanvasCtx);
-      this.isDrawing = false;
-
-      this.onChange = props.onChange || function () {};
-
-      if (props.sketchData) {
-        this.deserialize(props.sketchData);
-        this.drawExistingSketch();
-      }
-    } //
-    // Public API
-    //
-
-
-    _createClass(NZKSketch, [{
-      key: "setBrush",
-      value: function setBrush(_ref) {
-        var colour = _ref.colour,
-            size = _ref.size,
-            opacity = _ref.opacity,
-            fill = _ref.fill,
-            eraser = _ref.eraser;
-
-        if (colour !== undefined) {
-          this.model.colour = colour;
-        }
-
-        if (size !== undefined) {
-          this.model.size = size;
-        }
-
-        if (opacity !== undefined) {
-          this.model.opacity = opacity;
-        }
-
-        if (fill !== undefined) {
-          this.model.fill = fill;
-        }
-
-        if (eraser !== undefined) {
-          this.model.eraser = eraser;
-        }
-      }
-    }, {
-      key: "export",
-      value: function _export() {
-        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        options.crop = options.crop || false;
-        options.maxWidth = options.maxWidth || false;
-        options.maxHeight = options.maxHeight || false;
-        var canvasToExport = null; // If there is a template merge the drawing onto it and export that
-
-        if (this.template) {
-          this.templateCanvasCtx.drawImage(this.drawingCanvasCtx.canvas, 0, 0, this.widthScaled, this.heightScaled);
-          canvasToExport = this.templateCanvasCtx;
-        } else {
-          canvasToExport = this.drawingCanvasCtx;
-        }
-
-        var box = {
-          topLeftX: 0,
-          topLeftY: 0,
-          width: this.widthScaled,
-          height: this.heightScaled
-        };
-
-        if (options.crop) {
-          box = this.findBoundingBox(canvasToExport);
-        }
-
-        var shrinkRatio = 1;
-        var widthShrinkRatio = 1;
-        var heightShrinkRatio = 1;
-
-        if (options.maxWidth && box.width > options.maxWidth) {
-          widthShrinkRatio = box.width / options.maxWidth;
-        }
-
-        if (options.maxHeight && box.height > options.maxHeight) {
-          heightShrinkRatio = box.height / options.maxHeight;
-        }
-
-        shrinkRatio = Math.max(widthShrinkRatio, heightShrinkRatio);
-        this.initExportCanvas();
-        this.exportCanvas.setAttribute('width', box.width / shrinkRatio);
-        this.exportCanvas.setAttribute('height', box.height / shrinkRatio);
-        this.exportCanvasCtx.globalCompositeOperation = 'copy';
-        this.exportCanvasCtx.drawImage(canvasToExport.canvas, box.topLeftX, box.topLeftY, box.width, box.height, 0, 0, box.width / shrinkRatio, box.height / shrinkRatio);
-        var image = this.exportCanvas.toDataURL();
-        this.removeExportCanvas();
-        return image;
-      }
-    }, {
-      key: "undo",
-      value: function undo() {
-        if (!this.model.canUndo()) return;
-        this.model.lastActionIndex--;
-        this.drawingCanvasCtx.clearRect(0, 0, this.widthScaled, this.heightScaled);
-
-        for (var i = 0; i <= this.model.lastActionIndex; i++) {
-          if (this.model.actions[i].type === 'stroke') {
-            this.drawUndoStroke(this.model.actions[i].object);
-          }
-        }
-      }
-    }, {
-      key: "redo",
-      value: function redo() {
-        if (!this.model.canRedo()) return;
-        this.model.lastActionIndex++;
-        var action = this.model.actions[this.model.lastActionIndex];
-
-        if (action.type === 'stroke') {
-          this.drawUndoStroke(action.object);
-        }
-      }
-    }, {
-      key: "canUndo",
-      value: function canUndo() {
-        return this.model.canUndo();
-      }
-    }, {
-      key: "canRedo",
-      value: function canRedo() {
-        return this.model.canRedo();
-      }
-    }, {
-      key: "restart",
-      value: function restart() {
-        this.model.reset();
-        this.drawingCanvasCtx.clearRect(0, 0, this.widthScaled, this.heightScaled);
-        this.onChange();
-      }
-    }, {
-      key: "serialize",
-      value: function serialize() {
-        return this.model.serialize();
-      }
-    }, {
-      key: "deserialize",
-      value: function deserialize(serialized) {
-        this.model.deserialize(serialized);
-      }
-    }, {
-      key: "getNumberOfActions",
-      value: function getNumberOfActions() {
-        return this.model.lastActionIndex + 1;
-      } //
-      // Internal helpers
-      //
-
-    }, {
-      key: "setCanvasSize",
-      value: function setCanvasSize(canvas) {
-        canvas.width = this.widthScaled;
-        canvas.height = this.heightScaled;
-      }
-    }, {
-      key: "setLayerStyle",
-      value: function setLayerStyle(el) {
-        el.style.width = "".concat(this.width, "px");
-        el.style.height = "".concat(this.height, "px");
-        el.style.position = 'absolute';
-        el.style.left = '0px';
-        el.style.top = '0px';
-      }
-    }, {
-      key: "initTemplateCanvas",
-      value: function initTemplateCanvas(template) {
-        this.templateCanvas = document.createElement('canvas');
-        this.templateCanvasCtx = this.templateCanvas.getContext('2d');
-        this.setCanvasSize(this.templateCanvas);
-        this.setLayerStyle(this.templateCanvas);
-        this.templateCanvasCtx.drawImage(template, 0, 0, this.widthScaled, this.heightScaled);
-        this.templateCanvas.style.zIndex = 0;
-        this.containerEl.appendChild(this.templateCanvas);
-      }
-    }, {
-      key: "initDrawingCanvas",
-      value: function initDrawingCanvas() {
-        this.drawingCanvas = document.createElement('canvas');
-        this.drawingCanvasCtx = this.drawingCanvas.getContext('2d');
-        this.setCanvasSize(this.drawingCanvas);
-        this.setLayerStyle(this.drawingCanvas);
-        this.drawingCanvas.style.zIndex = 1;
-        this.containerEl.appendChild(this.drawingCanvas);
-      }
-    }, {
-      key: "initBufferCanvas",
-      value: function initBufferCanvas() {
-        this.bufferCanvas = document.createElement('canvas');
-        this.bufferCanvasCtx = this.bufferCanvas.getContext('2d');
-        this.setCanvasSize(this.bufferCanvas);
-        this.setLayerStyle(this.bufferCanvas);
-        this.bufferCanvas.style.zIndex = 2;
-        this.containerEl.appendChild(this.bufferCanvas);
-      }
-    }, {
-      key: "initCacheCanvas",
-      value: function initCacheCanvas() {
-        this.cacheCanvas = document.createElement('canvas');
-        this.cacheCanvasCtx = this.cacheCanvas.getContext('2d');
-        this.setCanvasSize(this.cacheCanvas);
-        this.setLayerStyle(this.cacheCanvas);
-        this.cacheCanvas.style.display = 'none';
-        this.containerEl.appendChild(this.cacheCanvas);
-      }
-    }, {
-      key: "initExportCanvas",
-      value: function initExportCanvas() {
-        this.exportCanvas = document.createElement('canvas');
-        this.exportCanvasCtx = this.exportCanvas.getContext('2d');
-        this.setCanvasSize(this.exportCanvas);
-        this.setLayerStyle(this.exportCanvas);
-        this.exportCanvas.style.display = 'none';
-        this.containerEl.appendChild(this.exportCanvas);
-      }
-    }, {
-      key: "removeExportCanvas",
-      value: function removeExportCanvas() {
-        this.exportCanvas.remove();
-      }
-    }, {
-      key: "initInteractionLayer",
-      value: function initInteractionLayer() {
+        return serialized;
+    };
+    SketchModel.prototype.deserialize = function (serialized) {
         var _this = this;
-
-        this.interactionLayerEl = document.createElement('div');
-        this.setLayerStyle(this.interactionLayerEl);
-        this.interactionLayerEl.style.zIndex = 3;
-        this.onStartMouseDraw = this.onStartMouseDraw.bind(this);
-        this.onMoveMouseDraw = this.onMoveMouseDraw.bind(this);
-        this.onEndMouseDraw = this.onEndMouseDraw.bind(this);
-        this.interactionLayerEl.addEventListener("mousedown", this.onStartMouseDraw);
-        this.interactionLayerEl.addEventListener("mousemove", this.onMoveMouseDraw);
-        this.interactionLayerEl.addEventListener("mouseup", this.onEndMouseDraw);
-        this.interactionLayerEl.addEventListener("mouseleave", this.onEndMouseDraw);
-        this.interactionLayerEl.addEventListener("mouseenter", function (ev) {
-          if (ev.buttons > 0) {
-            _this.onStartMouseDraw(ev);
-          }
-        }, false);
-        this.onStartTouchDraw = this.onStartTouchDraw.bind(this);
-        this.onMoveTouchDraw = this.onMoveTouchDraw.bind(this);
-        this.onEndTouchDraw = this.onEndTouchDraw.bind(this);
-        this.interactionLayerEl.addEventListener("touchstart", this.onStartTouchDraw);
-        this.interactionLayerEl.addEventListener("touchmove", this.onMoveTouchDraw);
-        this.interactionLayerEl.addEventListener("touchend", this.onEndTouchDraw);
-        this.interactionLayerEl.addEventListener("touchcancel", this.onEndTouchDraw);
-        this.containerEl.appendChild(this.interactionLayerEl);
-      }
-    }, {
-      key: "initDrawAnimations",
-      value: function initDrawAnimations() {
-        this.drawUndo = {
-          transparentEraserFill: this.drawTransparentFillFinal,
-          transparentEraserStroke: this.drawStrokeFinal,
-          transparentColourFill: this.drawTransparentFillFinal,
-          transparentColourStroke: this.drawStrokeFinal,
-          opaqueEraserFill: this.drawEraserUndoingFillFinal,
-          opaqueEraserStroke: this.drawEraserUndoingFinal,
-          opaqueColourFill: this.drawFillFinal,
-          opaqueColourStroke: this.drawStrokeFinal
-        };
-        this.drawFinished = {
-          transparentEraserFill: this.drawTransparentFillFinal,
-          transparentEraserStroke: this.drawStrokeFinal,
-          transparentColourFill: this.drawTransparentFillFinal,
-          transparentColourStroke: this.drawStrokeFinal,
-          opaqueEraserFill: this.drawEraserFillFinal,
-          opaqueEraserStroke: this.drawEraser,
-          opaqueColourFill: this.drawFillFinal,
-          opaqueColourStroke: this.drawStrokeFinal
-        };
-        this.drawAnimation = {
-          transparentEraserFill: this.drawFillAndStroke,
-          transparentEraserStroke: this.drawFillAndStroke,
-          transparentColourFill: this.drawFillAndStroke,
-          transparentColourStroke: this.drawFillAndStroke,
-          opaqueEraserFill: this.drawEraser,
-          opaqueEraserStroke: this.drawEraser,
-          opaqueColourFill: this.drawFillAndStroke,
-          opaqueColourStroke: this.drawFillAndStroke
-        };
-      }
-    }, {
-      key: "getMousePoint",
-      value: function getMousePoint(ev) {
-        var rect = this.interactionLayerEl.getBoundingClientRect();
-        return {
-          x: (ev.clientX - rect.left) * this.scale,
-          y: (ev.clientY - rect.top) * this.scale
-        };
-      }
-    }, {
-      key: "getTouchPoint",
-      value: function getTouchPoint(ev) {
-        var rect = this.interactionLayerEl.getBoundingClientRect();
-        return {
-          x: (ev.touches[0].clientX - rect.left) * this.scale,
-          y: (ev.touches[0].clientY - rect.top) * this.scale
-        };
-      }
-    }, {
-      key: "onStartMouseDraw",
-      value: function onStartMouseDraw(ev) {
-        ev.preventDefault();
-        this.startDraw(this.getMousePoint(ev));
-      }
-    }, {
-      key: "onStartTouchDraw",
-      value: function onStartTouchDraw(ev) {
-        ev.preventDefault();
-        ev.stopPropagation();
-        this.startDraw(this.getTouchPoint(ev));
-      }
-    }, {
-      key: "onMoveMouseDraw",
-      value: function onMoveMouseDraw(ev) {
-        ev.preventDefault();
-        ev.stopPropagation();
-        this.continueDraw(this.getMousePoint(ev));
-      }
-    }, {
-      key: "onMoveTouchDraw",
-      value: function onMoveTouchDraw(ev) {
-        ev.preventDefault();
-        ev.stopPropagation();
-        this.continueDraw(this.getTouchPoint(ev));
-      }
-    }, {
-      key: "onEndMouseDraw",
-      value: function onEndMouseDraw(ev) {
-        this.endDraw();
-      }
-    }, {
-      key: "onEndTouchDraw",
-      value: function onEndTouchDraw(ev) {
-        this.endDraw();
-      }
-    }, {
-      key: "startDraw",
-      value: function startDraw(point) {
-        this.isDrawing = true;
-        this.model.initStroke(point);
-
-        if (this.model.currentStroke.style.eraser && this.model.currentStroke.style.opacity === 1.0) {
-          this.cacheCanvasCtx.globalCompositeOperation = "copy";
-          this.cacheCanvasCtx.drawImage(this.drawingCanvasCtx.canvas, 0, 0, this.widthScaled, this.heightScaled);
-          this.setDrawingStyle(this.model.currentStroke.style, this.drawingCanvasCtx);
-        }
-
-        this.setDrawingStyle(this.model.currentStroke.style, this.bufferCanvasCtx);
-        this.strokeAnimation();
-      }
-    }, {
-      key: "continueDraw",
-      value: function continueDraw(point) {
-        if (!this.isDrawing) return false;
-        this.model.continueStroke(point);
-      }
-    }, {
-      key: "endDraw",
-      value: function endDraw() {
-        if (!this.model.currentStroke) return;
-        this.isDrawing = false;
-        this.endStrokeAnimation();
-        this.bufferCanvasCtx.clearRect(0, 0, this.widthScaled, this.heightScaled);
-        this.drawFinishedStroke(this.model.currentStroke);
-        this.model.saveStroke();
-        this.onChange();
-      }
-    }, {
-      key: "drawExistingSketch",
-      value: function drawExistingSketch() {
-        var _this2 = this;
-
-        if (this.model.lastActionIndex > -1) {
-          this.model.actions.forEach(function (action) {
-            if (action.type === 'stroke') {
-              _this2.drawExistingStroke(action.object);
+        this.colour = serialized.colour;
+        this.opacity = serialized.opacity;
+        this.size = serialized.size;
+        this.lastActionIndex = serialized.lastActionIndex;
+        this.actions = [];
+        serialized.actions.forEach(function (action) {
+            var deserializedAction = {
+                type: action.type,
+                data: action.data,
+                model: null
+            };
+            if (action.type === 'STROKE' && action.data) {
+                var stroke = new SketchStrokeModel();
+                stroke.deserialize(action.data);
+                deserializedAction.model = stroke;
             }
-          });
+            _this.actions.push(deserializedAction);
+        });
+        if (serialized.currentStroke !== undefined) {
+            this.currentStroke = new SketchStrokeModel();
+            this.currentStroke.deserialize(serialized.currentStroke);
         }
-      }
-    }, {
-      key: "setDrawingStyle",
-      value: function setDrawingStyle(style, ctx) {
-        var colour = "rgba(".concat(style.colour[0], ", ").concat(style.colour[1], ", ").concat(style.colour[2], ", ").concat(style.opacity, ")");
+    };
+    return SketchModel;
+}());
+
+var trace = (function (stroke, ctx) {
+    var nbPoints = stroke.length();
+    ctx.beginPath();
+    if (nbPoints < 3) {
+        ctx.moveTo(stroke.points[0].s.x, stroke.points[0].s.y);
+        ctx.lineTo(stroke.points[nbPoints - 1].s.x + 0.001, stroke.points[nbPoints - 1].s.y + 0.001);
+    }
+    else {
+        ctx.moveTo(stroke.points[0].s.x, stroke.points[0].s.y);
+        var i = void 0;
+        var len = void 0;
+        var move = void 0;
+        var ref = stroke.points.slice(1, +(nbPoints - 2) + 1 || 9e9);
+        for (i = 0, len = ref.length; i < len; i += 1) {
+            move = ref[i];
+            ctx.quadraticCurveTo(move.s.x, move.s.y, move.h.x, move.h.y);
+        }
+    }
+});
+
+var setDrawingStyle = function (style, ctx) {
+    if (style) {
+        var colour = "rgba(" + style.colour[0] + ", " + style.colour[1] + ", " + style.colour[2] + ", " + style.opacity + ")";
         ctx.strokeStyle = colour;
         ctx.fillStyle = colour;
         ctx.lineWidth = style.size;
-        ctx.lineJoin = "round";
-        ctx.lineCap = "round";
-      }
-    }, {
-      key: "strokeAnimation",
-      value: function strokeAnimation() {
-        var _this3 = this;
-
-        this.drawAnimationStroke(this.model.currentStroke);
-        this.reqStroke = window.requestAnimationFrame(function () {
-          return _this3.strokeAnimation.apply(_this3);
+    }
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+};
+var Sketch = (function () {
+    function Sketch(props) {
+        this.isDrawing = false;
+        this.containerEl = props.containerEl;
+        this.naturalWidth = props.containerEl.offsetWidth;
+        this.naturalHeight = props.containerEl.offsetHeight;
+        this.pixelRatioScale = window.devicePixelRatio >= 1.5 ? 2 : 1;
+        this.width = this.naturalWidth * this.pixelRatioScale;
+        this.height = this.naturalHeight * this.pixelRatioScale;
+        this.template = props.template;
+        this.model = new SketchModel({
+            pixelRatioScale: this.pixelRatioScale
         });
-      }
-    }, {
-      key: "drawAnimationStroke",
-      value: function drawAnimationStroke(stroke) {
-        this.drawAnimation[stroke.style.key].apply(this, [stroke]);
-      }
-    }, {
-      key: "endStrokeAnimation",
-      value: function endStrokeAnimation() {
+        var defaultLayerProps = {
+            width: props.containerEl.offsetWidth,
+            height: props.containerEl.offsetHeight
+        };
+        if (this.template) {
+            this.templateLayer = new SketchLayer(defaultLayerProps);
+            this.templateLayer.drawImageToFill(this.template);
+            this.containerEl.appendChild(this.templateLayer.canvas);
+        }
+        this.drawingLayer = new SketchLayer(defaultLayerProps);
+        this.drawingLayer.canvas.style.zIndex = '1';
+        this.containerEl.appendChild(this.drawingLayer.canvas);
+        this.bufferLayer = new SketchLayer(defaultLayerProps);
+        this.bufferLayer.canvas.style.zIndex = '2';
+        this.containerEl.appendChild(this.bufferLayer.canvas);
+        this.cacheLayer = new SketchLayer(defaultLayerProps);
+        this.cacheLayer.hide();
+        this.containerEl.appendChild(this.cacheLayer.canvas);
+        this.interactionSurface = createInteractionSurface({
+            width: this.containerEl.offsetWidth,
+            height: this.containerEl.offsetHeight,
+            onTouchStart: this.startDraw.bind(this),
+            onTouchMove: this.continueDraw.bind(this),
+            onTouchEnd: this.endDraw.bind(this),
+            onTouchLeave: this.endDraw.bind(this),
+            onTouchEnter: this.startDraw.bind(this)
+        });
+        this.interactionSurface.style.zIndex = '100';
+        this.containerEl.appendChild(this.interactionSurface);
+        this.initDrawAnimations();
+        if (this.bufferLayer.ctx) {
+            setDrawingStyle(this.model.getStyle(), this.bufferLayer.ctx);
+        }
+        if (props.onChange)
+            this.onChange = props.onChange;
+        if (props.sketchData) {
+            this.deserialize(props.sketchData);
+            this.drawExistingSketch();
+        }
+    }
+    Sketch.prototype.setBrush = function (_a) {
+        var colour = _a.colour, size = _a.size, opacity = _a.opacity, fill = _a.fill, eraser = _a.eraser;
+        if (colour !== undefined) {
+            this.model.colour = colour;
+        }
+        if (size !== undefined) {
+            this.model.size = size;
+        }
+        if (opacity !== undefined) {
+            this.model.opacity = opacity;
+        }
+        if (fill !== undefined) {
+            this.model.fill = fill;
+        }
+        if (eraser !== undefined) {
+            this.model.eraser = eraser;
+        }
+    };
+    Sketch.prototype.mergeImage = function (data, saveAction) {
+        var _a;
+        if (saveAction === void 0) { saveAction = true; }
+        (_a = this.drawingLayer.ctx) === null || _a === void 0 ? void 0 : _a.drawImage(data.image, data.x, data.y);
+        if (saveAction) {
+            this.model.saveMergeImage(data);
+        }
+    };
+    Sketch.prototype.export = function (props) {
+        if (this.templateLayer) {
+            this.templateLayer.drawImageToFit(this.drawingLayer.canvas);
+        }
+        var layerToExport = this.getLayerToExport();
+        var box = {
+            topLeftX: 0,
+            topLeftY: 0,
+            width: this.width,
+            height: this.height
+        };
+        if (props.crop) {
+            box = __assign(__assign({}, box), this.findBoundingBox(layerToExport.ctx));
+        }
+        var shrinkRatio = 1;
+        var widthShrinkRatio = 1;
+        var heightShrinkRatio = 1;
+        if (props.maxWidth && box.width > props.maxWidth) {
+            widthShrinkRatio = box.width / props.maxWidth;
+        }
+        if (props.maxHeight && box.height > props.maxHeight) {
+            heightShrinkRatio = box.height / props.maxHeight;
+        }
+        shrinkRatio = Math.max(widthShrinkRatio, heightShrinkRatio);
+        var exportLayer = new SketchLayer({
+            width: box.width / shrinkRatio,
+            height: box.height / shrinkRatio
+        });
+        if (exportLayer.ctx) {
+            exportLayer.ctx.globalCompositeOperation = 'copy';
+            exportLayer.ctx.drawImage(layerToExport.canvas, box.topLeftX, box.topLeftY, box.width, box.height, 0, 0, box.width / shrinkRatio, box.height / shrinkRatio);
+        }
+        return exportLayer.canvas.toDataURL();
+    };
+    Sketch.prototype.undo = function () {
+        if (!this.model.canUndo())
+            return;
+        this.model.lastActionIndex -= 1;
+        this.drawingLayer.clear();
+        for (var i = 0; i <= this.model.lastActionIndex; i += 1) {
+            if (this.model.actions[i].type === 'STROKE' && this.model.actions[i].model) {
+                this.drawUndoStroke(this.model.actions[i].model);
+            }
+        }
+    };
+    Sketch.prototype.redo = function () {
+        if (!this.model.canRedo())
+            return;
+        this.model.lastActionIndex += 1;
+        var action = this.model.actions[this.model.lastActionIndex];
+        if (action.type === 'STROKE' && action.model) {
+            this.drawUndoStroke(action.model);
+        }
+    };
+    Sketch.prototype.canUndo = function () {
+        return this.model.canUndo();
+    };
+    Sketch.prototype.canRedo = function () {
+        return this.model.canRedo();
+    };
+    Sketch.prototype.restart = function () {
+        this.model.reset();
+        this.drawingLayer.clear();
+        if (this.onChange) {
+            this.onChange();
+        }
+    };
+    Sketch.prototype.serialize = function () {
+        return this.model.serialize();
+    };
+    Sketch.prototype.deserialize = function (serialized) {
+        this.model.deserialize(serialized);
+    };
+    Sketch.prototype.getNumberOfActions = function () {
+        return this.model.lastActionIndex + 1;
+    };
+    Sketch.prototype.initDrawAnimations = function () {
+        this.drawUndo = {
+            transparentEraserFill: this.drawTransparentFillFinal,
+            transparentEraserStroke: this.drawStrokeFinal,
+            transparentColourFill: this.drawTransparentFillFinal,
+            transparentColourStroke: this.drawStrokeFinal,
+            opaqueEraserFill: this.drawEraserUndoingFillFinal,
+            opaqueEraserStroke: this.drawEraserUndoingFinal,
+            opaqueColourFill: this.drawFillFinal,
+            opaqueColourStroke: this.drawStrokeFinal
+        };
+        this.drawFinished = {
+            transparentEraserFill: this.drawTransparentFillFinal,
+            transparentEraserStroke: this.drawStrokeFinal,
+            transparentColourFill: this.drawTransparentFillFinal,
+            transparentColourStroke: this.drawStrokeFinal,
+            opaqueEraserFill: this.drawEraserFillFinal,
+            opaqueEraserStroke: this.drawEraser,
+            opaqueColourFill: this.drawFillFinal,
+            opaqueColourStroke: this.drawStrokeFinal
+        };
+        this.drawAnimation = {
+            transparentEraserFill: this.drawFillAndStroke,
+            transparentEraserStroke: this.drawFillAndStroke,
+            transparentColourFill: this.drawFillAndStroke,
+            transparentColourStroke: this.drawFillAndStroke,
+            opaqueEraserFill: this.drawEraser,
+            opaqueEraserStroke: this.drawEraser,
+            opaqueColourFill: this.drawFillAndStroke,
+            opaqueColourStroke: this.drawFillAndStroke
+        };
+    };
+    Sketch.prototype.startDraw = function (point) {
+        this.isDrawing = true;
+        this.model.initStroke(point);
+        if (this.model.currentStroke && this.model.currentStroke.style && this.cacheLayer.ctx && this.drawingLayer.ctx) {
+            if (this.model.currentStroke.style.eraser && this.model.currentStroke.style.opacity === 1.0) {
+                this.cacheLayer.ctx.globalCompositeOperation = "copy";
+                this.cacheLayer.ctx.drawImage(this.drawingLayer.ctx.canvas, 0, 0, this.width, this.height);
+                setDrawingStyle(this.model.currentStroke.style, this.drawingLayer.ctx);
+            }
+        }
+        if (this.model.currentStroke && this.bufferLayer.ctx) {
+            setDrawingStyle(this.model.currentStroke.style, this.bufferLayer.ctx);
+        }
+        this.strokeAnimation();
+    };
+    Sketch.prototype.continueDraw = function (point) {
+        if (!this.isDrawing)
+            return false;
+        this.model.continueStroke(point);
+        return false;
+    };
+    Sketch.prototype.endDraw = function () {
+        if (!this.model.currentStroke)
+            return;
+        this.isDrawing = false;
+        this.endStrokeAnimation();
+        this.bufferLayer.clear();
+        this.drawFinishedStroke(this.model.currentStroke);
+        this.model.saveStroke();
+        if (this.onChange) {
+            this.onChange();
+        }
+    };
+    Sketch.prototype.drawExistingSketch = function () {
+        var _this = this;
+        if (this.model.lastActionIndex > -1) {
+            this.model.actions.forEach(function (action) {
+                if (action.type === 'STROKE' && action.model) {
+                    _this.drawExistingStroke(action.model);
+                }
+                else if (action.type === 'IMAGE_MERGE') {
+                    _this.mergeImage(action.data, false);
+                }
+            });
+        }
+    };
+    Sketch.prototype.strokeAnimation = function () {
+        var _this = this;
+        this.drawAnimationStroke(this.model.currentStroke);
+        this.reqStroke = window.requestAnimationFrame(function () { return _this.strokeAnimation.apply(_this); });
+    };
+    Sketch.prototype.drawAnimationStroke = function (stroke) {
+        this.drawAnimation[stroke.style.type].apply(this, [stroke]);
+    };
+    Sketch.prototype.endStrokeAnimation = function () {
         window.cancelAnimationFrame(this.reqStroke);
         this.reqStroke = 0;
-      }
-    }, {
-      key: "drawUndoStroke",
-      value: function drawUndoStroke(stroke) {
-        this.setDrawingStyle(stroke.style, this.drawingCanvasCtx);
-        this.drawUndo[stroke.style.key].apply(this, [stroke]);
-      }
-    }, {
-      key: "drawFinishedStroke",
-      value: function drawFinishedStroke(stroke) {
-        if (!stroke) return;
-        this.setDrawingStyle(stroke.style, this.drawingCanvasCtx);
-        this.drawFinished[stroke.style.key].apply(this, [stroke]);
-      }
-    }, {
-      key: "drawExistingStroke",
-      value: function drawExistingStroke(stroke) {
-        this.setDrawingStyle(stroke.style, this.drawingCanvasCtx);
-        this.drawFinished[stroke.style.key].apply(this, [stroke, false]);
-      }
-    }, {
-      key: "trace",
-      value: function trace(stroke, ctx) {
-        var nbPoints = stroke.length();
-        ctx.beginPath();
-
-        if (nbPoints < 3) {
-          ctx.moveTo(stroke.points[0].s.x, stroke.points[0].s.y);
-          ctx.lineTo(stroke.points[nbPoints - 1].s.x + 0.001, stroke.points[nbPoints - 1].s.y + 0.001);
-        } else {
-          ctx.moveTo(stroke.points[0].s.x, stroke.points[0].s.y);
-          var i, len, move, ref;
-          ref = stroke.points.slice(1, +(nbPoints - 2) + 1 || 9e9);
-
-          for (i = 0, len = ref.length; i < len; i++) {
-            move = ref[i];
-            ctx.quadraticCurveTo(move.s.x, move.s.y, move.h.x, move.h.y);
-          }
+    };
+    Sketch.prototype.drawUndoStroke = function (stroke) {
+        if (this.drawingLayer.ctx) {
+            setDrawingStyle(stroke.style, this.drawingLayer.ctx);
+            this.drawUndo[stroke.style.type].apply(this, [stroke]);
         }
-      }
-    }, {
-      key: "drawTransparentFillFinal",
-      value: function drawTransparentFillFinal(stroke) {
-        this.cacheCanvasCtx.clearRect(0, 0, this.widthScaled, this.heightScaled);
-        this.cacheCanvasCtx.globalCompositeOperation = "source-over";
-        this.setDrawingStyle(Object.assign({}, stroke.style, {
-          opacity: 1
-        }), this.cacheCanvasCtx);
-        this.trace(stroke, this.cacheCanvasCtx);
-        this.cacheCanvasCtx.closePath();
-        this.cacheCanvasCtx.stroke();
-        this.cacheCanvasCtx.fill();
-        this.drawingCanvasCtx.globalCompositeOperation = "source-over";
-        this.drawingCanvasCtx.globalAlpha = stroke.style.opacity;
-        this.drawingCanvasCtx.drawImage(this.cacheCanvasCtx.canvas, 0, 0, this.widthScaled, this.heightScaled);
-        this.drawingCanvasCtx.globalAlpha = 1.0;
-      }
-    }, {
-      key: "drawStrokeFinal",
-      value: function drawStrokeFinal(stroke) {
-        this.drawingCanvasCtx.globalCompositeOperation = "source-over";
-        this.trace(stroke, this.drawingCanvasCtx);
-        this.drawingCanvasCtx.stroke();
-      }
-    }, {
-      key: "drawFillFinal",
-      value: function drawFillFinal(stroke) {
-        this.drawingCanvasCtx.globalCompositeOperation = "source-over";
-        this.trace(stroke, this.drawingCanvasCtx);
-        this.drawingCanvasCtx.closePath();
-        this.drawingCanvasCtx.fill();
-        this.drawingCanvasCtx.stroke();
-      }
-    }, {
-      key: "drawFillAndStroke",
-      value: function drawFillAndStroke(stroke) {
-        this.bufferCanvasCtx.clearRect(0, 0, this.widthScaled, this.heightScaled);
-        this.trace(stroke, this.bufferCanvasCtx);
-        this.setDrawingStyle(Object.assign({}, stroke.style, {
-          opacity: 1
-        }), this.bufferCanvasCtx);
-        this.bufferCanvasCtx.globalAlpha = stroke.style.opacity;
-
-        if (this.model.fill) {
-          this.bufferCanvasCtx.closePath();
-          this.bufferCanvasCtx.fill();
+    };
+    Sketch.prototype.drawFinishedStroke = function (stroke) {
+        if (stroke && this.drawingLayer.ctx) {
+            setDrawingStyle(stroke.style, this.drawingLayer.ctx);
+            this.drawFinished[stroke.style.type].apply(this, [stroke]);
         }
-
-        this.bufferCanvasCtx.stroke();
-      }
-    }, {
-      key: "drawEraserUndoingFinal",
-      value: function drawEraserUndoingFinal(stroke) {
-        this.drawingCanvasCtx.globalCompositeOperation = "destination-out";
-        this.trace(stroke, this.drawingCanvasCtx);
-        this.drawingCanvasCtx.stroke();
-      }
-    }, {
-      key: "drawEraserUndoingFillFinal",
-      value: function drawEraserUndoingFillFinal(stroke) {
-        this.drawingCanvasCtx.globalCompositeOperation = "destination-out";
-        this.trace(stroke, this.drawingCanvasCtx);
-        this.drawingCanvasCtx.closePath();
-        this.drawingCanvasCtx.fill();
-        this.drawingCanvasCtx.stroke();
-      }
-    }, {
-      key: "drawEraser",
-      value: function drawEraser(stroke) {
-        var copy = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
-        if (copy) {
-          this.drawingCanvasCtx.globalCompositeOperation = "copy";
-          this.drawingCanvasCtx.drawImage(this.cacheCanvasCtx.canvas, 0, 0, this.widthScaled, this.heightScaled);
+    };
+    Sketch.prototype.drawExistingStroke = function (stroke) {
+        if (stroke && this.drawingLayer.ctx) {
+            setDrawingStyle(stroke.style, this.drawingLayer.ctx);
+            this.drawFinished[stroke.style.type].apply(this, [stroke, false]);
         }
-
-        this.drawingCanvasCtx.globalCompositeOperation = "destination-out";
-        this.trace(stroke, this.drawingCanvasCtx);
-        this.drawingCanvasCtx.stroke();
-      }
-    }, {
-      key: "drawEraserFillFinal",
-      value: function drawEraserFillFinal(stroke) {
-        var copy = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
-        if (copy) {
-          this.drawingCanvasCtx.globalCompositeOperation = "copy";
-          this.drawingCanvasCtx.drawImage(this.cacheCanvasCtx.canvas, 0, 0, this.widthScaled, this.heightScaled);
+    };
+    Sketch.prototype.drawTransparentFillFinal = function (stroke) {
+        if (stroke && this.drawingLayer.ctx && this.cacheLayer.ctx) {
+            this.cacheLayer.clear();
+            this.cacheLayer.ctx.globalCompositeOperation = "source-over";
+            setDrawingStyle(__assign(__assign({}, stroke.style), { opacity: 1 }), this.cacheLayer.ctx);
+            trace(stroke, this.cacheLayer.ctx);
+            this.cacheLayer.ctx.closePath();
+            this.cacheLayer.ctx.stroke();
+            this.cacheLayer.ctx.fill();
+            this.drawingLayer.ctx.globalCompositeOperation = "source-over";
+            this.drawingLayer.ctx.globalAlpha = stroke.style.opacity;
+            this.drawingLayer.ctx.drawImage(this.cacheLayer.ctx.canvas, 0, 0, this.width, this.height);
+            this.drawingLayer.ctx.globalAlpha = 1.0;
         }
-
-        this.drawingCanvasCtx.globalCompositeOperation = "destination-out";
-        this.trace(stroke, this.drawingCanvasCtx);
-        this.drawingCanvasCtx.closePath();
-        this.drawingCanvasCtx.fill();
-        this.drawingCanvasCtx.stroke();
-      }
-    }, {
-      key: "findBoundingBox",
-      value: function findBoundingBox(ctx) {
-        var imageData = ctx.getImageData(0, 0, this.widthScaled, this.heightScaled);
-        var box = {
-          topLeftX: this.widthScaled,
-          topLeftY: this.heightScaled,
-          bottomRightX: 0,
-          bottomRightY: 0
-        };
-
-        for (var x = 0; x < this.widthScaled; x++) {
-          for (var y = 0; y < this.heightScaled; y++) {
-            var pixelPosition = (y * this.widthScaled + x) * 4 + 3;
-
-            if (imageData.data[pixelPosition] > 0) {
-              if (x < box.topLeftX) box.topLeftX = x;
-              if (y < box.topLeftY) box.topLeftY = y;
-              if (x > box.bottomRightX) box.bottomRightX = x;
-              if (y > box.bottomRightY) box.bottomRightY = y;
+    };
+    Sketch.prototype.drawStrokeFinal = function (stroke) {
+        if (stroke && this.drawingLayer.ctx) {
+            this.drawingLayer.ctx.globalCompositeOperation = "source-over";
+            trace(stroke, this.drawingLayer.ctx);
+            this.drawingLayer.ctx.stroke();
+        }
+    };
+    Sketch.prototype.drawFillFinal = function (stroke) {
+        if (stroke && this.drawingLayer.ctx) {
+            this.drawingLayer.ctx.globalCompositeOperation = "source-over";
+            trace(stroke, this.drawingLayer.ctx);
+            this.drawingLayer.ctx.closePath();
+            this.drawingLayer.ctx.fill();
+            this.drawingLayer.ctx.stroke();
+        }
+    };
+    Sketch.prototype.drawFillAndStroke = function (stroke) {
+        if (stroke && this.bufferLayer.ctx) {
+            this.bufferLayer.clear();
+            trace(stroke, this.bufferLayer.ctx);
+            setDrawingStyle(__assign(__assign({}, stroke.style), { opacity: 1 }), this.bufferLayer.ctx);
+            this.bufferLayer.ctx.globalAlpha = stroke.style.opacity;
+            if (this.model.fill) {
+                this.bufferLayer.ctx.closePath();
+                this.bufferLayer.ctx.fill();
             }
-          }
+            this.bufferLayer.ctx.stroke();
         }
-
+    };
+    Sketch.prototype.drawEraserUndoingFinal = function (stroke) {
+        if (stroke && this.drawingLayer.ctx) {
+            this.drawingLayer.ctx.globalCompositeOperation = "destination-out";
+            trace(stroke, this.drawingLayer.ctx);
+            this.drawingLayer.ctx.stroke();
+        }
+    };
+    Sketch.prototype.drawEraserUndoingFillFinal = function (stroke) {
+        if (stroke && this.drawingLayer.ctx) {
+            this.drawingLayer.ctx.globalCompositeOperation = "destination-out";
+            trace(stroke, this.drawingLayer.ctx);
+            this.drawingLayer.ctx.closePath();
+            this.drawingLayer.ctx.fill();
+            this.drawingLayer.ctx.stroke();
+        }
+    };
+    Sketch.prototype.drawEraser = function (stroke, copy) {
+        if (copy === void 0) { copy = true; }
+        if (stroke && this.drawingLayer.ctx && this.cacheLayer.ctx) {
+            if (copy) {
+                this.drawingLayer.ctx.globalCompositeOperation = "copy";
+                this.drawingLayer.ctx.drawImage(this.cacheLayer.ctx.canvas, 0, 0, this.width, this.height);
+            }
+            this.drawingLayer.ctx.globalCompositeOperation = "destination-out";
+            trace(stroke, this.drawingLayer.ctx);
+            this.drawingLayer.ctx.stroke();
+        }
+    };
+    Sketch.prototype.drawEraserFillFinal = function (stroke, copy) {
+        if (copy === void 0) { copy = true; }
+        if (stroke && this.drawingLayer.ctx && this.cacheLayer.ctx) {
+            if (copy) {
+                this.drawingLayer.ctx.globalCompositeOperation = "copy";
+                this.drawingLayer.ctx.drawImage(this.cacheLayer.ctx.canvas, 0, 0, this.width, this.height);
+            }
+            this.drawingLayer.ctx.globalCompositeOperation = "destination-out";
+            trace(stroke, this.drawingLayer.ctx);
+            this.drawingLayer.ctx.closePath();
+            this.drawingLayer.ctx.fill();
+            this.drawingLayer.ctx.stroke();
+        }
+    };
+    Sketch.prototype.findBoundingBox = function (ctx) {
+        var imageData = ctx.getImageData(0, 0, this.width, this.height);
+        var box = {
+            topLeftX: this.width,
+            topLeftY: this.height,
+            bottomRightX: 0,
+            bottomRightY: 0,
+            width: 0,
+            height: 0
+        };
+        for (var x = 0; x < this.width; x += 1) {
+            for (var y = 0; y < this.height; y += 1) {
+                var pixelPosition = (((y * this.width) + x) * 4) + 3;
+                if (imageData.data[pixelPosition] > 0) {
+                    if (x < box.topLeftX)
+                        box.topLeftX = x;
+                    if (y < box.topLeftY)
+                        box.topLeftY = y;
+                    if (x > box.bottomRightX)
+                        box.bottomRightX = x;
+                    if (y > box.bottomRightY)
+                        box.bottomRightY = y;
+                }
+            }
+        }
         box.width = box.bottomRightX - box.topLeftX;
         box.height = box.bottomRightY - box.topLeftY;
         return box;
-      }
-    }]);
-
-    return NZKSketch;
-  }();
-
-  return NZKSketch;
-
-})));
-}(nzkSketch));
-
-var NZKSketch = nzkSketch.exports;
+    };
+    Sketch.prototype.getLayerToExport = function () {
+        return this.templateLayer || this.drawingLayer;
+    };
+    return Sketch;
+}());
 
 var BrushSize = {
     small: 7,
@@ -11053,7 +10863,7 @@ var Colours = [
     { rgb: [255, 255, 255], hex: '#FFFFFF' },
 ];
 var DrawingToolState = function () {
-    var sketchRef = React.useRef(null);
+    var sketchRef = React.useRef();
     var _a = React.useState(true), autoCache = _a[0], setAutoCache = _a[1];
     var _b = React.useState('nzk-sketch-cache'), cacheKey = _b[0], setCacheKey = _b[1];
     var _c = React.useState(BrushSize.small), brushSize = _c[0], setBrushSize = _c[1];
@@ -11062,13 +10872,15 @@ var DrawingToolState = function () {
     var _f = React.useState(1), brushOpacity = _f[0], setBruchOpacity = _f[1];
     var setSketchRef = React.useCallback(function (node) {
         sketchRef.current = node;
-        sketchRef.current.setBrush({
-            size: brushSize,
-            colour: currentColour.rgb,
-            opacity: brushOpacity,
-            fill: brushType === 'fill',
-            eraser: brushType === 'eraser'
-        });
+        if (sketchRef.current) {
+            sketchRef.current.setBrush({
+                size: brushSize,
+                colour: currentColour.rgb,
+                opacity: brushOpacity,
+                fill: brushType === 'fill',
+                eraser: brushType === 'eraser'
+            });
+        }
     }, []);
     React.useEffect(function () {
         if (sketchRef && sketchRef.current)
@@ -11099,7 +10911,7 @@ var DrawingToolState = function () {
                 data = JSON.parse(cachedRawData);
             }
         }
-        setSketchRef(new NZKSketch({
+        setSketchRef(new Sketch({
             containerEl: containerEl,
             sketchData: data,
             onChange: onSketchChange

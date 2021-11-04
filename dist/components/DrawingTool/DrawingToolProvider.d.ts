@@ -18,7 +18,7 @@ export declare const useDrawingTool: () => {
     initSketch: (containerEl: any) => void;
     exportSketch: (options?: {
         crop: boolean;
-    }) => any;
+    }) => string;
     currentColour: {
         rgb: number[];
         hex: string;

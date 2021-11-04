@@ -1,7 +1,7 @@
 /* eslint-env browser */
 import { useRef, useState, useCallback, useEffect } from 'react'
-import NZKSketch from 'nzk-sketch'
 import { createContainer } from 'unstated-next'
+import Sketch from './lib/Sketch'
 
 export const BrushSize = {
   small: 7,
@@ -35,7 +35,7 @@ export interface Colour {
 }
 
 const DrawingToolState = () => {
-  const sketchRef = useRef<NZKSketch>(null)
+  const sketchRef = useRef<Sketch>()
 
   const [autoCache, setAutoCache] = useState(true)
   const [cacheKey, setCacheKey] = useState('nzk-sketch-cache')
@@ -47,13 +47,15 @@ const DrawingToolState = () => {
 
   const setSketchRef = useCallback(node => {
     sketchRef.current = node
-    sketchRef.current.setBrush({
-      size: brushSize,
-      colour: currentColour.rgb,
-      opacity: brushOpacity,
-      fill: brushType === 'fill',
-      eraser: brushType === 'eraser'
-    })
+    if (sketchRef.current) {
+      sketchRef.current.setBrush({
+        size: brushSize,
+        colour: currentColour.rgb,
+        opacity: brushOpacity,
+        fill: brushType === 'fill',
+        eraser: brushType === 'eraser'
+      })
+    }
   }, [])
 
   // Sketch tool brush changes
@@ -88,7 +90,7 @@ const DrawingToolState = () => {
       }
     }
 
-    setSketchRef(new NZKSketch({
+    setSketchRef(new Sketch({
       containerEl,
       sketchData: data,
       onChange: onSketchChange
