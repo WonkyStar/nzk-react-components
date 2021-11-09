@@ -101,6 +101,7 @@ export declare const ICONS: {
     users: JSX.Element;
     video: JSX.Element;
     whatsapp: JSX.Element;
+    tick: JSX.Element;
     'drawing-tool-undo': JSX.Element;
     'drawing-tool-redo': JSX.Element;
     'drawing-tool-camera': JSX.Element;

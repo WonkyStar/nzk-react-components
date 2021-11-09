@@ -5,7 +5,7 @@ export interface Props {
     disableAutoCache?: boolean;
     cacheKey?: string;
 }
-export declare type Mode = 'landscape' | 'portrait';
+export declare type Orientation = 'LANDSCAPE' | 'PORTRAIT';
 declare const Drawing: {
     (props: Props): JSX.Element;
     defaultProps: {
