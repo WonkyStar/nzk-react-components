@@ -1,4 +1,5 @@
 /// <reference types="react" />
+import { SketchActionMergeData } from './lib/SketchModel';
 export declare const BrushSize: {
     small: number;
     medium: number;
@@ -16,9 +17,11 @@ export interface Colour {
 export declare const DrawingToolProvider: import("react").ComponentType<import("unstated-next").ContainerProviderProps<void>>;
 export declare const useDrawingTool: () => {
     initSketch: (containerEl: any) => void;
+    initSketchCut: (containerEl: any, imageToCut: HTMLImageElement, onImageCut: () => void) => void;
     exportSketch: (options?: {
         crop: boolean;
-    }) => string;
+    }) => any;
+    exportSketchCut: () => any;
     currentColour: {
         rgb: number[];
         hex: string;
@@ -40,4 +43,6 @@ export declare const useDrawingTool: () => {
     setCacheKey: import("react").Dispatch<import("react").SetStateAction<string>>;
     setAutoCache: import("react").Dispatch<import("react").SetStateAction<boolean>>;
     clearCache: () => void;
+    resetCut: () => void;
+    mergeImage: (data: SketchActionMergeData) => void | null;
 };

@@ -1,9 +1,14 @@
 import SketchStrokeModel, { SketchPoint, SketchStrokeModelData, SketchStrokeType } from './SketchStrokeModel';
 export declare type SketchActionType = 'STROKE' | 'IMAGE_MERGE';
 export interface SketchActionMergeData {
-    image: string;
+    image?: HTMLImageElement;
+    imageSrc?: string;
     x: number;
     y: number;
+    origin: number[];
+    height: number;
+    width: number;
+    rotation: number;
 }
 export interface SketchAction {
     type: SketchActionType;
