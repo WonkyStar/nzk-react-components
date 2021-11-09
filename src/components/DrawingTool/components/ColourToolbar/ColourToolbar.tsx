@@ -4,12 +4,12 @@ import React, { useRef, useState } from 'react'
 import * as s from './ColourToolbar.styles'
 import Button from '../../../Button'
 import Icon from '../../../Icon'
-import { Mode } from '../../DrawingTool'
+import { Orientation } from '../../DrawingTool'
 import { useDrawingTool, Colour, Colours } from '../../DrawingToolProvider'
 
 export interface Props {
   size: number,
-  mode: Mode,
+  orientation: Orientation,
   currentColour: Colour
 }
 
@@ -20,7 +20,7 @@ const ColourToolbar = (props: Props) => {
   const { setCurrentColour } = useDrawingTool()
 
   const onScroll = (e) => {
-    if (props.mode === 'landscape') {
+    if (props.orientation === 'LANDSCAPE') {
       if (e.target.scrollTop === 0) {
         setDisableScrollUp(true)
       } else if (disableScrollUp) {
@@ -47,7 +47,7 @@ const ColourToolbar = (props: Props) => {
 
   const onClickUp = () => {
     if (!disableScrollUp && scrollRef && scrollRef.current) {
-      if (props.mode === 'landscape') {
+      if (props.orientation === 'LANDSCAPE') {
         scrollRef.current.scrollTop = Math.max(0, scrollRef.current.scrollTop - props.size * 3)
       } else {
         scrollRef.current.scrollLeft = Math.max(0, scrollRef.current.scrollLeft - props.size * 3)
@@ -57,7 +57,7 @@ const ColourToolbar = (props: Props) => {
 
   const onClickDown = () => {
     if (!disableScrollDown && scrollRef && scrollRef.current) {
-      if (props.mode === 'landscape') {
+      if (props.orientation === 'LANDSCAPE') {
         scrollRef.current.scrollTop = Math.min(scrollRef.current.scrollHeight, scrollRef.current.scrollTop + props.size * 3)
       } else {
         scrollRef.current.scrollLeft = Math.min(scrollRef.current.scrollWidth, scrollRef.current.scrollLeft + props.size * 3)
@@ -65,11 +65,11 @@ const ColourToolbar = (props: Props) => {
     }
   }
 
-  return <s.Container mode={props.mode} size={props.size}>
+  return <s.Container orientation={props.orientation} size={props.size}>
     <Button disabled={disableScrollUp} round height={props.size} theme="white" onClick={onClickUp}>
-      <Icon name={props.mode === 'landscape' ? 'drawing-tool-arrow-up' : 'drawing-tool-arrow-left'} fill={disableScrollUp ? '#c2bebe' : props.currentColour.hex} />
+      <Icon name={props.orientation === 'LANDSCAPE' ? 'drawing-tool-arrow-up' : 'drawing-tool-arrow-left'} fill={disableScrollUp ? '#c2bebe' : props.currentColour.hex} />
     </Button>
-    <s.ScrollContainer ref={scrollRef} onScroll={onScroll} mode={props.mode} size={props.size} >
+    <s.ScrollContainer ref={scrollRef} onScroll={onScroll} orientation={props.orientation} size={props.size} >
       { Colours.map((c: Colour) => (
         <Button
           key={c.hex}
@@ -80,7 +80,7 @@ const ColourToolbar = (props: Props) => {
       ))}
     </s.ScrollContainer >
     <Button disabled={disableScrollDown} round height={props.size} theme="white" onClick={onClickDown}>
-      <Icon name={props.mode === 'landscape' ? 'drawing-tool-arrow-down' : 'drawing-tool-arrow-right'} fill={disableScrollDown ? '#c2bebe' : props.currentColour.hex} />
+      <Icon name={props.orientation === 'LANDSCAPE' ? 'drawing-tool-arrow-down' : 'drawing-tool-arrow-right'} fill={disableScrollDown ? '#c2bebe' : props.currentColour.hex} />
       </Button>
   </s.Container>
 }

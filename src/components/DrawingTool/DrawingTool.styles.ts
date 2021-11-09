@@ -1,18 +1,18 @@
 
 import styled from 'styled-components'
-import { Mode } from './DrawingTool'
+import { Orientation } from './DrawingTool'
 
 const getToolbarWidth = (props) => {
-  if (props.mode === 'portrait') return '100%'
+  if (props.orientation === 'PORTRAIT') return '100%'
   return `${props.buttonSize + 10}px`
 }
 
 const getToolbarHeight = (props) => {
-  if (props.mode === 'landscape') return '100%'
+  if (props.orientation === 'LANDSCAPE') return '100%'
   return `${props.buttonSize + 10}px`
 }
 
-export const Container = styled.div<{mode: Mode, offsetTop: number, maxWidth: number, maxHeight: number}>`
+export const Container = styled.div<{orientation: Orientation, offsetTop: number, maxWidth: number, maxHeight: number}>`
   position: relative;
   width: 100%;
   height: ${props => `calc(100% - ${props.offsetTop}px)`};
@@ -20,7 +20,7 @@ export const Container = styled.div<{mode: Mode, offsetTop: number, maxWidth: nu
   max-height: ${props => props.maxHeight}px;
   display: flex;
   flex-shrink: none;
-  flex-direction: ${props => props.mode === 'landscape' ? 'row' : 'column'};
+  flex-direction: ${props => props.orientation === 'LANDSCAPE' ? 'row' : 'column'};
   top: ${props => `calc(50% - ${props.offsetTop/2}px)`};
   left: 50%;
   transform: translate(-50%, -50%);
@@ -29,34 +29,34 @@ export const Container = styled.div<{mode: Mode, offsetTop: number, maxWidth: nu
   }
 `
 
-export const ButtonGroup = styled.div<{mode: Mode, buttonSize: number}>`
+export const ButtonGroup = styled.div<{orientation: Orientation, buttonSize: number}>`
   display: flex;
   flex-shrink: none;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   > div {
-    margin-bottom: ${props => props.mode === 'landscape' ? `${Math.floor(props.buttonSize / 5)}px` : 0};
-    margin-right: ${props => props.mode === 'portrait' ? `${Math.floor(props.buttonSize / 5)}px` : 0};
+    margin-bottom: ${props => props.orientation === 'LANDSCAPE' ? `${Math.floor(props.buttonSize / 5)}px` : 0};
+    margin-right: ${props => props.orientation === 'PORTRAIT' ? `${Math.floor(props.buttonSize / 5)}px` : 0};
   }
 `
 
-export const ColourButtonGroup = styled.div<{mode: Mode, buttonSize: number}>`
+export const ColourButtonGroup = styled.div<{orientation: Orientation, buttonSize: number}>`
   background-color: rgba(255, 255, 255, .5);
   border-radius: ${props => props.buttonSize}px;
   padding-top: 8px;
   padding-bottom: 8px;
-  padding-left: ${props => props.mode === 'portrait' ? '8px' : 0};
-  padding-right: ${props => props.mode === 'portrait' ? '8px' : 0};
+  padding-left: ${props => props.orientation === 'PORTRAIT' ? '8px' : 0};
+  padding-right: ${props => props.orientation === 'PORTRAIT' ? '8px' : 0};
   display: flex;
   height: 70%;
-  flex-wrap: ${props => props.mode === 'landscape' ? 'wrap' : 'no-wrap'};
+  flex-wrap: ${props => props.orientation === 'LANDSCAPE' ? 'wrap' : 'no-wrap'};
   justify-content: center;
   align-items: center;
   overflow: hidden;
   > div {
-    margin-bottom: ${props => props.mode === 'landscape' ? `${Math.floor(props.buttonSize / 5)}px` : 0};
-    margin-right: ${props => props.mode === 'portrait' ? `${Math.floor(props.buttonSize / 5)}px` : 0};
+    margin-bottom: ${props => props.orientation === 'LANDSCAPE' ? `${Math.floor(props.buttonSize / 5)}px` : 0};
+    margin-right: ${props => props.orientation === 'PORTRAIT' ? `${Math.floor(props.buttonSize / 5)}px` : 0};
   }
 `
 
@@ -64,17 +64,17 @@ export const ScrollableColours = styled.div`
   overflow: hidden;
 `
 
-export const ColourOpacityToggle = styled.div<{mode: Mode, buttonSize: number}>`
+export const ColourOpacityToggle = styled.div<{orientation: Orientation, buttonSize: number}>`
   background-color: #ebebeb;
   border: 6px solid #d9d9d9;
   box-shadow: 0px 4px 0px rgba(0,0,0, .5);
   border-radius: ${props => props.buttonSize}px;
-  width: ${props => props.mode === 'landscape' ? `${props.buttonSize + props.buttonSize * 0.2}px` : 'auto'};
-  padding-bottom: ${props => props.mode === 'landscape' ? '4px' : '0px'};
-  padding-right: ${props => props.mode === 'landscape' ? '0px' : '4px'};
+  width: ${props => props.orientation === 'LANDSCAPE' ? `${props.buttonSize + props.buttonSize * 0.2}px` : 'auto'};
+  padding-bottom: ${props => props.orientation === 'LANDSCAPE' ? '4px' : '0px'};
+  padding-right: ${props => props.orientation === 'LANDSCAPE' ? '0px' : '4px'};
   display: flex;
   flex-shrink: none;
-  flex-wrap: ${props => props.mode === 'landscape' ? 'wrap' : 'no-wrap'};
+  flex-wrap: ${props => props.orientation === 'LANDSCAPE' ? 'wrap' : 'no-wrap'};
   justify-content: center;
   align-items: center;
   position: relative;
@@ -82,33 +82,33 @@ export const ColourOpacityToggle = styled.div<{mode: Mode, buttonSize: number}>`
     transform: scale(1.2);
     &:first-child {
       position: relative;
-      top: ${props => props.mode === 'landscape' ? '4px' : '0px'};
-      left: ${props => props.mode === 'portrait' ? '4px' : '0px'};
+      top: ${props => props.orientation === 'LANDSCAPE' ? '4px' : '0px'};
+      left: ${props => props.orientation === 'PORTRAIT' ? '4px' : '0px'};
     }
   }
 `
 
-export const OpacityButton = styled.div<{mode: Mode, buttonSize: number}>`
+export const OpacityButton = styled.div<{orientation: Orientation, buttonSize: number}>`
   width: ${props => props.buttonSize}px;
   height: ${props => props.buttonSize}px;
   cursor: pointer;
 `
 
-export const LeftToolbarContainer = styled.div<{mode: Mode, buttonSize: number, disabled: boolean}>`
+export const LeftToolbarContainer = styled.div<{orientation: Orientation, buttonSize: number, disabled: boolean}>`
   position: relative;
   pointer-events: ${props => props.disabled ? 'none' : 'all'};
   opacity: ${(props) => props.disabled ? 0.5 : 1};
   filter: ${(props) => props.disabled ? 'grayscale(100%)' : 'none'};
   width: ${(props) => getToolbarWidth(props)};
   height: ${(props) => getToolbarHeight(props)};
-  order: ${props => props.mode === 'landscape' ? 1 : 2 };
+  order: ${props => props.orientation === 'LANDSCAPE' ? 1 : 2 };
   display: flex;
-  flex-direction: ${props => props.mode === 'landscape' ? 'column' : 'row'};
+  flex-direction: ${props => props.orientation === 'LANDSCAPE' ? 'column' : 'row'};
   justify-content: space-between;
   align-items: center;
 `
 
-export const RightToolbarContainer = styled.div<{mode: Mode, buttonSize: number, disabled: boolean}>`
+export const RightToolbarContainer = styled.div<{orientation: Orientation, buttonSize: number, disabled: boolean}>`
   position: relative;
   width: ${(props) => getToolbarWidth(props)};
   max-height: ${(props) => getToolbarHeight(props)};
@@ -118,18 +118,18 @@ export const RightToolbarContainer = styled.div<{mode: Mode, buttonSize: number,
   order: 3;
   justify-content: space-between;
   display: flex;
-  flex-direction: ${props => props.mode === 'landscape' ? 'column' : 'row'};
-  margin-top: ${props => props.mode === 'portrait' ? '10px' : '0px'};
+  flex-direction: ${props => props.orientation === 'LANDSCAPE' ? 'column' : 'row'};
+  margin-top: ${props => props.orientation === 'PORTRAIT' ? '10px' : '0px'};
   align-items: center;
 `
 
-export const SketchContainer = styled.div<{mode: Mode}>`
+export const SketchContainer = styled.div<{orientation: Orientation}>`
   position: relative;
   flex: 1 1 auto;
-  margin-left: ${props => props.mode === 'landscape' ? '10px' : '0px'};
-  margin-right: ${props => props.mode === 'landscape' ? '20px' : '0px'};
-  margin-bottom: ${props => props.mode === 'landscape' ? '0px' : '10px'};
-  order: ${props => props.mode === 'landscape' ? 2 : 1 };
+  margin-left: ${props => props.orientation === 'LANDSCAPE' ? '10px' : '0px'};
+  margin-right: ${props => props.orientation === 'LANDSCAPE' ? '20px' : '0px'};
+  margin-bottom: ${props => props.orientation === 'LANDSCAPE' ? '0px' : '10px'};
+  order: ${props => props.orientation === 'LANDSCAPE' ? 2 : 1 };
 
   .moveable-rotation .moveable-control.moveable-rotation-control {
     border: none !important;
@@ -239,5 +239,50 @@ export const ImageToPlace = styled.img`
   position: absolute;
   width: 80%;
   max-width: 400px;
+  @media (max-width: 768px) {
+    max-width: 250px;
+  }
 }
+`
+
+export const CutImageTutorial = styled.div`
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  top: 50%;
+  width: 90%;
+  height: 90%;
+  transform: translate(-50%, -50%);
+  max-width: 800px;
+  max-height: 600px;
+  background-color: white;
+  z-index: 101;
+  border-radius: 50px;
+  padding: 40px;
+  background-color: #341644;
+  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);
+  box-sizing: border-box;
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+
+  img {
+    width: 100%;
+    max-width: 350px;
+    @media (max-width: 768px) {
+      max-width: 170px;
+    }
+  }
+  > :last-child {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
 `

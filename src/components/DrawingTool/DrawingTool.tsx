@@ -3,11 +3,13 @@ import React, { useRef, useState, useEffect, useLayoutEffect, ReactNode } from '
 import { darken, lighten, getLuminance } from 'polished'
 import Moveable from "react-moveable"
 import MoveableHelper from "moveable-helper"
+import ReactTooltip from 'react-tooltip'
 import * as s from './DrawingTool.styles'
 import useDebounce from '../../hooks/useDebounce'
 import useElementSize from '../../hooks/useElementSize'
 import Button from '../Button'
 import Icon from '../Icon'
+import IconButton from '../IconButton'
 import { ButtonProps } from '../Button/Button'
 import ColourToolbar from './components/ColourToolbar'
 import Modal from '../Modal'
@@ -22,7 +24,7 @@ export interface Props {
   cacheKey?: string
 }
 
-export type Mode = 'landscape' | 'portrait'
+export type Orientation = 'LANDSCAPE' | 'PORTRAIT'
 interface InSketchAction {
   key: string,
   component: ReactNode
@@ -44,14 +46,16 @@ const Drawing = (props: Props) => {
   const debouncedContainerWidth = useDebounce(containerWidth, 1000)
   const debouncedContainerHeight = useDebounce(containerHeight, 1000)
 
-  const [mode, setMode] = useState<Mode>('landscape')
+  const [orientation, setOrientation] = useState<Orientation>('LANDSCAPE')
   const [maxContainerWidth, setMaxContainerWidth] = useState(1280)
   const [maxContainerHeight, setMaxContainerHeight] = useState(960)
   const [buttonSize, setButtonSize] = useState<number>(50)
+  const [isMobile, setIsMobile] = useState(false)
   const [resizing, setResizing] = useState(true)
   const [showRestartConfirmModal, setShowRestartConfirmModal] = useState(false)
   const [showFileInput, setShowFileInput] = useState(false)
   const [imageToCut, setImageToCut] = useState<HTMLImageElement>()
+  const [showCutTutorial, setShowCutTutorial] = useState(true)
   const [showSaveCutAction, setShowSaveCutAction] = useState(false)
   const [imageToPlace, setImageToPlace] = useState<HTMLImageElement>()
   const {
@@ -71,7 +75,8 @@ const Drawing = (props: Props) => {
     setCacheKey,
     setAutoCache,
     resetCut,
-    mergeImage
+    mergeImage,
+    setToolMode,
   } = useDrawingTool()
 
   useEffect(() => {
@@ -86,6 +91,11 @@ const Drawing = (props: Props) => {
       setResizing(true)
     } else if (containerWidth > 0 && containerHeight > 0) {
       setResizing(false)
+      if (containerWidth < 768) {
+        setIsMobile(true)
+      } else {
+        setIsMobile(false)
+      }
     }
   }, [debouncedContainerWidth, debouncedContainerHeight, containerWidth, containerHeight])
 
@@ -95,10 +105,10 @@ const Drawing = (props: Props) => {
 
     if (containerWidth < containerHeight && containerWidth < 1024) {
       setButtonSize(Math.floor(containerWidth / 11) * 0.85)
-      setMode('portrait')
+      setOrientation('PORTRAIT')
     } else {
       setButtonSize(Math.floor(containerHeight / 11) * 0.85)
-      setMode('landscape')
+      setOrientation('LANDSCAPE')
     }
   }, [containerWidth, containerHeight])
 
@@ -129,6 +139,7 @@ const Drawing = (props: Props) => {
   const onImageUploaded = (image: HTMLImageElement) => {
     setShowFileInput(false)
     setImageToCut(image)
+    setToolMode("CUT")
   }
 
   const strokeBrushColour = getLuminance(currentColour.hex) > 0.05 ? darken(0.15, currentColour.hex) : lighten(0.1, currentColour.hex)
@@ -171,31 +182,34 @@ const Drawing = (props: Props) => {
   if (showSaveCutAction) {
     inSketchActions.push({
       key: 'retry-cut',
-      component: <Button theme='orange' size='large' onClick={() => {
+      component: <IconButton icon={<Icon name="drawing-tool-undo" fill="white" />} theme='orange' size={isMobile ? "small" : "regular"} onClick={() => {
         setShowSaveCutAction(false)
+        setShowCutTutorial(true)
         resetCut()
-      }}>Retry</Button>
+      }}>Retry</IconButton>
     }, {
       key: 'save-cut',
-      component: <Button theme='confirm' size='large' onClick={() => {
+      component: <IconButton icon={<Icon name="tick" />} theme='confirm' size={isMobile ? "small" : "regular"} onClick={() => {
         setShowSaveCutAction(false)
         setImageToCut(undefined)
         const newImage = new Image
         newImage.onload = () => {
           setImageToPlace(newImage)
+          setToolMode('PLACE')
         }
         newImage.src = exportSketchCut()
-      }}>Save</Button>
+      }}>Save</IconButton>
     })
   } else if (imageToPlace) {
     inSketchActions.push({
       key: 'cancel-place',
-      component: <Button theme='red' size='large' onClick={() => {
+      component: <IconButton icon={<Icon name="close" />} theme='red' size={isMobile ? "small" : "regular"} onClick={() => {
         setImageToPlace(undefined)
-      }}>Cancel</Button>
+        setToolMode('DRAWING')
+      }}>Cancel</IconButton>
     }, {
       key: 'save-place',
-      component: <Button theme='confirm' size='large' onClick={() => {
+      component: <IconButton icon={<Icon name="tick" />} theme='confirm' size={isMobile ? "small" : "regular"} onClick={() => {
         if (moveableRef.current) {
           const rect = moveableRef.current.getRect()
           mergeImage({
@@ -207,21 +221,23 @@ const Drawing = (props: Props) => {
             height: Math.hypot(rect.pos3[0]-rect.pos2[0], rect.pos3[1]-rect.pos2[1]),
             rotation: rect.rotation
           })
+          setToolMode('DRAWING')
           setImageToPlace(undefined)
         }
       
-      }}>Save</Button>
+      }}>Save</IconButton>
     })
   }
 
-  return <s.Container mode={mode} ref={containerRef} offsetTop={0} maxWidth={maxContainerWidth} maxHeight={maxContainerHeight}>
-    <s.LeftToolbarContainer mode={mode} buttonSize={buttonSize} disabled={disableToolbars}>
-      <s.ButtonGroup mode={mode} buttonSize={buttonSize}>
-        <Button height={buttonSize} round theme='red' onClick={onClickRestart}>
+  return <s.Container orientation={orientation} ref={containerRef} offsetTop={0} maxWidth={maxContainerWidth} maxHeight={maxContainerHeight}>
+    <ReactTooltip effect="solid" delayShow={750} multiline />
+    <s.LeftToolbarContainer orientation={orientation} buttonSize={buttonSize} disabled={disableToolbars}>
+      <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
+        <Button data-tip="Start again?" height={buttonSize} round theme='red' onClick={onClickRestart}>
           <Icon name='trash-white' />
         </Button>
       </s.ButtonGroup>
-      <s.ButtonGroup mode={mode} buttonSize={buttonSize}>
+      <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
         <Button height={buttonSize} round theme="white" onClick={undo}>
           <Icon fill={currentColour.hex} name='drawing-tool-undo' />
         </Button>
@@ -229,18 +245,18 @@ const Drawing = (props: Props) => {
           <Icon fill={currentColour.hex} name='drawing-tool-redo' />
         </Button>
       </s.ButtonGroup>
-      { !props.disableCameraUpload && <s.ButtonGroup mode={mode} buttonSize={buttonSize}>
-        <Button height={buttonSize} round theme='purple' onClick={onClickCamera}>
+      { !props.disableCameraUpload && <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
+        <Button data-tip="Upload a drawing" height={buttonSize} round theme='purple' onClick={onClickCamera}>
           <Icon name='drawing-tool-camera' />
         </Button></s.ButtonGroup>}
-      <s.ButtonGroup mode={mode} buttonSize={buttonSize}>
+      <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
         <Button height={buttonSize} round {...eraserBrushColourProps} onClick={() => setBrushType('eraser')}>
-          <Icon fill={brushType === 'eraser' ? 'white' : currentColour.hex} name='drawing-tool-eraser' />
+          <Icon data-tip="Eraser" fill={brushType === 'eraser' ? 'white' : currentColour.hex} name='drawing-tool-eraser' />
         </Button>
-        <Button height={buttonSize} round {...fillBrushColourProps} onClick={() => setBrushType('fill')}>
+        <Button data-tip="Fill brush" height={buttonSize} round {...fillBrushColourProps} onClick={() => setBrushType('fill')}>
           <Icon fill={brushType === 'fill' ? 'white' : currentColour.hex} name='drawing-tool-fill-brush' />
         </Button>
-        <Button height={buttonSize} round {...lineBrushColourProps} onClick={() => setBrushType('line')}>
+        <Button data-tip="Line brush" height={buttonSize} round {...lineBrushColourProps} onClick={() => setBrushType('line')}>
           <Icon fill={brushType === 'line' ? 'white' : currentColour.hex} name='drawing-tool-line-brush' />
         </Button>
         <Button height={buttonSize} round {...smallLineColourProps} onClick={() => setBrushSize(BrushSize.small)}>
@@ -255,7 +271,7 @@ const Drawing = (props: Props) => {
       </s.ButtonGroup>
     </s.LeftToolbarContainer>
 
-    <s.SketchContainer mode={mode} ref={sketchOuterRef}>
+    <s.SketchContainer orientation={orientation} ref={sketchOuterRef}>
       {props.showPaperBackground && <s.PaperBackground cutMode={imageToCut && true} />}
       {!imageToCut && sketchStyles && <div style={sketchStyles} ref={sketchInnerRef} />}
       {imageToCut && sketchStyles && <div style={sketchStyles} ref={sketchCutInnerRef} />}
@@ -267,7 +283,7 @@ const Drawing = (props: Props) => {
             target={imageToPlaceContainerRef}
             ables={[Placeable]}
             props={{
-                placeable: true,
+              placeable: true,
             }}
             snappable
             bounds={{ left: 0, top: 0, bottom: sketchOuterRef.current?.offsetHeight, right: sketchOuterRef.current?.offsetWidth }}
@@ -291,17 +307,21 @@ const Drawing = (props: Props) => {
           ))}
         </s.InSketchActions>
       )}
-  
+      { imageToCut && showCutTutorial && <s.CutImageTutorial onClick={() => setShowCutTutorial(false )}>
+        <div>Now cut out your animal: Click, hold and make sure you draw around it.</div>
+        <img alt="crop example" src="https://cdn.nightzookeeper.com/nzk-assets/crop-tutorial.png" />
+        <div><Button size={isMobile ? "small" : "regular"} theme="primary">Ok</Button></div>
+        </s.CutImageTutorial> }
     </s.SketchContainer>
 
-    <s.RightToolbarContainer mode={mode} buttonSize={buttonSize} disabled={disableToolbars}>
-      <ColourToolbar mode={mode} size={buttonSize} currentColour={currentColour} />
-      <s.ColourOpacityToggle mode={mode} buttonSize={Math.floor(buttonSize * .8)}>
-        <s.OpacityButton mode={mode} buttonSize={Math.floor(buttonSize * .9)} onClick={() => setBruchOpacity(0.5)}>
-          <Icon fill={brushOpacity === 1 ? '#7A7A79' : currentColour.hex} name='drawing-tool-opacity-half' />
+    <s.RightToolbarContainer orientation={orientation} buttonSize={buttonSize} disabled={disableToolbars}>
+      <ColourToolbar orientation={orientation} size={buttonSize} currentColour={currentColour} />
+      <s.ColourOpacityToggle orientation={orientation} buttonSize={Math.floor(buttonSize * .8)}>
+        <s.OpacityButton orientation={orientation} buttonSize={Math.floor(buttonSize * .9)} onClick={() => setBruchOpacity(0.5)}>
+          <Icon data-tip="Color mixer ON" fill={brushOpacity === 1 ? '#7A7A79' : currentColour.hex} name='drawing-tool-opacity-half' />
         </s.OpacityButton>
-        <s.OpacityButton mode={mode} buttonSize={Math.floor(buttonSize * .9)} onClick={() => setBruchOpacity(1)}>
-          <Icon fill={brushOpacity < 1 ? '#7A7A79' : currentColour.hex} name='drawing-tool-opacity-full' />
+        <s.OpacityButton orientation={orientation} buttonSize={Math.floor(buttonSize * .9)} onClick={() => setBruchOpacity(1)}>
+          <Icon data-tip="Color mixer OFF" fill={brushOpacity < 1 ? '#7A7A79' : currentColour.hex} name='drawing-tool-opacity-full' />
         </s.OpacityButton>
       </s.ColourOpacityToggle>
     </s.RightToolbarContainer>
@@ -309,16 +329,17 @@ const Drawing = (props: Props) => {
     { showRestartConfirmModal && <s.ModalOverlay><Modal
       title="Are you sure?"
       actions={[
-        <Button key='confirm' size="regular" theme="confirm" onClick={() => {
+        <Button key='confirm' size={isMobile ? "small" : "regular"} theme="confirm" onClick={() => {
           restart()
           setShowRestartConfirmModal(false)
         }}>Yes</Button>,
-        <Button key='cancel' size="regular" theme="red" onClick={() => {
+        <Button key='cancel' size={isMobile ? "small" : "regular"} theme="red" onClick={() => {
           setShowRestartConfirmModal(false)
         }}>No</Button>
       ]}/></s.ModalOverlay>}
       { showFileInput && <s.ModalOverlay>
         <FileInput
+          isMobile={isMobile}
           dismiss={() => setShowFileInput(false)}
           onImageUploaded={onImageUploaded}
         />

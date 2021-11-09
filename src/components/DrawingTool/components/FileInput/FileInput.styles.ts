@@ -16,17 +16,27 @@ export const Container = styled.div`
   box-sizing: border-box;
   color: white;
   font-size: 36px;
+  @media (max-width: 768px) {
+    font-size: 20px;
+    max-height: 240px;
+  }
 `
 
 export const Instructions = styled.div`
   text-align: center;
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `
 
 export const QuitButton = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  transform: translate(25px, -25px);
+  transform: translate(15px, -15px);
+  @media (max-width: 768px) {
+    transform: translate(10px, -10px);
+  }
 `
 
 export const ErrorMessage = styled.div`
@@ -34,5 +44,5 @@ export const ErrorMessage = styled.div`
   border-radius: 10px;
   background-color: #E30514;
   color: white;
-  font-size: 24px;
+  font-size: 20px;
 `

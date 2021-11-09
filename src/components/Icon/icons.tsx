@@ -100,6 +100,7 @@ import { ReactComponent as WritingTypePoem } from '../../assets/icons/writing-ty
 import { ReactComponent as WritingTypeReport } from '../../assets/icons/writing-type-report.svg'
 import { ReactComponent as Writing } from '../../assets/icons/writing.svg'
 import { ReactComponent as ZooPoint } from '../../assets/icons/zoo-point.svg'
+import { ReactComponent as Tick } from '../../assets/icons/tick.svg'
 import { ReactComponent as DrawingToolCamera } from '../../assets/icons/drawing-tool-camera.svg'
 import { ReactComponent as DrawingToolUndo } from '../../assets/icons/drawing-tool-undo.svg'
 import { ReactComponent as DrawingToolRedo } from '../../assets/icons/drawing-tool-redo.svg'
@@ -115,6 +116,7 @@ import { ReactComponent as DrawingToolArrowUp } from '../../assets/icons/drawing
 import { ReactComponent as DrawingToolArrowDown } from '../../assets/icons/drawing-tool-arrow-down.svg'
 import { ReactComponent as DrawingToolArrowLeft } from '../../assets/icons/drawing-tool-arrow-left.svg'
 import { ReactComponent as DrawingToolArrowRight } from '../../assets/icons/drawing-tool-arrow-right.svg'
+
 
 import { IconProps } from './Icon'
 
@@ -220,6 +222,7 @@ export const ICONS = {
   'users': <Users />,
   'video': <Video />,
   'whatsapp': <Whatsapp />,
+  'tick': <Tick />,
   'drawing-tool-undo': <DrawingToolUndo />,
   'drawing-tool-redo': <DrawingToolRedo />,
   'drawing-tool-camera': <DrawingToolCamera />,

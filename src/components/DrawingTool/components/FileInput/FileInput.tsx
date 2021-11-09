@@ -1,6 +1,6 @@
 /* eslint-env browser */
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import * as s from './FileInput.styles'
 import Button from '../../../Button'
@@ -9,6 +9,7 @@ import Icon from '../../../Icon'
 export interface Props {
   dismiss?: () => void
   onImageUploaded?: (image: HTMLImageElement) => void
+  isMobile: boolean
 }
 
 export default (props: Props) => {
@@ -22,6 +23,16 @@ export default (props: Props) => {
     accept: 'image/jpeg, image/png',
     maxFiles:2
   })
+
+  const [supportDragAndDrop, setSupportDragAndDrop] = useState(true)
+
+  useEffect(() => {
+    if ('draggable' in document.createElement('span')) {
+      setSupportDragAndDrop(true)
+    } else {
+      setSupportDragAndDrop(false)
+    }
+  }, [])
 
   useEffect(() => {
     if (acceptedFiles && acceptedFiles.length) {
@@ -51,7 +62,7 @@ export default (props: Props) => {
 
   return <s.Container {...getRootProps()}>
     <s.QuitButton onClick={onDismiss}>
-      <Button round theme='red' size='large'>
+      <Button round theme='red' size={props.isMobile ? "small" : "regular"}>
         <Icon name='close' />
       </Button>
     </s.QuitButton>
@@ -60,9 +71,9 @@ export default (props: Props) => {
       ? <p>Drop your image here...</p> 
       : (<s.Instructions>
           { ErrorMessage }
-          <p>Drag and drop an image here</p>
-          <p style={{ fontSize: '24px'}}>Or</p>
-          <Button theme="primary" size="large">Select Image</Button>
+          <p>{!supportDragAndDrop ? "Upload a drawing" : "Drag and drop a drawing here"}</p>
+          {supportDragAndDrop && <p>Or</p>}
+          <Button theme="primary" size={props.isMobile ? "small" : "regular"}>Select Image</Button>
         </s.Instructions>
       )
     }
