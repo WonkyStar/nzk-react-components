@@ -14,7 +14,7 @@ export default class SketchLayer {
     naturalHeight: number;
     readonly pixelRatioScale: number;
     readonly canvas: HTMLCanvasElement;
-    readonly ctx: null | CanvasRenderingContext2D;
+    readonly ctx: CanvasRenderingContext2D;
     constructor(props: Props);
     setSize(naturalWidth: any, naturalHeight: any, width: any, height: any): void;
     setPosition(x: any, y: any): void;

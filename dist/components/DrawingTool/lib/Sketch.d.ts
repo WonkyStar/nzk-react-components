@@ -9,8 +9,6 @@ export interface SketchProps {
 }
 interface ExportProps {
     crop?: boolean;
-    maxWidth?: number;
-    maxHeight?: number;
 }
 export default class Sketch {
     readonly containerEl: HTMLDivElement;
@@ -42,7 +40,7 @@ export default class Sketch {
         eraser: any;
     }): void;
     mergeImage(data: SketchActionMergeData, saveAction?: boolean): void;
-    export(props: ExportProps): string;
+    export(props?: ExportProps): any;
     undo(): void;
     redo(): void;
     canUndo(): boolean;

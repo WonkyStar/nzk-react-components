@@ -3,19 +3,20 @@ import SketchCutModel from "./SketchCutModel";
 import SketchLayer from "./SketchLayer";
 import SketchStrokeModel from "./SketchStrokeModel";
 export interface SketchCutProps extends SketchProps {
-    model: SketchCutModel;
-    imageToCut: string;
+    imageToCut: HTMLImageElement;
+    onImageCut?: () => void;
 }
 export default class SketchCut extends Sketch {
     readonly model: SketchCutModel;
-    readonly imageToCut: string;
+    readonly imageToCut: HTMLImageElement;
     cutLayer: SketchLayer;
     uiLayer: SketchLayer;
+    onImageCut?: () => void;
     constructor(props: SketchCutProps);
     initDrawAnimations(): void;
-    setDrawingStyle(style: any, ctx: any): void;
     drawCutStroke(stroke: any): void;
     drawCutFinal(stroke: any): void;
+    resetCut(): void;
     drawOutline(stroke: SketchStrokeModel): void;
     getLayerToExport(): SketchLayer;
 }
