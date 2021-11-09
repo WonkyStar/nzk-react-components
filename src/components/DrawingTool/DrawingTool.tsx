@@ -1,6 +1,8 @@
 /* eslint-env browser */
-import React, { useRef, useState, useEffect, useLayoutEffect  } from 'react'
+import React, { useRef, useState, useEffect, useLayoutEffect, ReactNode } from 'react'
 import { darken, lighten, getLuminance } from 'polished'
+import Moveable from "react-moveable"
+import MoveableHelper from "moveable-helper"
 import * as s from './DrawingTool.styles'
 import useDebounce from '../../hooks/useDebounce'
 import useElementSize from '../../hooks/useElementSize'
@@ -10,6 +12,8 @@ import { ButtonProps } from '../Button/Button'
 import ColourToolbar from './components/ColourToolbar'
 import Modal from '../Modal'
 import { useDrawingTool, BrushSize } from './DrawingToolProvider'
+import FileInput from './components/FileInput'
+import Placeable from './components/Placeable'
 
 export interface Props {
   showPaperBackground?: boolean
@@ -19,11 +23,22 @@ export interface Props {
 }
 
 export type Mode = 'landscape' | 'portrait'
+interface InSketchAction {
+  key: string,
+  component: ReactNode
+}
 
 const Drawing = (props: Props) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const sketchOuterRef = useRef<HTMLDivElement | null>(null)
   const sketchInnerRef = useRef<HTMLDivElement | null>(null)
+  const sketchCutInnerRef = useRef<HTMLDivElement | null>(null)
+  const imageToPlaceContainerRef = useRef<HTMLImageElement | null>(null)
+  const moveableRef = useRef<Moveable | null>(null)
+
+  const [helper] = useState(() => {
+    return new MoveableHelper()
+  })
 
   const { width: containerWidth, height: containerHeight } = useElementSize(containerRef)
   const debouncedContainerWidth = useDebounce(containerWidth, 1000)
@@ -35,9 +50,14 @@ const Drawing = (props: Props) => {
   const [buttonSize, setButtonSize] = useState<number>(50)
   const [resizing, setResizing] = useState(true)
   const [showRestartConfirmModal, setShowRestartConfirmModal] = useState(false)
-
+  const [showFileInput, setShowFileInput] = useState(false)
+  const [imageToCut, setImageToCut] = useState<HTMLImageElement>()
+  const [showSaveCutAction, setShowSaveCutAction] = useState(false)
+  const [imageToPlace, setImageToPlace] = useState<HTMLImageElement>()
   const {
     initSketch,
+    initSketchCut,
+    exportSketchCut,
     currentColour,
     brushOpacity,
     setBruchOpacity,
@@ -49,7 +69,9 @@ const Drawing = (props: Props) => {
     redo,
     restart,
     setCacheKey,
-    setAutoCache
+    setAutoCache,
+    resetCut,
+    mergeImage
   } = useDrawingTool()
 
   useEffect(() => {
@@ -82,13 +104,31 @@ const Drawing = (props: Props) => {
 
   // Intialise sketch tool
   useEffect(() => {
-    if (!resizing && sketchInnerRef.current) {
+    if (!imageToCut && !resizing && sketchInnerRef.current) {
       initSketch(sketchInnerRef.current)
     }
-  }, [resizing, sketchInnerRef])
+  }, [resizing, sketchInnerRef, imageToCut])
+
+  // Intialise sketch cut tool
+  useEffect(() => {
+    if (!resizing && sketchCutInnerRef.current && imageToCut) {
+        initSketchCut(sketchCutInnerRef.current, imageToCut, () => {
+          setShowSaveCutAction(true)
+        })
+      }
+    }, [resizing, sketchCutInnerRef, imageToCut])
 
   const onClickRestart = () => {
     setShowRestartConfirmModal(true)
+  }
+
+  const onClickCamera = () => {
+    setShowFileInput(true)
+  }
+
+  const onImageUploaded = (image: HTMLImageElement) => {
+    setShowFileInput(false)
+    setImageToCut(image)
   }
 
   const strokeBrushColour = getLuminance(currentColour.hex) > 0.05 ? darken(0.15, currentColour.hex) : lighten(0.1, currentColour.hex)
@@ -117,12 +157,65 @@ const Drawing = (props: Props) => {
       // @ts-ignore
       width: `${sketchOuterRef.current.offsetWidth}px`,
       // @ts-ignore
-      height:`${sketchOuterRef.current.offsetHeight}px`
+      height:`${sketchOuterRef.current.offsetHeight}px`,
+      position: 'absolute',
+      top: '0px',
+      left: '0px'
     }
   }
 
+  const disableToolbars = (showFileInput || showRestartConfirmModal || imageToCut|| imageToPlace ) as boolean
+
+  const inSketchActions: InSketchAction[] = []
+
+  if (showSaveCutAction) {
+    inSketchActions.push({
+      key: 'retry-cut',
+      component: <Button theme='orange' size='large' onClick={() => {
+        setShowSaveCutAction(false)
+        resetCut()
+      }}>Retry</Button>
+    }, {
+      key: 'save-cut',
+      component: <Button theme='confirm' size='large' onClick={() => {
+        setShowSaveCutAction(false)
+        setImageToCut(undefined)
+        const newImage = new Image
+        newImage.onload = () => {
+          setImageToPlace(newImage)
+        }
+        newImage.src = exportSketchCut()
+      }}>Save</Button>
+    })
+  } else if (imageToPlace) {
+    inSketchActions.push({
+      key: 'cancel-place',
+      component: <Button theme='red' size='large' onClick={() => {
+        setImageToPlace(undefined)
+      }}>Cancel</Button>
+    }, {
+      key: 'save-place',
+      component: <Button theme='confirm' size='large' onClick={() => {
+        if (moveableRef.current) {
+          const rect = moveableRef.current.getRect()
+          mergeImage({
+            image: imageToPlace,
+            x: rect.left,
+            y: rect.top,
+            origin: rect.origin,
+            width: Math.hypot(rect.pos2[0]-rect.pos1[0], rect.pos2[1]-rect.pos1[1]),
+            height: Math.hypot(rect.pos3[0]-rect.pos2[0], rect.pos3[1]-rect.pos2[1]),
+            rotation: rect.rotation
+          })
+          setImageToPlace(undefined)
+        }
+      
+      }}>Save</Button>
+    })
+  }
+
   return <s.Container mode={mode} ref={containerRef} offsetTop={0} maxWidth={maxContainerWidth} maxHeight={maxContainerHeight}>
-    <s.LeftToolbarContainer mode={mode} buttonSize={buttonSize}>
+    <s.LeftToolbarContainer mode={mode} buttonSize={buttonSize} disabled={disableToolbars}>
       <s.ButtonGroup mode={mode} buttonSize={buttonSize}>
         <Button height={buttonSize} round theme='red' onClick={onClickRestart}>
           <Icon name='trash-white' />
@@ -137,7 +230,7 @@ const Drawing = (props: Props) => {
         </Button>
       </s.ButtonGroup>
       { !props.disableCameraUpload && <s.ButtonGroup mode={mode} buttonSize={buttonSize}>
-        <Button height={buttonSize} round theme='purple' onClick={() => {}}>
+        <Button height={buttonSize} round theme='purple' onClick={onClickCamera}>
           <Icon name='drawing-tool-camera' />
         </Button></s.ButtonGroup>}
       <s.ButtonGroup mode={mode} buttonSize={buttonSize}>
@@ -161,11 +254,47 @@ const Drawing = (props: Props) => {
         </Button>
       </s.ButtonGroup>
     </s.LeftToolbarContainer>
+
     <s.SketchContainer mode={mode} ref={sketchOuterRef}>
-      {props.showPaperBackground && <s.PaperBackground />}
-      {sketchStyles && <div style={sketchStyles} ref={sketchInnerRef} />}
+      {props.showPaperBackground && <s.PaperBackground cutMode={imageToCut && true} />}
+      {!imageToCut && sketchStyles && <div style={sketchStyles} ref={sketchInnerRef} />}
+      {imageToCut && sketchStyles && <div style={sketchStyles} ref={sketchCutInnerRef} />}
+      {imageToPlace && sketchStyles && (
+        <div style={{ ...sketchStyles, zIndex: '101'}}>
+          <s.ImageToPlaceContainer><s.ImageToPlace ref={imageToPlaceContainerRef} src={imageToPlace.src} /></s.ImageToPlaceContainer>
+          <Moveable
+            ref={moveableRef}
+            target={imageToPlaceContainerRef}
+            ables={[Placeable]}
+            props={{
+                placeable: true,
+            }}
+            snappable
+            bounds={{ left: 0, top: 0, bottom: sketchOuterRef.current?.offsetHeight, right: sketchOuterRef.current?.offsetWidth }}
+            draggable
+            scalable
+            keepRatio
+            rotatable
+            onDragStart={helper.onDragStart}
+            onDrag={helper.onDrag}
+            onScaleStart={helper.onScaleStart}
+            onScale={helper.onScale}
+            onRotateStart={helper.onRotateStart}
+            onRotate={helper.onRotate}
+          />
+        </div>
+      )}
+      {inSketchActions.length && (
+        <s.InSketchActions>
+          { inSketchActions.map((action) => (
+            <s.InSketchAction key={action.key}>{action.component}</s.InSketchAction>
+          ))}
+        </s.InSketchActions>
+      )}
+  
     </s.SketchContainer>
-    <s.RightToolbarContainer mode={mode} buttonSize={buttonSize}>
+
+    <s.RightToolbarContainer mode={mode} buttonSize={buttonSize} disabled={disableToolbars}>
       <ColourToolbar mode={mode} size={buttonSize} currentColour={currentColour} />
       <s.ColourOpacityToggle mode={mode} buttonSize={Math.floor(buttonSize * .8)}>
         <s.OpacityButton mode={mode} buttonSize={Math.floor(buttonSize * .9)} onClick={() => setBruchOpacity(0.5)}>
@@ -176,6 +305,7 @@ const Drawing = (props: Props) => {
         </s.OpacityButton>
       </s.ColourOpacityToggle>
     </s.RightToolbarContainer>
+
     { showRestartConfirmModal && <s.ModalOverlay><Modal
       title="Are you sure?"
       actions={[
@@ -187,6 +317,12 @@ const Drawing = (props: Props) => {
           setShowRestartConfirmModal(false)
         }}>No</Button>
       ]}/></s.ModalOverlay>}
+      { showFileInput && <s.ModalOverlay>
+        <FileInput
+          dismiss={() => setShowFileInput(false)}
+          onImageUploaded={onImageUploaded}
+        />
+      </s.ModalOverlay>}
   </s.Container>
 }
 

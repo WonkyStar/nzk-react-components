@@ -1,3 +1,5 @@
+/* eslint-env browser */
+
 import Sketch, { SketchProps } from "./Sketch"
 import SketchCutModel from "./SketchCutModel"
 import SketchLayer from "./SketchLayer"
@@ -5,17 +7,19 @@ import SketchStrokeModel from "./SketchStrokeModel"
 import trace from "./trace"
 
 export interface SketchCutProps extends SketchProps {
-  model: SketchCutModel
-  imageToCut: string
+  imageToCut: HTMLImageElement
+  onImageCut?: () => void
 }
 export default class SketchCut extends Sketch {
   readonly model: SketchCutModel
 
-  readonly imageToCut: string
+  readonly imageToCut: HTMLImageElement
 
   cutLayer: SketchLayer
 
   uiLayer: SketchLayer
+
+  onImageCut?: () => void
 
   constructor(props: SketchCutProps) {
     super(props)
@@ -26,6 +30,10 @@ export default class SketchCut extends Sketch {
   
     this.imageToCut = props.imageToCut
     this.drawingLayer.drawImageToFit(this.imageToCut)
+
+    if (props.onImageCut) {
+      this.onImageCut = props.onImageCut
+    }
 
     const defaultLayerProps = {
       width: props.containerEl.offsetWidth,
@@ -45,15 +53,6 @@ export default class SketchCut extends Sketch {
     super.initDrawAnimations()
 		this.drawFinished.cut = this.drawCutFinal
 		this.drawAnimation.cut = this.drawCutStroke
-  }
-
-  setDrawingStyle (style, ctx) {
-    const colour = 'rgba(0, 0, 0, 1)'
-		ctx.strokeStyle = colour
-		ctx.fillStyle = colour
-		ctx.lineWidth = 7 * this.pixelRatioScale
-		ctx.lineJoin = "round"
-    ctx.lineCap = "round"
   }
 
   drawCutStroke(stroke) {
@@ -77,18 +76,25 @@ export default class SketchCut extends Sketch {
 
     // If the cut is too small, get rid of it and broadcast an event
     if(box.width < 0 || box.height < 0 || (box.width * box.height) < ((this.width * this.height) * 0.001)) {
-      this.uiLayer.clear()
-      this.drawingLayer.ctx.globalCompositeOperation = 'copy'
-      this.drawingLayer.drawImageToFit(this.imageToCut)
+      this.resetCut()
     } else {
       this.drawOutline(stroke)
       this.cutLayer.clear()
       this.cutLayer.ctx.drawImage(this.drawingLayer.ctx.canvas, box.topLeftX, box.topLeftY, box.width, box.height, 0, 0, box.width, box.height)
+      if (this.onImageCut) {
+        this.onImageCut()
+      }
     }
   }
 
+  resetCut () {
+    this.uiLayer.clear()
+    this.drawingLayer.ctx.globalCompositeOperation = 'copy'
+    this.drawingLayer.drawImageToFit(this.imageToCut)
+  }
+
   drawOutline (stroke: SketchStrokeModel) {
-    this.uiLayer.ctx.strokeStyle = "rgba(0, 0, 0, 0.7)"
+    this.uiLayer.ctx.strokeStyle = "rgba(252,234,63, 1)"
     this.uiLayer.ctx.lineWidth = 7 * this.pixelRatioScale
     this.uiLayer.ctx.lineJoin = "round"
     this.uiLayer.ctx.lineCap = "round"

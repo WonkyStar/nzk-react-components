@@ -1,11 +1,17 @@
+/* eslint-env browser */
 import SketchStrokeModel, { SketchPoint, SketchStrokeModelData, SketchStrokeType } from './SketchStrokeModel'
 
 export type SketchActionType = 'STROKE' | 'IMAGE_MERGE'
 
 export interface SketchActionMergeData {
-  image: string
+  image?: HTMLImageElement
+  imageSrc?: string
   x: number
   y: number
+  origin: number[]
+  height: number
+  width: number
+  rotation: number
 }
 
 export interface SketchAction {
@@ -94,6 +100,8 @@ export default class SketchModel {
   }
 
   saveMergeImage(mergeParams: SketchActionMergeData) {
+    this.currentStroke = null
+    this.lastActionIndex += 1
     this.actions.push({
       type: 'IMAGE_MERGE',
       data: mergeParams
@@ -128,8 +136,14 @@ export default class SketchModel {
 
     this.actions.forEach(action => {
       let serializedObject
-      if (action.type === 'STROKE' && action.model) {
-        serializedObject = action.model.serialize()
+      if (action.type === 'STROKE') {
+        serializedObject = action.model ? action.model.serialize() : action.data || {}
+      } else if (action.type === 'IMAGE_MERGE') {
+        serializedObject = action.data
+        if (serializedObject.image) {
+          serializedObject.imageSrc = serializedObject.image.src
+          serializedObject.image = undefined
+        }
       }
       serialized.actions.push({
         type: action.type,

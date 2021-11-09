@@ -5,6 +5,8 @@ import createInteractionSurface, { Point } from './createInteractionSurface'
 import SketchModel, { SketchActionMergeData, SketchModelData } from './SketchModel'
 import { SketchStrokeStyle } from './SketchStrokeModel'
 import trace from './trace'
+import trimCanvas from './trimCanvas'
+import { Actions } from 'components/Modal/Modal.styles'
 
 export interface SketchProps {
   containerEl: HTMLDivElement
@@ -15,8 +17,6 @@ export interface SketchProps {
 
 interface ExportProps {
   crop?: boolean
-  maxWidth?: number
-  maxHeight?: number
 }
 
 const setDrawingStyle = (style: undefined | SketchStrokeStyle, ctx: CanvasRenderingContext2D) => {
@@ -160,59 +160,41 @@ export default class Sketch {
   }
 
   mergeImage(data: SketchActionMergeData, saveAction = true) {
-    // @ts-ignore
-    this.drawingLayer.ctx.drawImage(data.image, data.x, data.y)
-    if (saveAction) {
-      this.model.saveMergeImage(data)
+    const doMerge = (img: HTMLImageElement) => {
+      const scale = data.width / img.width
+      this.drawingLayer.ctx.save()
+      this.drawingLayer.ctx.translate(data.origin[0], data.origin[1])
+      this.drawingLayer.ctx.rotate(data.rotation * Math.PI / 180)
+      this.drawingLayer.ctx.translate(- data.x - img.width * scale / 2, - data.y - img.height * scale / 2)
+      this.drawingLayer.ctx.drawImage(img, data.x, data.y, img.width * scale, img.height * scale)
+      this.drawingLayer.ctx.restore()
+      if (saveAction) {
+        this.model.saveMergeImage(data)
+        if (this.onChange) {
+          this.onChange()
+        }
+      }
+    }
+  
+    if (data.image) {
+      doMerge(data.image)
+    } else if (data.imageSrc) {
+      const img = new Image
+      img.onload = () => { doMerge(img) }
+      img.src = data.imageSrc
     }
   }
 
-  export(props: ExportProps) {
+  export(props?: ExportProps) {
     if (this.templateLayer) {
       this.templateLayer.drawImageToFit(this.drawingLayer.canvas)
     } 
 
     const layerToExport = this.getLayerToExport()
-    
-    let box = {
-      topLeftX: 0,
-      topLeftY: 0,
-      width: this.width,
-      height: this.height
-    }
 
-    if (props.crop){
-      box = {
-        ...box,
-        ...this.findBoundingBox(layerToExport.ctx)
-      }
-    }
+    const exportCanvas = (props && props.crop) ? trimCanvas(layerToExport.canvas) : layerToExport.canvas
 
-    let shrinkRatio = 1
-    let widthShrinkRatio = 1
-    let heightShrinkRatio = 1
-
-    if(props.maxWidth && box.width > props.maxWidth){
-      widthShrinkRatio = box.width / props.maxWidth
-    }
-
-    if(props.maxHeight && box.height > props.maxHeight){
-      heightShrinkRatio = box.height / props.maxHeight 
-    }
-
-    shrinkRatio = Math.max(widthShrinkRatio, heightShrinkRatio)
-
-    const exportLayer = new SketchLayer({
-      width: box.width / shrinkRatio,
-      height: box.height / shrinkRatio
-    })
-
-    if (exportLayer.ctx) {
-      exportLayer.ctx.globalCompositeOperation = 'copy'
-      exportLayer.ctx.drawImage(layerToExport.canvas, box.topLeftX, box.topLeftY, box.width, box.height, 0, 0, box.width / shrinkRatio, box.height / shrinkRatio)
-    }
-  
-    return exportLayer.canvas.toDataURL()
+    return exportCanvas.toDataURL()
   }
 
   undo() {
@@ -222,8 +204,10 @@ export default class Sketch {
     this.drawingLayer.clear()
 
     for(let i = 0; i <= this.model.lastActionIndex; i += 1) {
-      if(this.model.actions[i].type === 'STROKE' && this.model.actions[i].model) {
+      if (this.model.actions[i].type === 'STROKE' && this.model.actions[i].model) {
         this.drawUndoStroke(this.model.actions[i].model)
+      } else if (this.model.actions[i].type === 'IMAGE_MERGE' && this.model.actions[i]) {
+        this.mergeImage(this.model.actions[i].data as SketchActionMergeData, false)
       }
     }
   }
@@ -235,8 +219,10 @@ export default class Sketch {
 
     const action = this.model.actions[this.model.lastActionIndex]
     
-    if(action.type === 'STROKE' && action.model) {
+    if (action.type === 'STROKE' && action.model) {
       this.drawUndoStroke(action.model)
+    } else if (action.type === 'IMAGE_MERGE' && action.data) {
+      this.mergeImage(action.data as SketchActionMergeData, false)
     }
   }
 
@@ -334,7 +320,7 @@ export default class Sketch {
   }
 
   endDraw() {
-    if(!this.model.currentStroke) return
+    if(!(this.model.currentStroke && this.model.currentStroke.style)) return
     this.isDrawing = false
     this.endStrokeAnimation()
     this.bufferLayer.clear()
@@ -372,10 +358,8 @@ export default class Sketch {
   }
 
   drawUndoStroke(stroke) {
-    if (this.drawingLayer.ctx) {
-      setDrawingStyle(stroke.style, this.drawingLayer.ctx)
-      this.drawUndo[stroke.style.type].apply(this, [stroke])
-    }
+    setDrawingStyle(stroke.style, this.drawingLayer.ctx)
+    this.drawUndo[stroke.style.type].apply(this, [stroke])
   }
 
 	drawFinishedStroke(stroke) {

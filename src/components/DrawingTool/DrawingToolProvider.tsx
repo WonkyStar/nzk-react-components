@@ -2,6 +2,8 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
 import { createContainer } from 'unstated-next'
 import Sketch from './lib/Sketch'
+import SketchCut from './lib/SketchCut'
+import { SketchActionMergeData } from './lib/SketchModel'
 
 export const BrushSize = {
   small: 7,
@@ -36,6 +38,7 @@ export interface Colour {
 
 const DrawingToolState = () => {
   const sketchRef = useRef<Sketch>()
+  const sketchCutRef = useRef<SketchCut>()
 
   const [autoCache, setAutoCache] = useState(true)
   const [cacheKey, setCacheKey] = useState('nzk-sketch-cache')
@@ -56,6 +59,10 @@ const DrawingToolState = () => {
         eraser: brushType === 'eraser'
       })
     }
+  }, [])
+
+  const setSketchCutRef = useCallback(node => {
+    sketchCutRef.current = node
   }, [])
 
   // Sketch tool brush changes
@@ -97,12 +104,41 @@ const DrawingToolState = () => {
     }))
   }
 
+  const initSketchCut = (containerEl, imageToCut: HTMLImageElement, onImageCut: () => void) => {
+    setSketchCutRef(new SketchCut({
+      containerEl,
+      imageToCut,
+      onImageCut
+    }))
+  }
+
+  const resetCut = () => {
+    if (sketchCutRef && sketchCutRef.current) {
+      sketchCutRef.current.resetCut()
+    }
+  }
+
   const exportSketch = (options = { crop: true }) => {
     if (sketchRef.current) {
       return sketchRef.current.export(options)
     } 
     return ''
   }
+
+  const exportSketchCut = () => {
+    if (sketchCutRef.current) {
+      return sketchCutRef.current.export({crop: true})
+    } 
+    return ''
+  }
+
+  const mergeImage = (data: SketchActionMergeData) => {
+    if (sketchRef.current) {
+      return sketchRef.current.mergeImage(data)
+    }
+    return null
+  }
+
 
   const undo = () => {
     if (sketchRef.current) sketchRef.current.undo()
@@ -118,7 +154,9 @@ const DrawingToolState = () => {
 
   return {
     initSketch,
+    initSketchCut,
     exportSketch,
+    exportSketchCut,
     currentColour,
     setCurrentColour,
     brushOpacity,
@@ -133,7 +171,9 @@ const DrawingToolState = () => {
     onSketchChange,
     setCacheKey,
     setAutoCache,
-    clearCache
+    clearCache,
+    resetCut,
+    mergeImage
   }
 }
 
