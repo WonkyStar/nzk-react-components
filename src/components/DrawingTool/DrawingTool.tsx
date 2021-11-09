@@ -18,6 +18,9 @@ import FileInput from './components/FileInput'
 import Placeable from './components/Placeable'
 
 export interface Props {
+  prompt: string
+  backButton: React.ReactNode
+  saveButton: React.ReactNode
   showPaperBackground?: boolean
   disableCameraUpload?: boolean
   disableAutoCache?: boolean
@@ -107,7 +110,13 @@ const Drawing = (props: Props) => {
       setButtonSize(Math.floor(containerWidth / 11) * 0.85)
       setOrientation('PORTRAIT')
     } else {
-      setButtonSize(Math.floor(containerHeight / 11) * 0.85)
+      if (containerHeight < 420) {
+        setButtonSize(Math.floor(containerHeight / 13) * 0.85)
+      } else if (containerHeight < 850) {
+        setButtonSize(Math.floor(containerHeight / 12) * 0.85)
+      } else {
+        setButtonSize(Math.floor(containerHeight / 11) * 0.85)
+      }
       setOrientation('LANDSCAPE')
     }
   }, [containerWidth, containerHeight])
@@ -205,7 +214,7 @@ const Drawing = (props: Props) => {
       key: 'cancel-place',
       component: <IconButton icon={<Icon name="close" />} theme='red' size={isMobile ? "small" : "regular"} onClick={() => {
         setImageToPlace(undefined)
-        setToolMode('DRAWING')
+        setToolMode('DRAW')
       }}>Cancel</IconButton>
     }, {
       key: 'save-place',
@@ -221,7 +230,7 @@ const Drawing = (props: Props) => {
             height: Math.hypot(rect.pos3[0]-rect.pos2[0], rect.pos3[1]-rect.pos2[1]),
             rotation: rect.rotation
           })
-          setToolMode('DRAWING')
+          setToolMode('DRAW')
           setImageToPlace(undefined)
         }
       
@@ -229,103 +238,109 @@ const Drawing = (props: Props) => {
     })
   }
 
-  return <s.Container orientation={orientation} ref={containerRef} offsetTop={0} maxWidth={maxContainerWidth} maxHeight={maxContainerHeight}>
-    <ReactTooltip effect="solid" delayShow={750} multiline />
-    <s.LeftToolbarContainer orientation={orientation} buttonSize={buttonSize} disabled={disableToolbars}>
-      <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
-        <Button data-tip="Start again?" height={buttonSize} round theme='red' onClick={onClickRestart}>
-          <Icon name='trash-white' />
-        </Button>
-      </s.ButtonGroup>
-      <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
-        <Button height={buttonSize} round theme="white" onClick={undo}>
-          <Icon fill={currentColour.hex} name='drawing-tool-undo' />
-        </Button>
-        <Button height={buttonSize} round theme="white" onClick={redo}>
-          <Icon fill={currentColour.hex} name='drawing-tool-redo' />
-        </Button>
-      </s.ButtonGroup>
-      { !props.disableCameraUpload && <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
-        <Button data-tip="Upload a drawing" height={buttonSize} round theme='purple' onClick={onClickCamera}>
-          <Icon name='drawing-tool-camera' />
-        </Button></s.ButtonGroup>}
-      <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
-        <Button height={buttonSize} round {...eraserBrushColourProps} onClick={() => setBrushType('eraser')}>
-          <Icon data-tip="Eraser" fill={brushType === 'eraser' ? 'white' : currentColour.hex} name='drawing-tool-eraser' />
-        </Button>
-        <Button data-tip="Fill brush" height={buttonSize} round {...fillBrushColourProps} onClick={() => setBrushType('fill')}>
-          <Icon fill={brushType === 'fill' ? 'white' : currentColour.hex} name='drawing-tool-fill-brush' />
-        </Button>
-        <Button data-tip="Line brush" height={buttonSize} round {...lineBrushColourProps} onClick={() => setBrushType('line')}>
-          <Icon fill={brushType === 'line' ? 'white' : currentColour.hex} name='drawing-tool-line-brush' />
-        </Button>
-        <Button height={buttonSize} round {...smallLineColourProps} onClick={() => setBrushSize(BrushSize.small)}>
-          <Icon fill={brushSize === BrushSize.small ? 'white' : currentColour.hex} name='drawing-tool-small-line' />
-        </Button>
-        <Button height={buttonSize} round {...mediumLineColourProps} onClick={() => setBrushSize(BrushSize.medium)}>
-          <Icon fill={brushSize === BrushSize.medium ? 'white' : currentColour.hex} name='drawing-tool-medium-line' />
-        </Button>
-        <Button height={buttonSize} round {...largeLineColourProps} onClick={() => setBrushSize(BrushSize.large)}>
-          <Icon fill={brushSize === BrushSize.large ? 'white' : currentColour.hex} name='drawing-tool-large-line' />
-        </Button>
-      </s.ButtonGroup>
-    </s.LeftToolbarContainer>
+  return <s.Container ref={containerRef} maxWidth={maxContainerWidth} maxHeight={maxContainerHeight}>
+    <s.Header>
+      <div>{props.backButton}</div>
+      <div>{props.prompt}</div>
+      <div>{props.saveButton}</div>
+    </s.Header>
+    <s.Tool orientation={orientation}>
+      <ReactTooltip effect="solid" delayShow={750} multiline />
+      <s.LeftToolbarContainer orientation={orientation} buttonSize={buttonSize} disabled={disableToolbars}>
+        <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
+          <Button data-tip="Start again?" height={buttonSize} round theme='red' onClick={onClickRestart}>
+            <Icon name='trash-white' />
+          </Button>
+        </s.ButtonGroup>
+        <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
+          <Button height={buttonSize} round theme="white" onClick={undo}>
+            <Icon fill={currentColour.hex} name='drawing-tool-undo' />
+          </Button>
+          <Button height={buttonSize} round theme="white" onClick={redo}>
+            <Icon fill={currentColour.hex} name='drawing-tool-redo' />
+          </Button>
+        </s.ButtonGroup>
+        { !props.disableCameraUpload && <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
+          <Button data-tip="Upload a drawing" height={buttonSize} round theme='purple' onClick={onClickCamera}>
+            <Icon name='drawing-tool-camera' />
+          </Button></s.ButtonGroup>}
+        <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
+          <Button height={buttonSize} round {...eraserBrushColourProps} onClick={() => setBrushType('eraser')}>
+            <Icon data-tip="Eraser" fill={brushType === 'eraser' ? 'white' : currentColour.hex} name='drawing-tool-eraser' />
+          </Button>
+          <Button data-tip="Fill brush" height={buttonSize} round {...fillBrushColourProps} onClick={() => setBrushType('fill')}>
+            <Icon fill={brushType === 'fill' ? 'white' : currentColour.hex} name='drawing-tool-fill-brush' />
+          </Button>
+          <Button data-tip="Line brush" height={buttonSize} round {...lineBrushColourProps} onClick={() => setBrushType('line')}>
+            <Icon fill={brushType === 'line' ? 'white' : currentColour.hex} name='drawing-tool-line-brush' />
+          </Button>
+          <Button height={buttonSize} round {...smallLineColourProps} onClick={() => setBrushSize(BrushSize.small)}>
+            <Icon fill={brushSize === BrushSize.small ? 'white' : currentColour.hex} name='drawing-tool-small-line' />
+          </Button>
+          <Button height={buttonSize} round {...mediumLineColourProps} onClick={() => setBrushSize(BrushSize.medium)}>
+            <Icon fill={brushSize === BrushSize.medium ? 'white' : currentColour.hex} name='drawing-tool-medium-line' />
+          </Button>
+          <Button height={buttonSize} round {...largeLineColourProps} onClick={() => setBrushSize(BrushSize.large)}>
+            <Icon fill={brushSize === BrushSize.large ? 'white' : currentColour.hex} name='drawing-tool-large-line' />
+          </Button>
+        </s.ButtonGroup>
+      </s.LeftToolbarContainer>
 
-    <s.SketchContainer orientation={orientation} ref={sketchOuterRef}>
-      {props.showPaperBackground && <s.PaperBackground cutMode={imageToCut && true} />}
-      {!imageToCut && sketchStyles && <div style={sketchStyles} ref={sketchInnerRef} />}
-      {imageToCut && sketchStyles && <div style={sketchStyles} ref={sketchCutInnerRef} />}
-      {imageToPlace && sketchStyles && (
-        <div style={{ ...sketchStyles, zIndex: '101'}}>
-          <s.ImageToPlaceContainer><s.ImageToPlace ref={imageToPlaceContainerRef} src={imageToPlace.src} /></s.ImageToPlaceContainer>
-          <Moveable
-            ref={moveableRef}
-            target={imageToPlaceContainerRef}
-            ables={[Placeable]}
-            props={{
-              placeable: true,
-            }}
-            snappable
-            bounds={{ left: 0, top: 0, bottom: sketchOuterRef.current?.offsetHeight, right: sketchOuterRef.current?.offsetWidth }}
-            draggable
-            scalable
-            keepRatio
-            rotatable
-            onDragStart={helper.onDragStart}
-            onDrag={helper.onDrag}
-            onScaleStart={helper.onScaleStart}
-            onScale={helper.onScale}
-            onRotateStart={helper.onRotateStart}
-            onRotate={helper.onRotate}
-          />
-        </div>
-      )}
-      {inSketchActions.length && (
-        <s.InSketchActions>
-          { inSketchActions.map((action) => (
-            <s.InSketchAction key={action.key}>{action.component}</s.InSketchAction>
-          ))}
-        </s.InSketchActions>
-      )}
-      { imageToCut && showCutTutorial && <s.CutImageTutorial onClick={() => setShowCutTutorial(false )}>
-        <div>Now cut out your animal: Click, hold and make sure you draw around it.</div>
-        <img alt="crop example" src="https://cdn.nightzookeeper.com/nzk-assets/crop-tutorial.png" />
-        <div><Button size={isMobile ? "small" : "regular"} theme="primary">Ok</Button></div>
-        </s.CutImageTutorial> }
-    </s.SketchContainer>
+      <s.SketchContainer orientation={orientation} ref={sketchOuterRef}>
+        {props.showPaperBackground && <s.PaperBackground cutMode={imageToCut && true} />}
+        {!imageToCut && sketchStyles && <div style={sketchStyles} ref={sketchInnerRef} />}
+        {imageToCut && sketchStyles && <div style={sketchStyles} ref={sketchCutInnerRef} />}
+        {imageToPlace && sketchStyles && (
+          <div style={{ ...sketchStyles, zIndex: '101'}}>
+            <s.ImageToPlaceContainer><s.ImageToPlace ref={imageToPlaceContainerRef} src={imageToPlace.src} /></s.ImageToPlaceContainer>
+            <Moveable
+              ref={moveableRef}
+              target={imageToPlaceContainerRef}
+              ables={[Placeable]}
+              props={{
+                placeable: true,
+              }}
+              snappable
+              bounds={{ left: 0, top: 0, bottom: sketchOuterRef.current?.offsetHeight, right: sketchOuterRef.current?.offsetWidth }}
+              draggable
+              scalable
+              keepRatio
+              rotatable
+              onDragStart={helper.onDragStart}
+              onDrag={helper.onDrag}
+              onScaleStart={helper.onScaleStart}
+              onScale={helper.onScale}
+              onRotateStart={helper.onRotateStart}
+              onRotate={helper.onRotate}
+            />
+          </div>
+        )}
+        {inSketchActions.length && (
+          <s.InSketchActions>
+            { inSketchActions.map((action) => (
+              <s.InSketchAction key={action.key}>{action.component}</s.InSketchAction>
+            ))}
+          </s.InSketchActions>
+        )}
+        { imageToCut && showCutTutorial && <s.CutImageTutorial onClick={() => setShowCutTutorial(false )}>
+          <div>Now cut out your animal: Click, hold and make sure you draw around it.</div>
+          <img alt="crop example" src="https://cdn.nightzookeeper.com/nzk-assets/crop-tutorial.png" />
+          <div><Button size={isMobile ? "small" : "regular"} theme="primary">Ok</Button></div>
+          </s.CutImageTutorial> }
+      </s.SketchContainer>
 
-    <s.RightToolbarContainer orientation={orientation} buttonSize={buttonSize} disabled={disableToolbars}>
-      <ColourToolbar orientation={orientation} size={buttonSize} currentColour={currentColour} />
-      <s.ColourOpacityToggle orientation={orientation} buttonSize={Math.floor(buttonSize * .8)}>
-        <s.OpacityButton orientation={orientation} buttonSize={Math.floor(buttonSize * .9)} onClick={() => setBruchOpacity(0.5)}>
-          <Icon data-tip="Color mixer ON" fill={brushOpacity === 1 ? '#7A7A79' : currentColour.hex} name='drawing-tool-opacity-half' />
-        </s.OpacityButton>
-        <s.OpacityButton orientation={orientation} buttonSize={Math.floor(buttonSize * .9)} onClick={() => setBruchOpacity(1)}>
-          <Icon data-tip="Color mixer OFF" fill={brushOpacity < 1 ? '#7A7A79' : currentColour.hex} name='drawing-tool-opacity-full' />
-        </s.OpacityButton>
-      </s.ColourOpacityToggle>
-    </s.RightToolbarContainer>
-
+      <s.RightToolbarContainer orientation={orientation} buttonSize={buttonSize} disabled={disableToolbars}>
+        <ColourToolbar orientation={orientation} size={buttonSize} currentColour={currentColour} />
+        <s.ColourOpacityToggle orientation={orientation} buttonSize={Math.floor(buttonSize * .8)}>
+          <s.OpacityButton orientation={orientation} buttonSize={Math.floor(buttonSize * .9)} onClick={() => setBruchOpacity(0.5)}>
+            <Icon data-tip="Color mixer ON" fill={brushOpacity === 1 ? '#7A7A79' : currentColour.hex} name='drawing-tool-opacity-half' />
+          </s.OpacityButton>
+          <s.OpacityButton orientation={orientation} buttonSize={Math.floor(buttonSize * .9)} onClick={() => setBruchOpacity(1)}>
+            <Icon data-tip="Color mixer OFF" fill={brushOpacity < 1 ? '#7A7A79' : currentColour.hex} name='drawing-tool-opacity-full' />
+          </s.OpacityButton>
+        </s.ColourOpacityToggle>
+      </s.RightToolbarContainer>
+    </s.Tool>
     { showRestartConfirmModal && <s.ModalOverlay><Modal
       title="Are you sure?"
       actions={[
@@ -343,7 +358,7 @@ const Drawing = (props: Props) => {
           dismiss={() => setShowFileInput(false)}
           onImageUploaded={onImageUploaded}
         />
-      </s.ModalOverlay>}
+    </s.ModalOverlay>}
   </s.Container>
 }
 

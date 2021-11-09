@@ -36,7 +36,7 @@ export interface Colour {
   hex: string
 }
 
-type ToolMode = 'DRAWING' | 'CUT' | 'PLACE'
+type ToolMode = 'DRAW' | 'CUT' | 'PLACE'
 
 const DrawingToolState = () => {
   const sketchRef = useRef<Sketch>()
@@ -50,7 +50,7 @@ const DrawingToolState = () => {
   const [currentColour, setCurrentColour] = useState(Colours[0])
   const [brushOpacity, setBruchOpacity] = useState(1)
   
-  const [toolMode, setToolMode] = useState<ToolMode>('DRAWING')
+  const [toolMode, setToolMode] = useState<ToolMode>('DRAW')
 
   const setSketchRef = useCallback(node => {
     sketchRef.current = node

@@ -4,6 +4,7 @@ import React from 'react';
 import DrawingTool, { Props as DrawingToolProps } from "./DrawingTool";
 import styled from 'styled-components';
 import { DrawingToolProvider } from "./DrawingToolProvider";
+import Button from '../Button'
 
 const Container = styled.div`
   width: 100%;
@@ -13,7 +14,6 @@ const Container = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   box-sizing: border-box;
-  padding: 20px;
 `
 
 export default {
@@ -28,7 +28,12 @@ export default {
 // Create a master template for mapping args to render the Button component
 const Template: Story<DrawingToolProps> = (args) => <Container>
     <DrawingToolProvider>
-      <DrawingTool {...args} />
+      <DrawingTool {...{
+        ...args,
+        prompt: args.prompt || 'Draw your Animal',
+        backButton: args.backButton || <Button theme="primary" size="regular">Back</Button>,
+        saveButton: args.backButton || <Button theme="confirm" size="regular">Save</Button>,
+      }} />
     </DrawingToolProvider>
   </Container>
 

@@ -12,20 +12,59 @@ const getToolbarHeight = (props) => {
   return `${props.buttonSize + 10}px`
 }
 
-export const Container = styled.div<{orientation: Orientation, offsetTop: number, maxWidth: number, maxHeight: number}>`
+export const Container = styled.div<{maxWidth: number, maxHeight: number}>`
   position: relative;
-  width: 100%;
-  height: ${props => `calc(100% - ${props.offsetTop}px)`};
+  width: calc(100% - 40px);
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
   max-width: ${props => props.maxWidth}px;
   max-height: ${props => props.maxHeight}px;
+  * {
+    box-sizing: border-box;
+  }
+`
+
+export const Header = styled.div`
+  position: relative;
+  height: 80px;
+  color: white;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 36px;
+  font-family: 'Rammetto One';
+  line-height: 80px;
+  text-align: center;
+  justify-content: space-between;
+  @media (max-height: 600px) {
+    height: 60px;
+    line-height: 60px;
+    font-size: 24px;
+  }
+  @media (max-width: 1024px) {
+    > :nth-child(2) {
+      font-size: 24px;
+    }
+  }
+  @media (max-width: 768px) {
+    > :nth-child(2) {
+      display: none;
+    }
+  }
+`
+
+export const Tool = styled.div<{orientation: Orientation}>`
+  position: absolute;
+  top: 90px;
+  height: calc(100% - 110px);
+  width: 100%;
   display: flex;
   flex-shrink: none;
   flex-direction: ${props => props.orientation === 'LANDSCAPE' ? 'row' : 'column'};
-  top: ${props => `calc(50% - ${props.offsetTop/2}px)`};
-  left: 50%;
-  transform: translate(-50%, -50%);
-  * {
-    box-sizing: border-box;
+  @media (max-height: 600px) {
+    top: 70px;
+    height: calc(100% - 90px)
   }
 `
 
@@ -268,6 +307,7 @@ export const CutImageTutorial = styled.div`
   color: white;
   font-size: 30px;
   text-align: center;
+
   @media (max-width: 768px) {
     font-size: 20px;
   }
