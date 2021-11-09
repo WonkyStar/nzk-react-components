@@ -14,7 +14,7 @@ export interface Colour {
     rgb: number[];
     hex: string;
 }
-declare type ToolMode = 'DRAWING' | 'CUT' | 'PLACE';
+declare type ToolMode = 'DRAW' | 'CUT' | 'PLACE';
 export declare const DrawingToolProvider: import("react").ComponentType<import("unstated-next").ContainerProviderProps<void>>;
 export declare const useDrawingTool: () => {
     initSketch: (containerEl: any) => void;

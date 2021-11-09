@@ -1,5 +1,8 @@
-/// <reference types="react" />
+import React from 'react';
 export interface Props {
+    prompt: string;
+    backButton: React.ReactNode;
+    saveButton: React.ReactNode;
     showPaperBackground?: boolean;
     disableCameraUpload?: boolean;
     disableAutoCache?: boolean;

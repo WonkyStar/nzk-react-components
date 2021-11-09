@@ -1,9 +1,11 @@
 import { Orientation } from './DrawingTool';
 export declare const Container: import("styled-components").StyledComponent<"div", any, {
-    orientation: Orientation;
-    offsetTop: number;
     maxWidth: number;
     maxHeight: number;
+}, never>;
+export declare const Header: import("styled-components").StyledComponent<"div", any, {}, never>;
+export declare const Tool: import("styled-components").StyledComponent<"div", any, {
+    orientation: Orientation;
 }, never>;
 export declare const ButtonGroup: import("styled-components").StyledComponent<"div", any, {
     orientation: Orientation;
