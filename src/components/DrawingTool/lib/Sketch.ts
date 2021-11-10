@@ -6,7 +6,6 @@ import SketchModel, { SketchActionMergeData, SketchModelData } from './SketchMod
 import { SketchStrokeStyle } from './SketchStrokeModel'
 import trace from './trace'
 import trimCanvas from './trimCanvas'
-import { Actions } from 'components/Modal/Modal.styles'
 
 export interface SketchProps {
   containerEl: HTMLDivElement

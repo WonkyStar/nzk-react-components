@@ -45,8 +45,9 @@ export default (props: Props) => {
       const reader = new FileReader()
       reader.readAsDataURL(acceptedFiles[0])
       reader.onloadend = (e) => {
-        // @ts-ignore
-        img.src = e.target.result
+        if (e.target) {
+          img.src = e.target.result as string
+        }
       }
     }
   }, [acceptedFiles])

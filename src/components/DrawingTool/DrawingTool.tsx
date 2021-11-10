@@ -24,6 +24,7 @@ export interface Props {
   showPaperBackground?: boolean
   disableCameraUpload?: boolean
   disableAutoCache?: boolean
+  openUploadPopupOnStart?: boolean
   cacheKey?: string
 }
 
@@ -56,7 +57,7 @@ const Drawing = (props: Props) => {
   const [isMobile, setIsMobile] = useState(false)
   const [resizing, setResizing] = useState(true)
   const [showRestartConfirmModal, setShowRestartConfirmModal] = useState(false)
-  const [showFileInput, setShowFileInput] = useState(false)
+  const [showFileInput, setShowFileInput] = useState(props.openUploadPopupOnStart)
   const [imageToCut, setImageToCut] = useState<HTMLImageElement>()
   const [showCutTutorial, setShowCutTutorial] = useState(true)
   const [showSaveCutAction, setShowSaveCutAction] = useState(false)
@@ -174,9 +175,7 @@ const Drawing = (props: Props) => {
   let sketchStyles
   if (!resizing && sketchOuterRef && sketchOuterRef.current) {
     sketchStyles = {
-      // @ts-ignore
       width: `${sketchOuterRef.current.offsetWidth}px`,
-      // @ts-ignore
       height:`${sketchOuterRef.current.offsetHeight}px`,
       position: 'absolute',
       top: '0px',
@@ -366,7 +365,8 @@ Drawing.defaultProps = {
   showPaperBackground: true,
   disableCameraUpload: false,
   disableAutoCache: false,
-  cacheKey: 'nzk-sketch-cache'
+  cacheKey: 'nzk-sketch-cache',
+  openUploadPopupOnStart: false
 }
 
 export default Drawing

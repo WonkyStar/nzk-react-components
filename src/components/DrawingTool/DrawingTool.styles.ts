@@ -201,8 +201,7 @@ export const SketchContainer = styled.div<{orientation: Orientation}>`
   .moveable-origin {
     display: none !important;
   }
-}
-`
+}`
 
 export const PaperBackground = styled.div<{cutMode?: boolean}>`
   position: absolute;
