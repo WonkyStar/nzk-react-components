@@ -38,7 +38,11 @@ export interface Colour {
 
 type ToolMode = 'DRAW' | 'CUT' | 'PLACE'
 
-const DrawingToolState = () => {
+export interface Props {
+  cache?: string
+}
+
+const DrawingToolState = (props?: Props) => {
   const sketchRef = useRef<Sketch>()
   const sketchCutRef = useRef<SketchCut>()
 
@@ -89,13 +93,17 @@ const DrawingToolState = () => {
     window.localStorage.removeItem(cacheKey)
   }
 
+  const getCache = () => {
+    return (props && props.cache) || window.localStorage.getItem(cacheKey)
+  }
+
   const initSketch = (containerEl) => {
     let data
 
     if (sketchRef.current) {
       data = sketchRef.current.serialize()
     } else {
-      const cachedRawData = window.localStorage.getItem(cacheKey)
+      const cachedRawData = getCache()
       if (cachedRawData) {
         data = JSON.parse(cachedRawData)
       }
@@ -134,6 +142,13 @@ const DrawingToolState = () => {
       return sketchCutRef.current.export({crop: true}) as string
     } 
     return ''
+  }
+
+  const exportCache = () => {
+    if (sketchRef.current) {
+      return JSON.stringify(sketchRef.current.serialize())
+    }
+    return null
   }
 
   const mergeImage = (data: SketchActionMergeData) => {
@@ -179,7 +194,8 @@ const DrawingToolState = () => {
     resetCut,
     mergeImage,
     setToolMode,
-    toolMode
+    toolMode,
+    exportCache
   }
 }
 
