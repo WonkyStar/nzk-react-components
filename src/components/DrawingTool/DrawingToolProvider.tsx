@@ -124,14 +124,14 @@ const DrawingToolState = () => {
 
   const exportSketch = (options = { crop: true }) => {
     if (sketchRef.current) {
-      return sketchRef.current.export(options)
+      return sketchRef.current.export(options) as string
     } 
     return ''
   }
 
   const exportSketchCut = () => {
     if (sketchCutRef.current) {
-      return sketchCutRef.current.export({crop: true})
+      return sketchCutRef.current.export({crop: true}) as string
     } 
     return ''
   }
