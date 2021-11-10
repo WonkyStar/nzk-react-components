@@ -34740,7 +34740,7 @@ var Colours = [
     { rgb: [134, 134, 134], hex: '#868686' },
     { rgb: [255, 255, 255], hex: '#FFFFFF' },
 ];
-var DrawingToolState = function () {
+var DrawingToolState = function (props) {
     var sketchRef = useRef();
     var sketchCutRef = useRef();
     var _a = useState(true), autoCache = _a[0], setAutoCache = _a[1];
@@ -34783,13 +34783,16 @@ var DrawingToolState = function () {
     var clearCache = function () {
         window.localStorage.removeItem(cacheKey);
     };
+    var getCache = function () {
+        return (props && props.cache) || window.localStorage.getItem(cacheKey);
+    };
     var initSketch = function (containerEl) {
         var data;
         if (sketchRef.current) {
             data = sketchRef.current.serialize();
         }
         else {
-            var cachedRawData = window.localStorage.getItem(cacheKey);
+            var cachedRawData = getCache();
             if (cachedRawData) {
                 data = JSON.parse(cachedRawData);
             }
@@ -34824,6 +34827,12 @@ var DrawingToolState = function () {
             return sketchCutRef.current.export({ crop: true });
         }
         return '';
+    };
+    var exportCache = function () {
+        if (sketchRef.current) {
+            return JSON.stringify(sketchRef.current.serialize());
+        }
+        return null;
     };
     var mergeImage = function (data) {
         if (sketchRef.current) {
@@ -34866,7 +34875,8 @@ var DrawingToolState = function () {
         resetCut: resetCut,
         mergeImage: mergeImage,
         setToolMode: setToolMode,
-        toolMode: toolMode
+        toolMode: toolMode,
+        exportCache: exportCache
     };
 };
 var DrawingToolProviderContainer = createContainer(DrawingToolState);

@@ -15,7 +15,10 @@ export interface Colour {
     hex: string;
 }
 declare type ToolMode = 'DRAW' | 'CUT' | 'PLACE';
-export declare const DrawingToolProvider: import("react").ComponentType<import("unstated-next").ContainerProviderProps<void>>;
+export interface Props {
+    cache?: string;
+}
+export declare const DrawingToolProvider: import("react").ComponentType<import("unstated-next").ContainerProviderProps<Props>>;
 export declare const useDrawingTool: () => {
     initSketch: (containerEl: any) => void;
     initSketchCut: (containerEl: any, imageToCut: HTMLImageElement, onImageCut: () => void) => void;
@@ -48,5 +51,6 @@ export declare const useDrawingTool: () => {
     mergeImage: (data: SketchActionMergeData) => void | null;
     setToolMode: import("react").Dispatch<import("react").SetStateAction<ToolMode>>;
     toolMode: ToolMode;
+    exportCache: () => string | null;
 };
 export {};
