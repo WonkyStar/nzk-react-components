@@ -6,6 +6,7 @@ export interface Props {
     showPaperBackground?: boolean;
     disableCameraUpload?: boolean;
     disableAutoCache?: boolean;
+    openUploadPopupOnStart?: boolean;
     cacheKey?: string;
 }
 export declare type Orientation = 'LANDSCAPE' | 'PORTRAIT';
@@ -16,6 +17,7 @@ declare const Drawing: {
         disableCameraUpload: boolean;
         disableAutoCache: boolean;
         cacheKey: string;
+        openUploadPopupOnStart: boolean;
     };
 };
 export default Drawing;
