@@ -10111,6 +10111,49 @@ var useMountState = function () {
     return mountedRef.current;
 };
 
+var DefaultProps = {
+    cloudName: 'nzk',
+    unsignedUploadPreset: 'juz5g1j1'
+};
+var useCloudinary = function (props) {
+    var cloudName = (props && props.cloudName) || DefaultProps.cloudName;
+    var unsignedUploadPreset = (props && props.unsignedUploadPreset) || DefaultProps.unsignedUploadPreset;
+    var uploadTag = props && props.uploadTag;
+    var uploadImage = function (file, onComplete) {
+        var url = "https://api.cloudinary.com/v1_1/" + cloudName + "/upload";
+        var xhr = new XMLHttpRequest();
+        var fd = new FormData();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (onComplete) {
+                    onComplete(response.secure_url);
+                }
+            }
+        };
+        fd.append('upload_preset', unsignedUploadPreset);
+        if (uploadTag)
+            fd.append('tags', uploadTag);
+        if (file instanceof Blob) {
+            fd.append('file', file);
+            xhr.send(fd);
+        }
+        else {
+            fetch(file).then(function (response) {
+                response.blob().then(function (blobFile) {
+                    fd.append('file', blobFile);
+                    xhr.send(fd);
+                });
+            });
+        }
+    };
+    return {
+        uploadImage: uploadImage
+    };
+};
+
 /*
 Copyright (c) 2015 NAVER Corp.
 name: @egjs/agent
@@ -36460,5 +36503,5 @@ Drawing.defaultProps = {
     openUploadPopupOnStart: false
 };
 
-export { Avatar, Button, Drawing as DrawingTool, DrawingToolProvider, Icon, IconButton, Modal, ModalProvider, useAsync, useConfettis, useDrawingTool, useModalState, useMountState };
+export { Avatar, Button, Drawing as DrawingTool, DrawingToolProvider, Icon, IconButton, Modal, ModalProvider, useAsync, useCloudinary, useConfettis, useDrawingTool, useModalState, useMountState };
 //# sourceMappingURL=index.esm.js.map

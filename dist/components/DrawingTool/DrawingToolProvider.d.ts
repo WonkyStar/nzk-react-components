@@ -21,8 +21,8 @@ export declare const useDrawingTool: () => {
     initSketchCut: (containerEl: any, imageToCut: HTMLImageElement, onImageCut: () => void) => void;
     exportSketch: (options?: {
         crop: boolean;
-    }) => any;
-    exportSketchCut: () => any;
+    }) => string;
+    exportSketchCut: () => string;
     currentColour: {
         rgb: number[];
         hex: string;

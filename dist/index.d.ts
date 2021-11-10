@@ -7,6 +7,7 @@ import { ModalProvider, useModalState } from './components/Modal/ModalState';
 import useAsync from './hooks/useAsync';
 import useConfettis from './hooks/useConfettis';
 import useMountState from './hooks/useMountState';
+import useCloudinary from './hooks/useCloudinary';
 import DrawingTool from './components/DrawingTool/DrawingTool';
 import { DrawingToolProvider, useDrawingTool } from './components/DrawingTool/DrawingToolProvider';
-export { Button, IconButton, Modal, Icon, Avatar, ModalProvider, DrawingTool, DrawingToolProvider, useDrawingTool, useModalState, useAsync, useMountState, useConfettis };
+export { Button, IconButton, Modal, Icon, Avatar, ModalProvider, DrawingTool, DrawingToolProvider, useDrawingTool, useModalState, useAsync, useMountState, useConfettis, useCloudinary };
