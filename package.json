@@ -1,6 +1,6 @@
 {
   "name": "nzk-react-components",
-  "version": "0.2.16",
+  "version": "0.2.17",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
