@@ -33862,7 +33862,7 @@ var getToolbarHeight = function (props) {
 var Container$3 = styled$2.div(templateObject_1$3 || (templateObject_1$3 = __makeTemplateObject(["\n  position: relative;\n  width: calc(100% - 40px);\n  height: 100%;\n  margin-left: auto;\n  margin-right: auto;\n  max-width: ", "px;\n  max-height: ", "px;\n  * {\n    box-sizing: border-box;\n  }\n"], ["\n  position: relative;\n  width: calc(100% - 40px);\n  height: 100%;\n  margin-left: auto;\n  margin-right: auto;\n  max-width: ", "px;\n  max-height: ", "px;\n  * {\n    box-sizing: border-box;\n  }\n"])), function (props) { return props.maxWidth; }, function (props) { return props.maxHeight; });
 var Header = styled$2.div(templateObject_2$3 || (templateObject_2$3 = __makeTemplateObject(["\n  position: relative;\n  height: 80px;\n  color: white;\n  display: flex;\n  align-items: center;\n  color: white;\n  font-size: 36px;\n  font-family: 'Rammetto One';\n  line-height: 80px;\n  text-align: center;\n  justify-content: space-between;\n  @media (max-height: 600px) {\n    height: 60px;\n    line-height: 60px;\n    font-size: 24px;\n  }\n  @media (max-width: 1024px) {\n    > :nth-child(2) {\n      font-size: 24px;\n    }\n  }\n  @media (max-width: 768px) {\n    > :nth-child(2) {\n      display: none;\n    }\n  }\n"], ["\n  position: relative;\n  height: 80px;\n  color: white;\n  display: flex;\n  align-items: center;\n  color: white;\n  font-size: 36px;\n  font-family: 'Rammetto One';\n  line-height: 80px;\n  text-align: center;\n  justify-content: space-between;\n  @media (max-height: 600px) {\n    height: 60px;\n    line-height: 60px;\n    font-size: 24px;\n  }\n  @media (max-width: 1024px) {\n    > :nth-child(2) {\n      font-size: 24px;\n    }\n  }\n  @media (max-width: 768px) {\n    > :nth-child(2) {\n      display: none;\n    }\n  }\n"])));
 var Tool = styled$2.div(templateObject_3$1 || (templateObject_3$1 = __makeTemplateObject(["\n  position: absolute;\n  top: 90px;\n  height: calc(100% - 110px);\n  width: 100%;\n  display: flex;\n  flex-shrink: none;\n  flex-direction: ", ";\n  @media (max-height: 600px) {\n    top: 70px;\n    height: calc(100% - 90px)\n  }\n"], ["\n  position: absolute;\n  top: 90px;\n  height: calc(100% - 110px);\n  width: 100%;\n  display: flex;\n  flex-shrink: none;\n  flex-direction: ", ";\n  @media (max-height: 600px) {\n    top: 70px;\n    height: calc(100% - 90px)\n  }\n"])), function (props) { return props.orientation === 'LANDSCAPE' ? 'row' : 'column'; });
-var ButtonGroup = styled$2.div(templateObject_4$1 || (templateObject_4$1 = __makeTemplateObject(["\n  display: flex;\n  flex-shrink: none;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  > div {\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"], ["\n  display: flex;\n  flex-shrink: none;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  > div {\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"])), function (props) { return props.orientation === 'LANDSCAPE' ? Math.floor(props.buttonSize / 5) + "px" : 0; }, function (props) { return props.orientation === 'PORTRAIT' ? Math.floor(props.buttonSize / 5) + "px" : 0; });
+var ButtonGroup = styled$2.div(templateObject_4$1 || (templateObject_4$1 = __makeTemplateObject(["\n  display: flex;\n  flex-shrink: none;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  > div {\n    user-select: none;\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"], ["\n  display: flex;\n  flex-shrink: none;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  > div {\n    user-select: none;\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"])), function (props) { return props.orientation === 'LANDSCAPE' ? Math.floor(props.buttonSize / 5) + "px" : 0; }, function (props) { return props.orientation === 'PORTRAIT' ? Math.floor(props.buttonSize / 5) + "px" : 0; });
 styled$2.div(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n  background-color: rgba(255, 255, 255, .5);\n  border-radius: ", "px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  padding-left: ", ";\n  padding-right: ", ";\n  display: flex;\n  height: 70%;\n  flex-wrap: ", ";\n  justify-content: center;\n  align-items: center;\n  overflow: hidden;\n  > div {\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"], ["\n  background-color: rgba(255, 255, 255, .5);\n  border-radius: ", "px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  padding-left: ", ";\n  padding-right: ", ";\n  display: flex;\n  height: 70%;\n  flex-wrap: ", ";\n  justify-content: center;\n  align-items: center;\n  overflow: hidden;\n  > div {\n    margin-bottom: ", ";\n    margin-right: ", ";\n  }\n"])), function (props) { return props.buttonSize; }, function (props) { return props.orientation === 'PORTRAIT' ? '8px' : 0; }, function (props) { return props.orientation === 'PORTRAIT' ? '8px' : 0; }, function (props) { return props.orientation === 'LANDSCAPE' ? 'wrap' : 'no-wrap'; }, function (props) { return props.orientation === 'LANDSCAPE' ? Math.floor(props.buttonSize / 5) + "px" : 0; }, function (props) { return props.orientation === 'PORTRAIT' ? Math.floor(props.buttonSize / 5) + "px" : 0; });
 styled$2.div(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n  overflow: hidden;\n"], ["\n  overflow: hidden;\n"])));
 var LeftToolbarContainer = styled$2.div(templateObject_7 || (templateObject_7 = __makeTemplateObject(["\n  position: relative;\n  pointer-events: ", ";\n  opacity: ", ";\n  filter: ", ";\n  width: ", ";\n  height: ", ";\n  order: ", ";\n  display: flex;\n  flex-direction: ", ";\n  justify-content: space-between;\n  align-items: center;\n"], ["\n  position: relative;\n  pointer-events: ", ";\n  opacity: ", ";\n  filter: ", ";\n  width: ", ";\n  height: ", ";\n  order: ", ";\n  display: flex;\n  flex-direction: ", ";\n  justify-content: space-between;\n  align-items: center;\n"])), function (props) { return props.disabled ? 'none' : 'all'; }, function (props) { return props.disabled ? 0.5 : 1; }, function (props) { return props.disabled ? 'grayscale(100%)' : 'none'; }, function (props) { return getToolbarWidth(props); }, function (props) { return getToolbarHeight(props); }, function (props) { return props.orientation === 'LANDSCAPE' ? 1 : 2; }, function (props) { return props.orientation === 'LANDSCAPE' ? 'column' : 'row'; });
@@ -33871,12 +33871,12 @@ var SketchContainer = styled$2.div(templateObject_9 || (templateObject_9 = __mak
 var PaperBackground = styled$2.div(templateObject_10 || (templateObject_10 = __makeTemplateObject(["\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  box-shadow: 0px 4px 0px #C7C7C6;\n  background: ", ";\n\n  &:before, &:after {\n    z-index: -1;\n    position: absolute;\n    content: \"\";\n    bottom: 7px;\n    left: 10px;\n    width: 50%;\n    top: 80%;\n    max-width: 300px;\n    background: rgba(0,0,0,.3);\n    box-shadow: 0 15px 0px rgba(0,0,0,.3);\n    transform: rotate(-3deg);\n  }\n  &:after {\n    transform: rotate(3deg);\n    right: 10px;\n    left: auto;\n  }\n"], ["\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  box-shadow: 0px 4px 0px #C7C7C6;\n  background: ", ";\n\n  &:before, &:after {\n    z-index: -1;\n    position: absolute;\n    content: \"\";\n    bottom: 7px;\n    left: 10px;\n    width: 50%;\n    top: 80%;\n    max-width: 300px;\n    background: rgba(0,0,0,.3);\n    box-shadow: 0 15px 0px rgba(0,0,0,.3);\n    transform: rotate(-3deg);\n  }\n  &:after {\n    transform: rotate(3deg);\n    right: 10px;\n    left: auto;\n  }\n"])), function (props) { return props.cutMode
     ? 'repeating-linear-gradient(-45deg, #ebebeb, #ebebeb 20px, #dfdfdf 20px, #dfdfdf 40px)'
     : '#ebebeb'; });
-var InSketchActions = styled$2.div(templateObject_11 || (templateObject_11 = __makeTemplateObject(["\n  position: absolute;\n  width: 100%;\n  bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  z-index: 102;\n"], ["\n  position: absolute;\n  width: 100%;\n  bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  z-index: 102;\n"])));
+var InSketchActions = styled$2.div(templateObject_11 || (templateObject_11 = __makeTemplateObject(["\n  position: absolute;\n  width: 100%;\n  bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  z-index: 102;\n  @media (max-width: 768px) {\n    bottom: 10px;\n  }\n  @media (max-height: 500px) {\n    bottom: 10px;\n  }\n"], ["\n  position: absolute;\n  width: 100%;\n  bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  z-index: 102;\n  @media (max-width: 768px) {\n    bottom: 10px;\n  }\n  @media (max-height: 500px) {\n    bottom: 10px;\n  }\n"])));
 var InSketchAction = styled$2.div(templateObject_12 || (templateObject_12 = __makeTemplateObject(["\n  position: relative;\n  margin-right: 20px;\n"], ["\n  position: relative;\n  margin-right: 20px;\n"])));
 var ModalOverlay = styled$2.div(templateObject_13 || (templateObject_13 = __makeTemplateObject(["\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  z-index: 100;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"], ["\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  z-index: 100;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"])));
 var ImageToPlaceContainer = styled$2.div(templateObject_14 || (templateObject_14 = __makeTemplateObject(["\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 101;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}"], ["\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 101;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}"])));
-var ImageToPlace = styled$2.img(templateObject_15 || (templateObject_15 = __makeTemplateObject(["\n  position: absolute;\n  width: 80%;\n  max-width: 400px;\n  @media (max-width: 768px) {\n    max-width: 250px;\n  }\n}\n"], ["\n  position: absolute;\n  width: 80%;\n  max-width: 400px;\n  @media (max-width: 768px) {\n    max-width: 250px;\n  }\n}\n"])));
-var CutImageTutorial = styled$2.div(templateObject_16 || (templateObject_16 = __makeTemplateObject(["\n  position: absolute;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  left: 50%;\n  top: 50%;\n  width: 90%;\n  height: 90%;\n  transform: translate(-50%, -50%);\n  max-width: 800px;\n  max-height: 600px;\n  background-color: white;\n  z-index: 101;\n  border-radius: 50px;\n  padding: 40px;\n  background-color: #341644;\n  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);\n  box-sizing: border-box;\n  color: white;\n  font-size: 30px;\n  text-align: center;\n\n  @media (max-width: 768px) {\n    font-size: 20px;\n  }\n\n  img {\n    width: 100%;\n    max-width: 350px;\n    @media (max-width: 768px) {\n      max-width: 170px;\n    }\n  }\n  > :last-child {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n  }\n\n"], ["\n  position: absolute;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  left: 50%;\n  top: 50%;\n  width: 90%;\n  height: 90%;\n  transform: translate(-50%, -50%);\n  max-width: 800px;\n  max-height: 600px;\n  background-color: white;\n  z-index: 101;\n  border-radius: 50px;\n  padding: 40px;\n  background-color: #341644;\n  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);\n  box-sizing: border-box;\n  color: white;\n  font-size: 30px;\n  text-align: center;\n\n  @media (max-width: 768px) {\n    font-size: 20px;\n  }\n\n  img {\n    width: 100%;\n    max-width: 350px;\n    @media (max-width: 768px) {\n      max-width: 170px;\n    }\n  }\n  > :last-child {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n  }\n\n"])));
+var ImageToPlace = styled$2.img(templateObject_15 || (templateObject_15 = __makeTemplateObject(["\n  position: absolute;\n  width: 80%;\n  max-width: 400px;\n  @media (max-width: 768px) {\n    max-width: 200px;\n  }\n  @media (max-height: 600px) {\n    width: auto;\n    height: 80%;\n    max-width: none;\n    max-height: 200px;\n  }\n}\n"], ["\n  position: absolute;\n  width: 80%;\n  max-width: 400px;\n  @media (max-width: 768px) {\n    max-width: 200px;\n  }\n  @media (max-height: 600px) {\n    width: auto;\n    height: 80%;\n    max-width: none;\n    max-height: 200px;\n  }\n}\n"])));
+var CutImageTutorial = styled$2.div(templateObject_16 || (templateObject_16 = __makeTemplateObject(["\n  position: absolute;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  left: 50%;\n  top: 50%;\n  width: 90%;\n  height: 90%;\n  transform: translate(-50%, -50%);\n  max-width: 800px;\n  max-height: 600px;\n  background-color: white;\n  z-index: 101;\n  border-radius: 50px;\n  padding: 40px;\n  background-color: #341644;\n  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);\n  box-sizing: border-box;\n  color: white;\n  font-size: 30px;\n  text-align: center;\n\n  @media (max-width: 768px) {\n    font-size: 16px;\n    width: 95%;\n    padding: 30px;\n  }\n\n  img {\n    width: 100%;\n    max-width: 350px;\n    @media (max-width: 768px) {\n      max-width: 120px;\n    }\n  }\n  > :last-child {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n  }\n\n"], ["\n  position: absolute;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  left: 50%;\n  top: 50%;\n  width: 90%;\n  height: 90%;\n  transform: translate(-50%, -50%);\n  max-width: 800px;\n  max-height: 600px;\n  background-color: white;\n  z-index: 101;\n  border-radius: 50px;\n  padding: 40px;\n  background-color: #341644;\n  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);\n  box-sizing: border-box;\n  color: white;\n  font-size: 30px;\n  text-align: center;\n\n  @media (max-width: 768px) {\n    font-size: 16px;\n    width: 95%;\n    padding: 30px;\n  }\n\n  img {\n    width: 100%;\n    max-width: 350px;\n    @media (max-width: 768px) {\n      max-width: 120px;\n    }\n  }\n  > :last-child {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n  }\n\n"])));
 var templateObject_1$3, templateObject_2$3, templateObject_3$1, templateObject_4$1, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11, templateObject_12, templateObject_13, templateObject_14, templateObject_15, templateObject_16;
 
 function useDebounce(value, delay) {
@@ -33941,8 +33941,7 @@ var SketchLayer = (function () {
     function SketchLayer(props) {
         this.x = 0;
         this.y = 0;
-        this.pixelRatioScale = 1;
-        this.pixelRatioScale = props.pixelRatioScale || window.devicePixelRatio >= 1.5 ? 2 : 1;
+        this.pixelRatioScale = props.pixelRatioScale;
         this.naturalWidth = props.width;
         this.naturalHeight = props.height;
         this.width = this.naturalWidth * this.pixelRatioScale;
@@ -33993,7 +33992,6 @@ var SketchLayer = (function () {
 }());
 
 var createInteractionSurface = (function (props) {
-    var scale = props.devicePixelRatio || window.devicePixelRatio >= 1.5 ? 2 : 1;
     var el = document.createElement('div');
     el.style.width = props.width + "px";
     el.style.height = props.height + "px";
@@ -34003,15 +34001,15 @@ var createInteractionSurface = (function (props) {
     var getMousePoint = function (ev) {
         var rect = el.getBoundingClientRect();
         return {
-            x: (ev.clientX - rect.left) * scale,
-            y: (ev.clientY - rect.top) * scale
+            x: (ev.clientX - rect.left) * props.scale,
+            y: (ev.clientY - rect.top) * props.scale
         };
     };
     var getTouchPoint = function (ev) {
         var rect = el.getBoundingClientRect();
         return {
-            x: (ev.touches[0].clientX - rect.left) * scale,
-            y: (ev.touches[0].clientY - rect.top) * scale
+            x: (ev.touches[0].clientX - rect.left) * props.scale,
+            y: (ev.touches[0].clientY - rect.top) * props.scale
         };
     };
     var wrapMouseEvent = function (ev, handler) {
@@ -34022,7 +34020,12 @@ var createInteractionSurface = (function (props) {
     var wrapTouchEvent = function (ev, handler) {
         ev.preventDefault();
         ev.stopPropagation();
-        handler(getTouchPoint(ev));
+        if (ev.touches[0]) {
+            handler(getTouchPoint(ev));
+        }
+        else {
+            handler();
+        }
     };
     el.addEventListener("mousedown", function (ev) { return wrapMouseEvent(ev, props.onTouchStart); });
     el.addEventListener("mousemove", function (ev) { return wrapMouseEvent(ev, props.onTouchMove); });
@@ -34289,7 +34292,7 @@ var Sketch = (function () {
         this.containerEl = props.containerEl;
         this.naturalWidth = props.containerEl.offsetWidth;
         this.naturalHeight = props.containerEl.offsetHeight;
-        this.pixelRatioScale = window.devicePixelRatio >= 1.5 ? 2 : 1;
+        this.pixelRatioScale = window.devicePixelRatio > 1.5 ? 2 : 1;
         this.width = this.naturalWidth * this.pixelRatioScale;
         this.height = this.naturalHeight * this.pixelRatioScale;
         this.template = props.template;
@@ -34297,6 +34300,7 @@ var Sketch = (function () {
             pixelRatioScale: this.pixelRatioScale
         });
         var defaultLayerProps = {
+            pixelRatioScale: this.pixelRatioScale,
             width: props.containerEl.offsetWidth,
             height: props.containerEl.offsetHeight
         };
@@ -34317,6 +34321,7 @@ var Sketch = (function () {
         this.interactionSurface = createInteractionSurface({
             width: this.containerEl.offsetWidth,
             height: this.containerEl.offsetHeight,
+            scale: this.pixelRatioScale,
             onTouchStart: this.startDraw.bind(this),
             onTouchMove: this.continueDraw.bind(this),
             onTouchEnd: this.endDraw.bind(this),
@@ -34358,7 +34363,7 @@ var Sketch = (function () {
         var _this = this;
         if (saveAction === void 0) { saveAction = true; }
         var doMerge = function (img) {
-            var scale = data.width / img.width;
+            var scale = (data.width / img.width) * _this.pixelRatioScale;
             _this.drawingLayer.ctx.save();
             _this.drawingLayer.ctx.translate(data.origin[0], data.origin[1]);
             _this.drawingLayer.ctx.rotate(data.rotation * Math.PI / 180);
@@ -34670,6 +34675,7 @@ var SketchCut = (function (_super) {
             _this.onImageCut = props.onImageCut;
         }
         var defaultLayerProps = {
+            pixelRatioScale: _this.pixelRatioScale,
             width: props.containerEl.offsetWidth,
             height: props.containerEl.offsetHeight
         };
@@ -36226,7 +36232,7 @@ function reducer(state, action) {
   }
 }
 
-var Container$1 = styled$2.div(templateObject_1$1 || (templateObject_1$1 = __makeTemplateObject(["\n  position: relative;\n  display: flex;\n  width: 100%;\n  height: 100%;\n  max-width: 900px;\n  max-height: 675px;\n  border-radius: 50px;\n  justify-content: center;\n  align-items: center;\n  padding: 40px;\n  background-color: #341644;\n  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);\n  box-sizing: border-box;\n  color: white;\n  font-size: 36px;\n  @media (max-width: 768px) {\n    font-size: 20px;\n    max-height: 240px;\n  }\n"], ["\n  position: relative;\n  display: flex;\n  width: 100%;\n  height: 100%;\n  max-width: 900px;\n  max-height: 675px;\n  border-radius: 50px;\n  justify-content: center;\n  align-items: center;\n  padding: 40px;\n  background-color: #341644;\n  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);\n  box-sizing: border-box;\n  color: white;\n  font-size: 36px;\n  @media (max-width: 768px) {\n    font-size: 20px;\n    max-height: 240px;\n  }\n"])));
+var Container$1 = styled$2.div(templateObject_1$1 || (templateObject_1$1 = __makeTemplateObject(["\n  position: relative;\n  display: flex;\n  width: 100%;\n  height: 100%;\n  max-width: 900px;\n  max-height: 675px;\n  border-radius: 50px;\n  justify-content: center;\n  align-items: center;\n  padding: 40px;\n  background-color: #341644;\n  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);\n  box-sizing: border-box;\n  color: white;\n  font-size: 36px;\n  @media (max-width: 768px) {\n    font-size: 18px;\n    max-width: 95%;\n    max-height: 95%;\n  }\n\n  @media (max-height: 500px) {\n    font-size: 18px;\n    max-width: 90%;\n    max-height: 90%;\n  }\n"], ["\n  position: relative;\n  display: flex;\n  width: 100%;\n  height: 100%;\n  max-width: 900px;\n  max-height: 675px;\n  border-radius: 50px;\n  justify-content: center;\n  align-items: center;\n  padding: 40px;\n  background-color: #341644;\n  box-shadow: 0 -5px 0 #531D75, 0 10px 0 #1C042B, 0 14px 0 rgba(0,0,0,0.3);\n  box-sizing: border-box;\n  color: white;\n  font-size: 36px;\n  @media (max-width: 768px) {\n    font-size: 18px;\n    max-width: 95%;\n    max-height: 95%;\n  }\n\n  @media (max-height: 500px) {\n    font-size: 18px;\n    max-width: 90%;\n    max-height: 90%;\n  }\n"])));
 var Instructions = styled$2.div(templateObject_2$1 || (templateObject_2$1 = __makeTemplateObject(["\n  text-align: center;\n  @media (max-width: 768px) {\n    font-size: 20px;\n  }\n"], ["\n  text-align: center;\n  @media (max-width: 768px) {\n    font-size: 20px;\n  }\n"])));
 var QuitButton = styled$2.div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  position: absolute;\n  top: 0;\n  right: 0;\n  transform: translate(15px, -15px);\n  @media (max-width: 768px) {\n    transform: translate(10px, -10px);\n  }\n"], ["\n  position: absolute;\n  top: 0;\n  right: 0;\n  transform: translate(15px, -15px);\n  @media (max-width: 768px) {\n    transform: translate(10px, -10px);\n  }\n"])));
 var ErrorMessage = styled$2.div(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  padding: 15px;\n  border-radius: 10px;\n  background-color: #E30514;\n  color: white;\n  font-size: 20px;\n"], ["\n  padding: 15px;\n  border-radius: 10px;\n  background-color: #E30514;\n  color: white;\n  font-size: 20px;\n"])));
@@ -36347,7 +36353,7 @@ var Drawing = function (props) {
     var _o = React.useState(true), showCutTutorial = _o[0], setShowCutTutorial = _o[1];
     var _p = React.useState(false), showSaveCutAction = _p[0], setShowSaveCutAction = _p[1];
     var _q = React.useState(), imageToPlace = _q[0], setImageToPlace = _q[1];
-    var _r = useDrawingTool(), initSketch = _r.initSketch, initSketchCut = _r.initSketchCut, exportSketchCut = _r.exportSketchCut, currentColour = _r.currentColour; _r.brushOpacity; _r.setBruchOpacity; var brushSize = _r.brushSize, setBrushSize = _r.setBrushSize, brushType = _r.brushType, setBrushType = _r.setBrushType, undo = _r.undo, redo = _r.redo, restart = _r.restart, setCacheKey = _r.setCacheKey, setAutoCache = _r.setAutoCache, resetCut = _r.resetCut, mergeImage = _r.mergeImage, setToolMode = _r.setToolMode;
+    var _r = useDrawingTool(), initSketch = _r.initSketch, initSketchCut = _r.initSketchCut, exportSketchCut = _r.exportSketchCut, currentColour = _r.currentColour, brushSize = _r.brushSize, setBrushSize = _r.setBrushSize, brushType = _r.brushType, setBrushType = _r.setBrushType, undo = _r.undo, redo = _r.redo, restart = _r.restart, setCacheKey = _r.setCacheKey, setAutoCache = _r.setAutoCache, resetCut = _r.resetCut, mergeImage = _r.mergeImage, setToolMode = _r.setToolMode;
     React.useEffect(function () {
         if (typeof props.disableAutoCache === 'boolean') {
             setAutoCache(!props.disableAutoCache);
@@ -36542,13 +36548,13 @@ var Drawing = function (props) {
                 React__default['default'].createElement(OpacityToggle, { orientation: orientation, buttonSize: buttonSize }))),
         showRestartConfirmModal && React__default['default'].createElement(ModalOverlay, null,
             React__default['default'].createElement(Modal, { title: "Are you sure?", actions: [
+                    React__default['default'].createElement(Button, { key: 'cancel', size: isMobile ? "small" : "regular", theme: "red", onClick: function () {
+                            setShowRestartConfirmModal(false);
+                        } }, "No"),
                     React__default['default'].createElement(Button, { key: 'confirm', size: isMobile ? "small" : "regular", theme: "confirm", onClick: function () {
                             restart();
                             setShowRestartConfirmModal(false);
                         } }, "Yes"),
-                    React__default['default'].createElement(Button, { key: 'cancel', size: isMobile ? "small" : "regular", theme: "red", onClick: function () {
-                            setShowRestartConfirmModal(false);
-                        } }, "No")
                 ] })),
         showFileInput && React__default['default'].createElement(ModalOverlay, null,
             React__default['default'].createElement(FileInput, { isMobile: isMobile, dismiss: function () { return setShowFileInput(false); }, onImageUploaded: onImageUploaded })));

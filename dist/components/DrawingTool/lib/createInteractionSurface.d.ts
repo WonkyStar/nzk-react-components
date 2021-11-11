@@ -5,7 +5,7 @@ export interface Point {
 interface Props {
     width: number;
     height: number;
-    devicePixelRatio?: number;
+    scale: number;
     onTouchStart?: (point: Point) => void;
     onTouchMove?: (point: Point) => void;
     onTouchEnd?: (point: Point) => void;

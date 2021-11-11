@@ -1,9 +1,9 @@
 interface Props {
     width: number;
     height: number;
+    pixelRatioScale: number;
     x?: number;
     y?: number;
-    pixelRatioScale?: number;
 }
 export default class SketchLayer {
     width: number;
