@@ -16,6 +16,7 @@ import Modal from '../Modal'
 import { useDrawingTool, BrushSize } from './DrawingToolProvider'
 import FileInput from './components/FileInput'
 import Placeable from './components/Placeable'
+import OpacityToggle from './components/OpacityToggle'
 
 export interface Props {
   prompt: string
@@ -330,14 +331,10 @@ const Drawing = (props: Props) => {
 
       <s.RightToolbarContainer orientation={orientation} buttonSize={buttonSize} disabled={disableToolbars}>
         <ColourToolbar orientation={orientation} size={buttonSize} currentColour={currentColour} />
-        <s.ColourOpacityToggle orientation={orientation} buttonSize={Math.floor(buttonSize * .8)}>
-          <s.OpacityButton orientation={orientation} buttonSize={Math.floor(buttonSize * .9)} onClick={() => setBruchOpacity(0.5)}>
-            <Icon data-tip="Color mixer ON" fill={brushOpacity === 1 ? '#7A7A79' : currentColour.hex} name='drawing-tool-opacity-half' />
-          </s.OpacityButton>
-          <s.OpacityButton orientation={orientation} buttonSize={Math.floor(buttonSize * .9)} onClick={() => setBruchOpacity(1)}>
-            <Icon data-tip="Color mixer OFF" fill={brushOpacity < 1 ? '#7A7A79' : currentColour.hex} name='drawing-tool-opacity-full' />
-          </s.OpacityButton>
-        </s.ColourOpacityToggle>
+        <OpacityToggle
+          orientation={orientation}
+          buttonSize={buttonSize}
+        />
       </s.RightToolbarContainer>
     </s.Tool>
     { showRestartConfirmModal && <s.ModalOverlay><Modal

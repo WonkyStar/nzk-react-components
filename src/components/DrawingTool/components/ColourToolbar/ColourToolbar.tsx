@@ -17,7 +17,14 @@ const ColourToolbar = (props: Props) => {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [disableScrollUp, setDisableScrollUp] = useState(true)
   const [disableScrollDown, setDisableScrollDown] = useState(false)
-  const { setCurrentColour } = useDrawingTool()
+  const { setCurrentColour, brushType, setBrushType } = useDrawingTool()
+
+  const onSetColour = (colour) => {
+    if (brushType === 'eraser') {
+      setBrushType('line')
+    }
+    setCurrentColour(colour)
+  }
 
   const onScroll = (e) => {
     if (props.orientation === 'LANDSCAPE') {
@@ -76,7 +83,7 @@ const ColourToolbar = (props: Props) => {
           height={Math.floor(props.size * .9)}
           round
           dropShadowColor="transparent"
-          backgroundColor={c.hex} strokeColor={c.hex} onClick={() => setCurrentColour(c)} />
+          backgroundColor={c.hex} strokeColor={c.hex} onClick={() => onSetColour(c)} />
       ))}
     </s.ScrollContainer >
     <Button disabled={disableScrollDown} round height={props.size} theme="white" onClick={onClickDown}>

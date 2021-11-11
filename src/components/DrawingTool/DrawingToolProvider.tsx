@@ -78,7 +78,7 @@ const DrawingToolState = (props?: Props) => {
     if (sketchRef && sketchRef.current) sketchRef.current.setBrush({
       size: brushSize,
       colour: currentColour.rgb,
-      opacity: brushOpacity,
+      opacity: brushType === 'eraser' ? 1 : brushOpacity,
       fill: brushType === 'fill',
       eraser: brushType === 'eraser'
     })
