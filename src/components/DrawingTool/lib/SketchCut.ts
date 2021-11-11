@@ -36,6 +36,7 @@ export default class SketchCut extends Sketch {
     }
 
     const defaultLayerProps = {
+      pixelRatioScale: this.pixelRatioScale,
       width: props.containerEl.offsetWidth,
       height: props.containerEl.offsetHeight
     }

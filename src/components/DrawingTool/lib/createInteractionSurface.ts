@@ -67,7 +67,7 @@ export default (props: Props) => {
   })
   el.addEventListener("touchstart", (ev) => wrapTouchEvent(ev, props.onTouchStart))
   el.addEventListener("touchmove", (ev) => wrapTouchEvent(ev, props.onTouchMove))
-  el.addEventListener("touchend", (ev) => wrapTouchEvent(ev, props.onTouchEnd, true))
+  el.addEventListener("touchend", (ev) => wrapTouchEvent(ev, props.onTouchEnd))
   el.addEventListener("touchcancel", (ev) => wrapTouchEvent(ev, props.onTouchEnd))
 
   return el
