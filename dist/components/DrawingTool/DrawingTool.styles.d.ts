@@ -16,14 +16,6 @@ export declare const ColourButtonGroup: import("styled-components").StyledCompon
     buttonSize: number;
 }, never>;
 export declare const ScrollableColours: import("styled-components").StyledComponent<"div", any, {}, never>;
-export declare const ColourOpacityToggle: import("styled-components").StyledComponent<"div", any, {
-    orientation: Orientation;
-    buttonSize: number;
-}, never>;
-export declare const OpacityButton: import("styled-components").StyledComponent<"div", any, {
-    orientation: Orientation;
-    buttonSize: number;
-}, never>;
 export declare const LeftToolbarContainer: import("styled-components").StyledComponent<"div", any, {
     orientation: Orientation;
     buttonSize: number;
