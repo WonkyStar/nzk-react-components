@@ -74,7 +74,7 @@ export default class Sketch {
     this.containerEl = props.containerEl
     this.naturalWidth = props.containerEl.offsetWidth
     this.naturalHeight = props.containerEl.offsetHeight
-    this.pixelRatioScale = window.devicePixelRatio >= 1.5 ? 2 : 1
+    this.pixelRatioScale = window.devicePixelRatio > 1.5 ? 2 : 1
     this.width = this.naturalWidth * this.pixelRatioScale
     this.height = this.naturalHeight * this.pixelRatioScale
     this.template = props.template
@@ -84,6 +84,7 @@ export default class Sketch {
     })
 
     const defaultLayerProps = {
+      pixelRatioScale: this.pixelRatioScale,
       width: props.containerEl.offsetWidth,
       height: props.containerEl.offsetHeight
     }
@@ -112,6 +113,7 @@ export default class Sketch {
     this.interactionSurface = createInteractionSurface({
       width: this.containerEl.offsetWidth,
       height: this.containerEl.offsetHeight,
+      scale: this.pixelRatioScale,
       onTouchStart: this.startDraw.bind(this),
       onTouchMove: this.continueDraw.bind(this),
       onTouchEnd: this.endDraw.bind(this),

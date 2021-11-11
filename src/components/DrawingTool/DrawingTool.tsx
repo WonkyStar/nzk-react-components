@@ -68,8 +68,6 @@ const Drawing = (props: Props) => {
     initSketchCut,
     exportSketchCut,
     currentColour,
-    brushOpacity,
-    setBruchOpacity,
     brushSize,
     setBrushSize,
     brushType,
@@ -322,7 +320,7 @@ const Drawing = (props: Props) => {
             ))}
           </s.InSketchActions>
         )}
-        { imageToCut && showCutTutorial && <s.CutImageTutorial onClick={() => setShowCutTutorial(false )}>
+        { imageToCut && showCutTutorial && <s.CutImageTutorial onClick={() => setShowCutTutorial(false)}>
           <div>Now cut out your animal: Click, hold and make sure you draw around it.</div>
           <img alt="crop example" src="https://cdn.nightzookeeper.com/nzk-assets/crop-tutorial.png" />
           <div><Button size={isMobile ? "small" : "regular"} theme="primary">Ok</Button></div>
@@ -340,13 +338,13 @@ const Drawing = (props: Props) => {
     { showRestartConfirmModal && <s.ModalOverlay><Modal
       title="Are you sure?"
       actions={[
+        <Button key='cancel' size={isMobile ? "small" : "regular"} theme="red" onClick={() => {
+          setShowRestartConfirmModal(false)
+        }}>No</Button>,
         <Button key='confirm' size={isMobile ? "small" : "regular"} theme="confirm" onClick={() => {
           restart()
           setShowRestartConfirmModal(false)
         }}>Yes</Button>,
-        <Button key='cancel' size={isMobile ? "small" : "regular"} theme="red" onClick={() => {
-          setShowRestartConfirmModal(false)
-        }}>No</Button>
       ]}/></s.ModalOverlay>}
       { showFileInput && <s.ModalOverlay>
         <FileInput

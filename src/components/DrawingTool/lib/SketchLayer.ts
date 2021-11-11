@@ -3,9 +3,9 @@
 interface Props {
   width: number
   height: number
+  pixelRatioScale: number
   x?: number
   y?: number
-  pixelRatioScale?: number
 }
 
 export default class SketchLayer {
@@ -21,15 +21,14 @@ export default class SketchLayer {
 
   naturalHeight: number
 
-  readonly pixelRatioScale: number = 1
+  readonly pixelRatioScale: number
 
   readonly canvas: HTMLCanvasElement
   
   readonly ctx: CanvasRenderingContext2D
 
   constructor (props: Props) {
-    this.pixelRatioScale = props.pixelRatioScale || window.devicePixelRatio >= 1.5 ? 2 : 1
-
+    this.pixelRatioScale = props.pixelRatioScale
     this.naturalWidth = props.width
     this.naturalHeight = props.height
     this.width = this.naturalWidth * this.pixelRatioScale

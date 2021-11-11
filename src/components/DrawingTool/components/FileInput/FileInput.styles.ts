@@ -17,8 +17,15 @@ export const Container = styled.div`
   color: white;
   font-size: 36px;
   @media (max-width: 768px) {
-    font-size: 20px;
-    max-height: 240px;
+    font-size: 18px;
+    max-width: 95%;
+    max-height: 95%;
+  }
+
+  @media (max-height: 500px) {
+    font-size: 18px;
+    max-width: 90%;
+    max-height: 90%;
   }
 `
 

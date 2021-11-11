@@ -75,6 +75,7 @@ export const ButtonGroup = styled.div<{orientation: Orientation, buttonSize: num
   justify-content: center;
   align-items: center;
   > div {
+    user-select: none;
     margin-bottom: ${props => props.orientation === 'LANDSCAPE' ? `${Math.floor(props.buttonSize / 5)}px` : 0};
     margin-right: ${props => props.orientation === 'PORTRAIT' ? `${Math.floor(props.buttonSize / 5)}px` : 0};
   }
@@ -212,6 +213,12 @@ export const InSketchActions = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 102;
+  @media (max-width: 768px) {
+    bottom: 10px;
+  }
+  @media (max-height: 500px) {
+    bottom: 10px;
+  }
 `
 
 export const InSketchAction = styled.div`
@@ -248,7 +255,13 @@ export const ImageToPlace = styled.img`
   width: 80%;
   max-width: 400px;
   @media (max-width: 768px) {
-    max-width: 250px;
+    max-width: 200px;
+  }
+  @media (max-height: 600px) {
+    width: auto;
+    height: 80%;
+    max-width: none;
+    max-height: 200px;
   }
 }
 `
@@ -278,14 +291,16 @@ export const CutImageTutorial = styled.div`
   text-align: center;
 
   @media (max-width: 768px) {
-    font-size: 20px;
+    font-size: 16px;
+    width: 95%;
+    padding: 30px;
   }
 
   img {
     width: 100%;
     max-width: 350px;
     @media (max-width: 768px) {
-      max-width: 170px;
+      max-width: 120px;
     }
   }
   > :last-child {

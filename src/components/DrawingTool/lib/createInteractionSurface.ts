@@ -8,7 +8,7 @@ export interface Point {
 interface Props {
   width: number,
   height: number,
-  devicePixelRatio?: number,
+  scale: number,
   onTouchStart?: (point : Point) => void,
   onTouchMove?: (point : Point) => void,
   onTouchEnd?: (point : Point) => void,
@@ -17,8 +17,6 @@ interface Props {
 }
 
 export default (props: Props) => { 
-  const scale = props.devicePixelRatio || window.devicePixelRatio >= 1.5 ? 2 : 1
-
   const el = document.createElement('div')
   el.style.width = `${props.width}px`
   el.style.height = `${props.height}px`
@@ -29,17 +27,16 @@ export default (props: Props) => {
   const getMousePoint = (ev) => {
     const rect = el.getBoundingClientRect()
     return {
-      x: (ev.clientX - rect.left) * scale,
-      y: (ev.clientY - rect.top) * scale
+      x: (ev.clientX - rect.left) * props.scale,
+      y: (ev.clientY - rect.top) * props.scale
     }
   }
 
   const getTouchPoint = (ev) => {
     const rect = el.getBoundingClientRect()
-
     return {
-      x: (ev.touches[0].clientX - rect.left) * scale,
-      y: (ev.touches[0].clientY - rect.top) * scale
+      x: (ev.touches[0].clientX - rect.left) * props.scale,
+      y: (ev.touches[0].clientY - rect.top) * props.scale
     }
   }
 
@@ -52,7 +49,11 @@ export default (props: Props) => {
   const wrapTouchEvent = (ev, handler) => {
     ev.preventDefault()
     ev.stopPropagation()
-    handler(getTouchPoint(ev))
+    if (ev.touches[0]) {
+      handler(getTouchPoint(ev))
+    } else {
+      handler()
+    }
   }
 
   el.addEventListener("mousedown", (ev) => wrapMouseEvent(ev, props.onTouchStart))
@@ -66,7 +67,7 @@ export default (props: Props) => {
   })
   el.addEventListener("touchstart", (ev) => wrapTouchEvent(ev, props.onTouchStart))
   el.addEventListener("touchmove", (ev) => wrapTouchEvent(ev, props.onTouchMove))
-  el.addEventListener("touchend", (ev) => wrapTouchEvent(ev, props.onTouchEnd))
+  el.addEventListener("touchend", (ev) => wrapTouchEvent(ev, props.onTouchEnd, true))
   el.addEventListener("touchcancel", (ev) => wrapTouchEvent(ev, props.onTouchEnd))
 
   return el
