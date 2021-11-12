@@ -11,10 +11,12 @@ export default {
   output: [
     {
       dir: "dist",
-      format: "esm",
+      // exports: "auto",
+      format: "cjs",
       sourcemap: true,
-      preserveModules: true,
-      preserveModulesRoot: "src",
+      // preserveModules: true,
+      // preserveModulesRoot: "src",
+      // entryFileNames: "[name].js",
     },
   ],
   plugins: [
