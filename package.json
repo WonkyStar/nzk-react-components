@@ -75,7 +75,7 @@
     "deploy:storybook": "npx -p @storybook/storybook-deployer storybook-to-ghpages",
     "chromatic": "npx chromatic --project-token=b61bc9738a0c",
     "prepare": "husky install",
-    "release": "np",
+    "release": "./node_modules/.bin/np",
     "prepublishOnly": "./utils/release.sh"
   }
 }

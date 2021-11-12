@@ -1,7 +1,7 @@
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
-import replace from '@rollup/plugin-replace';
-import svgr from '@svgr/rollup';
+import replace from "@rollup/plugin-replace";
+import svgr from "@svgr/rollup";
 import copy from "rollup-plugin-copy-assets";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import typescript from "rollup-plugin-typescript2";
@@ -14,54 +14,57 @@ export default {
     {
       file: packageJson.main,
       format: "cjs",
-      sourcemap: true
+      sourcemap: true,
     },
     {
       file: packageJson.module,
       format: "esm",
-      sourcemap: true
+      sourcemap: true,
     },
     {
       file: `dist/${packageJson.name}.min.js`,
-      format: 'umd',
+      format: "umd",
       name: packageJson.name,
       esModule: false,
-      exports: 'named',
-      sourcemap: true
+      exports: "named",
+      sourcemap: true,
     },
   ],
   plugins: [
     peerDepsExternal(),
     resolve({
-      browser: true
+      browser: true,
     }),
     commonjs(),
     typescript({
-      include: [ "*.ts+(|x)", "**/*.ts+(|x)" , "*.d.ts", "**/*.d.ts"],
-      exclude: [ "*.stories.ts+(|x)", "**/*.stories.ts+(|x)" , "*.stories.d.ts+(|x)", "**/*.stories.d.ts+(|x)"],
-      useTsconfigDeclarationDir: true
+      include: ["*.ts+(|x)", "**/*.ts+(|x)", "*.d.ts", "**/*.d.ts"],
+      exclude: [
+        "*.stories.ts+(|x)",
+        "**/*.stories.ts+(|x)",
+        "*.stories.d.ts+(|x)",
+        "**/*.stories.d.ts+(|x)",
+      ],
+      useTsconfigDeclarationDir: true,
     }),
     svgr({
       svgoConfig: {
         plugins: {
-          removeViewBox: false
-        }
-      }
+          removeViewBox: false,
+        },
+      },
     }),
     copy({
-      assets: [
-        "src/assets",
-      ],
+      assets: ["src/assets"],
     }),
     // https://github.com/gregberge/svgr/issues/484
     replace({
       include: ["src/components/Icon/icons.tsx"],
       preventAssignment: true,
-      "ReactComponent": "default"
+      ReactComponent: "default",
     }),
     replace({
-      ASSETS_PATH: JSON.stringify('./assets/'),
-      preventAssignment: true
-    })
-  ]
+      ASSETS_PATH: JSON.stringify("./assets/"),
+      preventAssignment: true,
+    }),
+  ],
 };
