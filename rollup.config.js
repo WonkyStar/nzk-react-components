@@ -27,9 +27,6 @@ export default {
     commonjs(),
     typescript({
       useTsconfigDeclarationDir: true,
-      tsconfigOverride: {
-        exclude: ["node_modules", "dist", "**/*.stories.ts+(|x)"],
-      },
     }),
     svgr({
       svgoConfig: {
