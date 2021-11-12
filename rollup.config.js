@@ -5,7 +5,7 @@ import svgr from "@svgr/rollup";
 import copy from "rollup-plugin-copy-assets";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import typescript from "rollup-plugin-typescript2";
-import externals from "rollup-plugin-node-externals";
+/// import externals from "rollup-plugin-node-externals";
 
 export default {
   input: "src/index.ts",
@@ -15,13 +15,13 @@ export default {
       exports: "auto",
       format: "cjs",
       sourcemap: true,
-      preserveModules: true,
-      preserveModulesRoot: "src",
+      // preserveModules: true,
+      // preserveModulesRoot: "src",
       // entryFileNames: "[name].js",
     },
   ],
   plugins: [
-    externals(),
+    // externals(),
     peerDepsExternal(),
     resolve({
       browser: true,
