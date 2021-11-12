@@ -3,3 +3,4 @@ build-storybook.log
 yarn-error.log
 .DS_Store
 out*
+dist
