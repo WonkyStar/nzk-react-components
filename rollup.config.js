@@ -28,7 +28,7 @@ export default {
     typescript({
       useTsconfigDeclarationDir: true,
       tsconfigOverride: {
-        exclude: ["node_modules", "**/*.stories.ts+(|x)"],
+        exclude: ["node_modules", "dist", "**/*.stories.ts+(|x)"],
       },
     }),
     svgr({
