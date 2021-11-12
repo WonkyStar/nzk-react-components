@@ -14,8 +14,6 @@ export default {
       exports: "auto",
       format: "cjs",
       sourcemap: true,
-      preserveModules: true,
-      preserveModulesRoot: "src",
     },
   ],
   plugins: [
