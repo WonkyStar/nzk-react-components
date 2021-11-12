@@ -15,10 +15,24 @@ export default {
       exports: "auto",
       format: "cjs",
       sourcemap: true,
-      // preserveModules: true,
-      // preserveModulesRoot: "src",
+      preserveModules: true,
+      preserveModulesRoot: "src",
       // entryFileNames: "[name].js",
     },
+  ],
+  external: [
+    "add",
+    "polished",
+    "canvas-confetti",
+    "moveable-helper",
+    "react-dropzone",
+    "react-moveable",
+    "react-tooltip",
+    "resize-observer-polyfill",
+    "shortid",
+    "styled-components",
+    "unstated-next",
+    "tslib",
   ],
   plugins: [
     // externals(),
@@ -26,7 +40,9 @@ export default {
     resolve({
       browser: true,
     }),
-    commonjs(),
+    commonjs({
+      include: "node_modules",
+    }),
     typescript({
       useTsconfigDeclarationDir: true,
     }),
