@@ -17,11 +17,13 @@ import { useDrawingTool, BrushSize } from './DrawingToolProvider'
 import FileInput from './components/FileInput'
 import Placeable from './components/Placeable'
 import OpacityToggle from './components/OpacityToggle'
+import Header from './components/Header'
 
 export interface Props {
   prompt: string
-  backButton: React.ReactNode
-  saveButton: React.ReactNode
+  showHeader: boolean
+  onBack: () => void,
+  onSave: () => void
   showPaperBackground?: boolean
   disableCameraUpload?: boolean
   disableAutoCache?: boolean
@@ -112,7 +114,7 @@ const Drawing = (props: Props) => {
     } else {
       if (containerHeight < 420) {
         setButtonSize(Math.floor(containerHeight / 13) * 0.85)
-      } else if (containerHeight < 850) {
+      } else if (containerHeight < 1024) {
         setButtonSize(Math.floor(containerHeight / 12) * 0.85)
       } else {
         setButtonSize(Math.floor(containerHeight / 11) * 0.85)
@@ -236,13 +238,15 @@ const Drawing = (props: Props) => {
     })
   }
 
+  let headerHeight = 90
+  if (containerHeight < 800 || containerWidth < 728) headerHeight = 70
+  if (containerHeight < 500 || containerWidth < 500) headerHeight = 50
+
+
+
   return <s.Container ref={containerRef} maxWidth={maxContainerWidth} maxHeight={maxContainerHeight}>
-    <s.Header>
-      <div>{props.backButton}</div>
-      <div>{props.prompt}</div>
-      <div>{props.saveButton}</div>
-    </s.Header>
-    <s.Tool orientation={orientation}>
+    { props.showHeader && <Header height={headerHeight} prompt={props.prompt} onBack={props.onBack} onSave={props.onSave} />}
+    <s.Tool hasHeader={props.showHeader} headerHeight={headerHeight} orientation={orientation}>
       <ReactTooltip effect="solid" delayShow={750} multiline />
       <s.LeftToolbarContainer orientation={orientation} buttonSize={buttonSize} disabled={disableToolbars}>
         <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
@@ -357,6 +361,10 @@ const Drawing = (props: Props) => {
 }
 
 Drawing.defaultProps = {
+  prompt: 'Draw your Animal',
+  showHeader: true,
+  onBack: () => {},
+  onSave: () => {},
   showPaperBackground: true,
   disableCameraUpload: false,
   disableAutoCache: false,

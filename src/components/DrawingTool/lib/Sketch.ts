@@ -164,7 +164,7 @@ export default class Sketch {
     const doMerge = (img: HTMLImageElement) => {
       const scale = (data.width / img.width) * this.pixelRatioScale
       this.drawingLayer.ctx.save()
-      this.drawingLayer.ctx.translate(data.origin[0], data.origin[1])
+      this.drawingLayer.ctx.translate(data.origin[0] * this.pixelRatioScale, data.origin[1] * this.pixelRatioScale)
       this.drawingLayer.ctx.rotate(data.rotation * Math.PI / 180)
       this.drawingLayer.ctx.translate(- data.x - img.width * scale / 2, - data.y - img.height * scale / 2)
       this.drawingLayer.ctx.drawImage(img, data.x, data.y, img.width * scale, img.height * scale)

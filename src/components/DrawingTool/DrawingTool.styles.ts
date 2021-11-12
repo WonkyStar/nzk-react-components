@@ -25,47 +25,14 @@ export const Container = styled.div<{maxWidth: number, maxHeight: number}>`
   }
 `
 
-export const Header = styled.div`
-  position: relative;
-  height: 80px;
-  color: white;
-  display: flex;
-  align-items: center;
-  color: white;
-  font-size: 36px;
-  font-family: 'Rammetto One';
-  line-height: 80px;
-  text-align: center;
-  justify-content: space-between;
-  @media (max-height: 600px) {
-    height: 60px;
-    line-height: 60px;
-    font-size: 24px;
-  }
-  @media (max-width: 1024px) {
-    > :nth-child(2) {
-      font-size: 24px;
-    }
-  }
-  @media (max-width: 768px) {
-    > :nth-child(2) {
-      display: none;
-    }
-  }
-`
-
-export const Tool = styled.div<{orientation: Orientation}>`
+export const Tool = styled.div<{orientation: Orientation, hasHeader: boolean, headerHeight: number}>`
   position: absolute;
-  top: 90px;
-  height: calc(100% - 110px);
+  top: ${props => props.hasHeader ? props.headerHeight : 0}px;
+  height: ${props => props.hasHeader ? `calc(100% - ${props.headerHeight + 20}px)` : 'calc(100% - 20px)'};
   width: 100%;
   display: flex;
   flex-shrink: none;
   flex-direction: ${props => props.orientation === 'LANDSCAPE' ? 'row' : 'column'};
-  @media (max-height: 600px) {
-    top: 70px;
-    height: calc(100% - 90px)
-  }
 `
 
 export const ButtonGroup = styled.div<{orientation: Orientation, buttonSize: number}>`
@@ -290,7 +257,11 @@ export const CutImageTutorial = styled.div`
   font-size: 30px;
   text-align: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 960px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 760px), (max-height: 600px) {
     font-size: 16px;
     width: 95%;
     padding: 30px;
@@ -299,7 +270,10 @@ export const CutImageTutorial = styled.div`
   img {
     width: 100%;
     max-width: 350px;
-    @media (max-width: 768px) {
+    @media (max-width: 960px) {
+      max-width: 250px;
+    }
+    @media (max-width: 760px), (max-height: 600px) {
       max-width: 120px;
     }
   }
