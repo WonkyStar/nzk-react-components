@@ -16,7 +16,6 @@ export default {
       sourcemap: true,
       preserveModules: true,
       preserveModulesRoot: "src",
-      entryFileNames: "[name].js",
     },
   ],
   plugins: [
