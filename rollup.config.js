@@ -11,9 +11,10 @@ export default {
   output: [
     {
       dir: "dist",
-      exports: "auto",
-      format: "cjs",
+      format: "esm",
       sourcemap: true,
+      preserveModules: true,
+      preserveModulesRoot: "src",
     },
   ],
   plugins: [
