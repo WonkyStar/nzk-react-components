@@ -72,9 +72,10 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build": "rollup -c",
-    "release": "./utils/release.sh",
     "deploy:storybook": "npx -p @storybook/storybook-deployer storybook-to-ghpages",
     "chromatic": "npx chromatic --project-token=b61bc9738a0c",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release": "np",
+    "prepublishOnly": "./utils/release.sh"
   }
 }
