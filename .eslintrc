@@ -9,6 +9,9 @@
     "airbnb",
     "prettier"
   ],
+  "env": {
+    "browser": true
+  },
   "settings": {
     "import/resolver": {
       "node": {
