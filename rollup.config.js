@@ -6,28 +6,17 @@ import copy from "rollup-plugin-copy-assets";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import typescript from "rollup-plugin-typescript2";
 
-const packageJson = require("./package.json");
-
 export default {
   input: "src/index.ts",
   output: [
     {
-      file: packageJson.main,
+      dir: "dist",
+      exports: "named",
       format: "cjs",
       sourcemap: true,
-    },
-    {
-      file: packageJson.module,
-      format: "esm",
-      sourcemap: true,
-    },
-    {
-      file: `dist/${packageJson.name}.min.js`,
-      format: "umd",
-      name: packageJson.name,
-      esModule: false,
-      exports: "named",
-      sourcemap: true,
+      preserveModules: true,
+      preserveModulesRoot: "src",
+      entryFileNames: "[name].js",
     },
   ],
   plugins: [
@@ -37,14 +26,10 @@ export default {
     }),
     commonjs(),
     typescript({
-      include: ["*.ts+(|x)", "**/*.ts+(|x)", "*.d.ts", "**/*.d.ts"],
-      exclude: [
-        "*.stories.ts+(|x)",
-        "**/*.stories.ts+(|x)",
-        "*.stories.d.ts+(|x)",
-        "**/*.stories.d.ts+(|x)",
-      ],
       useTsconfigDeclarationDir: true,
+      tsconfigOverride: {
+        exclude: ["node_modules", "**/*.stories.ts+(|x)"],
+      },
     }),
     svgr({
       svgoConfig: {

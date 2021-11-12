@@ -6,7 +6,6 @@
   "files": [
     "dist"
   ],
-  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
     "@babel/core": "^7.14.8",
@@ -72,6 +71,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build": "rollup -c",
+    "build:before": "rm -rf dist",
     "deploy:storybook": "npx -p @storybook/storybook-deployer storybook-to-ghpages",
     "chromatic": "npx chromatic --project-token=b61bc9738a0c",
     "prepare": "husky install",
