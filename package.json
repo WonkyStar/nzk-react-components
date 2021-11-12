@@ -1,9 +1,11 @@
 {
   "name": "nzk-react-components",
-  "version": "0.2.18",
+  "version": "0.2.19-0",
   "license": "MIT",
   "main": "dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
