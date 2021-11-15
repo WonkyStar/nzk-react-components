@@ -242,8 +242,6 @@ const Drawing = (props: Props) => {
   if (containerHeight < 800 || containerWidth < 728) headerHeight = 70
   if (containerHeight < 500 || containerWidth < 500) headerHeight = 50
 
-
-
   return <s.Container ref={containerRef} maxWidth={maxContainerWidth} maxHeight={maxContainerHeight}>
     { props.showHeader && <Header height={headerHeight} prompt={props.prompt} onBack={props.onBack} onSave={props.onSave} />}
     <s.Tool hasHeader={props.showHeader} headerHeight={headerHeight} orientation={orientation}>

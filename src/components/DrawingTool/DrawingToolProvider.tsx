@@ -36,7 +36,7 @@ export interface Colour {
   hex: string
 }
 
-type ToolMode = 'DRAW' | 'CUT' | 'PLACE'
+type ToolMode = 'LOADING' | 'DRAW' | 'CUT' | 'PLACE' 
 
 export interface Props {
   cache?: string
@@ -54,7 +54,7 @@ const DrawingToolState = (props?: Props) => {
   const [currentColour, setCurrentColour] = useState(Colours[0])
   const [brushOpacity, setBruchOpacity] = useState(1)
   
-  const [toolMode, setToolMode] = useState<ToolMode>('DRAW')
+  const [toolMode, setToolMode] = useState<ToolMode>('LOADING')
 
   const setSketchRef = useCallback(node => {
     sketchRef.current = node
@@ -112,7 +112,10 @@ const DrawingToolState = (props?: Props) => {
     setSketchRef(new Sketch({
       containerEl,
       sketchData: data,
-      onChange: onSketchChange
+      onChange: onSketchChange,
+      onReady: () => {
+        setToolMode('DRAW')
+      }
     }))
   }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useDrawingTool } from '../../DrawingToolProvider'
 import Icon from '../../../Icon'
 import IconButton from '../../../IconButton'
 
@@ -41,15 +42,25 @@ const getButtonSizeForHeight = (height) => {
 }
 
 export default (props: Props) => {
+  const { toolMode } = useDrawingTool()
+
+  const disableButtons = toolMode !== 'DRAW'
+
+  const onSave = () => {
+    if (!disableButtons) props.onSave()
+  }
+  
   return <Container height={props.height}>
     <IconButton
+      disabled={disableButtons}
       onClick={props.onBack}
       size={getButtonSizeForHeight(props.height)}
       icon={<Icon name='arrow-left' />}
       theme='primary'>Back</IconButton>
     { props.prompt && (<div>{props.prompt}</div>) }
     <IconButton
-      onClick={props.onSave}
+      disabled={disableButtons}
+      onClick={onSave}
       size={getButtonSizeForHeight(props.height)}
       icon={<Icon name='tick' />}
       theme='confirm'>Save</IconButton>

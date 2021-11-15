@@ -1,8 +1,8 @@
 /* eslint-env browser */
-
+import after from 'lodash.after'
 import SketchLayer from './SketchLayer'
 import createInteractionSurface, { Point } from './createInteractionSurface'
-import SketchModel, { SketchActionMergeData, SketchModelData } from './SketchModel'
+import SketchModel, { SketchAction, SketchActionMergeData, SketchModelData } from './SketchModel'
 import { SketchStrokeStyle } from './SketchStrokeModel'
 import trace from './trace'
 import trimCanvas from './trimCanvas'
@@ -12,6 +12,7 @@ export interface SketchProps {
   template?: string
   onChange?: Function
   sketchData?: SketchModelData
+  onReady?: Function
 }
 
 interface ExportProps {
@@ -134,7 +135,9 @@ export default class Sketch {
   
     if(props.sketchData) {
       this.deserialize(props.sketchData)
-      this.drawExistingSketch()
+      this.drawExistingSketch(props.onReady)
+    } else if (props.onReady) {
+      props.onReady()
     }
   }
 
@@ -160,7 +163,7 @@ export default class Sketch {
     }
   }
 
-  mergeImage(data: SketchActionMergeData, saveAction = true) {
+  mergeImage(data: SketchActionMergeData, saveAction = true, callback = () => {}) {
     const doMerge = (img: HTMLImageElement) => {
       const scale = (data.width / img.width) * this.pixelRatioScale
       this.drawingLayer.ctx.save()
@@ -175,6 +178,7 @@ export default class Sketch {
           this.onChange()
         }
       }
+      callback()
     }
   
     if (data.image) {
@@ -211,6 +215,7 @@ export default class Sketch {
         this.mergeImage(this.model.actions[i].data as SketchActionMergeData, false)
       }
     }
+    if (this.onChange) this.onChange()
   }
 
 	redo() {
@@ -225,6 +230,7 @@ export default class Sketch {
     } else if (action.type === 'IMAGE_MERGE' && action.data) {
       this.mergeImage(action.data as SketchActionMergeData, false)
     }
+    if (this.onChange) this.onChange()
   }
 
   canUndo() {
@@ -332,15 +338,27 @@ export default class Sketch {
     }
   }
 
-	drawExistingSketch() {
-    if(this.model.lastActionIndex > -1){
-      this.model.actions.forEach(action => {
-        if (action.type === 'STROKE' && action.model){
-          this.drawExistingStroke(action.model)
-        } else if (action.type === 'IMAGE_MERGE') {
-          this.mergeImage(action.data as SketchActionMergeData, false)
-        }
-      })
+	drawExistingSketch(callback?: Function) {
+    if (this.model.lastActionIndex === -1) {
+      if (callback) callback()
+      return
+    }
+
+    const done = after(Math.min(this.model.lastActionIndex, this.model.actions.length), () => {
+      if (callback) callback()
+    })
+
+    for(let i = 0; i <= this.model.lastActionIndex; i += 1) {
+      this.drawAction(this.model.actions[i], done)
+    }
+  }
+
+  drawAction (action: SketchAction, callback = () => {}) {
+    if (action.type === 'STROKE' && action.model){
+      this.drawExistingStroke(action.model)
+      callback()
+    } else if (action.type === 'IMAGE_MERGE') {
+      this.mergeImage(action.data as SketchActionMergeData, false, callback)
     }
   }
 

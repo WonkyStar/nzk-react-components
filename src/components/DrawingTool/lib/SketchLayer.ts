@@ -72,8 +72,8 @@ export default class SketchLayer {
     this.ctx.clearRect(0, 0, this.width, this.height)
   }
 
-  drawImageToFit (image) {
-    const scale = Math.min(this.width / image.width, this.height / image.height)
+  drawImageToFit (image, ratio = 1) {
+    const scale = Math.min(this.width / image.width, this.height / image.height) * ratio
     const x = (this.width / 2) - (image.width / 2) * scale
     const y = (this.height / 2) - (image.height / 2) * scale
     this.ctx.drawImage(image, 0, 0, image.width, image.height, x, y, image.width * scale, image.height * scale)

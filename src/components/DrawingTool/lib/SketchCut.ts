@@ -29,7 +29,7 @@ export default class SketchCut extends Sketch {
     })
   
     this.imageToCut = props.imageToCut
-    this.drawingLayer.drawImageToFit(this.imageToCut)
+    this.drawingLayer.drawImageToFit(this.imageToCut, .9)
 
     if (props.onImageCut) {
       this.onImageCut = props.onImageCut
