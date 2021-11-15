@@ -5,45 +5,45 @@ import svgr from "@svgr/rollup";
 import copy from "rollup-plugin-copy-assets";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import typescript from "rollup-plugin-typescript2";
-
-const packageJson = require("./package.json");
+/// import externals from "rollup-plugin-node-externals";
 
 export default {
   input: "src/index.ts",
   output: [
     {
-      file: packageJson.main,
+      dir: "dist",
+      exports: "auto",
       format: "cjs",
       sourcemap: true,
-    },
-    {
-      file: packageJson.module,
-      format: "esm",
-      sourcemap: true,
-    },
-    {
-      file: `dist/${packageJson.name}.min.js`,
-      format: "umd",
-      name: packageJson.name,
-      esModule: false,
-      exports: "named",
-      sourcemap: true,
+      preserveModules: true,
+      preserveModulesRoot: "src",
+      // entryFileNames: "[name].js",
     },
   ],
+  external: [
+    "add",
+    "polished",
+    "canvas-confetti",
+    "moveable-helper",
+    "react-dropzone",
+    "react-moveable",
+    "react-tooltip",
+    "resize-observer-polyfill",
+    "shortid",
+    "styled-components",
+    "unstated-next",
+    "tslib",
+  ],
   plugins: [
+    // externals(),
     peerDepsExternal(),
     resolve({
       browser: true,
     }),
-    commonjs(),
+    commonjs({
+      include: "node_modules",
+    }),
     typescript({
-      include: ["*.ts+(|x)", "**/*.ts+(|x)", "*.d.ts", "**/*.d.ts"],
-      exclude: [
-        "*.stories.ts+(|x)",
-        "**/*.stories.ts+(|x)",
-        "*.stories.d.ts+(|x)",
-        "**/*.stories.d.ts+(|x)",
-      ],
       useTsconfigDeclarationDir: true,
     }),
     svgr({
