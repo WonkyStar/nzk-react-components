@@ -33,6 +33,7 @@ export default {
     "styled-components",
     "unstated-next",
     "tslib",
+    "lodash.after"
   ],
   plugins: [
     // externals(),
