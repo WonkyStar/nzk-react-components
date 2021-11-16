@@ -154,6 +154,21 @@ const Drawing = (props: Props) => {
     setToolMode("CUT")
   }
 
+  const getImageToPlaceSize = (img) => {
+    const ratio = 0.8
+
+    if (img.width <= containerWidth * ratio && img.height <= containerHeight * ratio) {
+      return { width: img.width, height: img.height }
+    }
+
+    const scale = Math.min(1, Math.min(containerWidth / img.width, containerHeight / img.height)) * ratio
+
+    return {
+      width: img.width * scale,
+      height: img.height * scale
+    }
+  }
+
   const strokeBrushColour = getLuminance(currentColour.hex) > 0.05 ? darken(0.15, currentColour.hex) : lighten(0.1, currentColour.hex)
 
   const deselectedButtonColourProps = {
@@ -293,7 +308,7 @@ const Drawing = (props: Props) => {
         {imageToCut && sketchStyles && <div style={sketchStyles} ref={sketchCutInnerRef} />}
         {imageToPlace && sketchStyles && (
           <div style={{ ...sketchStyles, zIndex: '101'}}>
-            <s.ImageToPlaceContainer><s.ImageToPlace ref={imageToPlaceContainerRef} src={imageToPlace.src} /></s.ImageToPlaceContainer>
+            <s.ImageToPlaceContainer><s.ImageToPlace size={getImageToPlaceSize(imageToPlace)} ref={imageToPlaceContainerRef} src={imageToPlace.src} /></s.ImageToPlaceContainer>
             <Moveable
               ref={moveableRef}
               target={imageToPlaceContainerRef}

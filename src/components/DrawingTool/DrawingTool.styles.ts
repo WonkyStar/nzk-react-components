@@ -217,19 +217,10 @@ export const ImageToPlaceContainer = styled.div`
   align-items: center;
 }`
 
-export const ImageToPlace = styled.img`
+export const ImageToPlace = styled.img<{size: { width: number, height: number }}>`
   position: absolute;
-  width: 80%;
-  max-width: 400px;
-  @media (max-width: 768px) {
-    max-width: 200px;
-  }
-  @media (max-height: 600px) {
-    width: auto;
-    height: 80%;
-    max-width: none;
-    max-height: 200px;
-  }
+  width: ${props => props.size.width}px;
+  height: ${props => props.size.height}px;
 }
 `
 
