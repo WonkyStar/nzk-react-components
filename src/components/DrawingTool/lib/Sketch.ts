@@ -350,7 +350,7 @@ export default class Sketch {
       return
     }
 
-    const done = after(Math.min(this.model.lastActionIndex, this.model.actions.length), () => {
+    const done = after(Math.min(this.model.lastActionIndex + 1, this.model.actions.length), () => {
       if (callback) callback()
     })
 

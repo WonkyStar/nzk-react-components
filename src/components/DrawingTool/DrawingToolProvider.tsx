@@ -98,6 +98,7 @@ const DrawingToolState = (props?: Props) => {
   }
 
   const initSketch = (containerEl) => {
+    setToolMode('LOADING')
     let data
 
     if (sketchRef.current) {

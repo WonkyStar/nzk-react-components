@@ -151,6 +151,7 @@ const Drawing = (props: Props) => {
   const onImageUploaded = (image: HTMLImageElement) => {
     setShowFileInput(false)
     setImageToCut(image)
+    setShowCutTutorial(true)
     setToolMode("CUT")
   }
 
@@ -219,6 +220,7 @@ const Drawing = (props: Props) => {
         setImageToCut(undefined)
         const newImage = new Image
         newImage.onload = () => {
+          setShowCutTutorial(true)
           setImageToPlace(newImage)
           setToolMode('PLACE')
         }
