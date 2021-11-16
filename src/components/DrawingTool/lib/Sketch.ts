@@ -166,6 +166,7 @@ export default class Sketch {
   mergeImage(data: SketchActionMergeData, saveAction = true, callback = () => {}) {
     const doMerge = (img: HTMLImageElement) => {
       const scale = (data.width / img.width) * this.pixelRatioScale
+      this.drawingLayer.ctx.globalCompositeOperation = "source-over"
       this.drawingLayer.ctx.save()
       this.drawingLayer.ctx.translate(data.origin[0] * this.pixelRatioScale, data.origin[1] * this.pixelRatioScale)
       this.drawingLayer.ctx.rotate(data.rotation * Math.PI / 180)
@@ -208,10 +209,15 @@ export default class Sketch {
     this.model.lastActionIndex -= 1
     this.drawingLayer.clear()
 
-    for(let i = 0; i <= this.model.lastActionIndex; i += 1) {
+    console.log('Last action Index before undo', this.model.lastActionIndex)
+
+    for (let i = 0; i <= this.model.lastActionIndex; i += 1) {
+      console.log('I=', i)
       if (this.model.actions[i].type === 'STROKE' && this.model.actions[i].model) {
+        console.log('draw stroke')
         this.drawUndoStroke(this.model.actions[i].model)
       } else if (this.model.actions[i].type === 'IMAGE_MERGE' && this.model.actions[i]) {
+        console.log('merge image')
         this.mergeImage(this.model.actions[i].data as SketchActionMergeData, false)
       }
     }
