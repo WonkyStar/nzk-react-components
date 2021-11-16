@@ -26,6 +26,7 @@ export interface Props {
   onSave: () => void
   showPaperBackground?: boolean
   disableCameraUpload?: boolean
+  minImageUploadSize?: number
   disableAutoCache?: boolean
   openUploadPopupOnStart?: boolean
   cacheKey?: string
@@ -353,6 +354,7 @@ const Drawing = (props: Props) => {
           isMobile={isMobile}
           dismiss={() => setShowFileInput(false)}
           onImageUploaded={onImageUploaded}
+          minImageSize={props.minImageUploadSize}
         />
     </s.ModalOverlay>}
   </s.Container>

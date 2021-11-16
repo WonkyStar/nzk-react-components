@@ -6,13 +6,35 @@ import * as s from './FileInput.styles'
 import Button from '../../../Button'
 import Icon from '../../../Icon'
 
+const bytesForHuman = (bytes: number) => {
+  let bytes$ = bytes
+  const units = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB']
+  let i = 0
+  for (i; bytes$ > 1024; i+=1) {
+    bytes$ /= 1024
+  }
+  return `${parseFloat(bytes$.toFixed(1))}${units[i]}`
+}
 export interface Props {
   dismiss?: () => void
   onImageUploaded?: (image: HTMLImageElement) => void
+  minImageSize?: number
   isMobile: boolean
 }
 
 export default (props: Props) => {
+  function fileSizeValidator(file) {
+    const minSize = props.minImageSize || 1024 * 10
+    if (file.size < minSize) {
+      return {
+        code: "image-to-small",
+        message: `This image is too small. Please pick an image over ${bytesForHuman(minSize)}`
+      };
+    }
+  
+    return null
+  }
+
   const {
     acceptedFiles,
     fileRejections,
@@ -21,7 +43,8 @@ export default (props: Props) => {
     isDragActive
   } = useDropzone({
     accept: 'image/jpeg, image/png',
-    maxFiles:2
+    maxFiles: 1,
+    validator: fileSizeValidator
   })
 
   const [supportDragAndDrop, setSupportDragAndDrop] = useState(true)
@@ -53,7 +76,7 @@ export default (props: Props) => {
   }, [acceptedFiles])
 
   const ErrorMessage = fileRejections && fileRejections.length
-    ? <s.ErrorMessage>Sorry, we only support .jpeg or .png images.</s.ErrorMessage>
+    ? <s.ErrorMessage>{fileRejections[0].errors[0].message}</s.ErrorMessage>
     : null
 
   const onDismiss = (ev) => {
