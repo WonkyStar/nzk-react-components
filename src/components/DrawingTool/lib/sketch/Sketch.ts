@@ -8,11 +8,13 @@ import * as Actions from './actions/index'
 import Layer from './Layer'
 import { Color } from './types'
 
-export type BrushType = 'Line' | 'Fill'
+export type BrushType = 'Line' | 'MultiLine' | 'Fill' | 'Eraser'
 
 const ActionForBrushType = {
   [`Line`]: Actions.LineBrush,
-  [`Fill`]: Actions.FillBrush
+  [`MultiLine`]: Actions.MultiLineBrush,
+  [`Fill`]: Actions.FillBrush,
+  [`Eraser`]: Actions.EraserBrush
 }
 
 export interface SketchProps {
@@ -32,7 +34,7 @@ export default class Sketch {
 
   selectedOpacity: number = 1
 
-  selectedBrushType: BrushType | null = 'Line'
+  selectedBrushType: BrushType | null = 'MultiLine'
 
   readonly containerEl: HTMLDivElement
 
@@ -50,6 +52,8 @@ export default class Sketch {
 
   readonly bufferLayer: Layer
 
+  readonly cacheLayer: Layer
+
   readonly templateLayer?: Layer
 
   readonly interactionSurface: HTMLDivElement
@@ -61,8 +65,6 @@ export default class Sketch {
   actions: Action[] = []
 
   lastActionIndex: number = -1
-
-  reqAnimationFrameID: number = 0
 
   onChange?: Function
 
@@ -96,6 +98,11 @@ export default class Sketch {
     this.bufferLayer = new Layer(defaultLayerProps)
     this.bufferLayer.canvas.style.zIndex = '2'
     this.containerEl.appendChild(this.bufferLayer.canvas)
+
+    // A hidden cache layer to be used when drawing
+    this.cacheLayer = new Layer(defaultLayerProps)
+    this.cacheLayer.canvas.style.display = 'none'
+    this.containerEl.appendChild(this.cacheLayer.canvas)
 
     // Interaction surface
     this.interactionSurface = createInteractionSurface({
@@ -131,11 +138,11 @@ export default class Sketch {
     return exportCanvas.toDataURL()
   }
 
-  undo() {
-    if(!this.canUndo()) return
+  // undo() {
+    // if(!this.canUndo()) return
 
-    this.lastActionIndex -= 1
-    this.drawingLayer.clear()
+    // this.lastActionIndex -= 1
+    // this.drawingLayer.clear()
 
     // for(let i = 0; i <= this.lastActionIndex; i += 1) {
     //   if (this.actions[i].type === 'STROKE' && this.model.actions[i].model) {
@@ -144,9 +151,9 @@ export default class Sketch {
     //     this.mergeImage(this.model.actions[i].data as SketchActionMergeData, false)
     //   }
     // }
-  }
+  // }
 
-	redo() {
+	// redo() {
     // if(!this.model.canRedo()) return 
 
 		// this.model.lastActionIndex += 1
@@ -158,15 +165,15 @@ export default class Sketch {
     // } else if (action.type === 'IMAGE_MERGE' && action.data) {
     //   this.mergeImage(action.data as SketchActionMergeData, false)
     // }
-  }
+  // }
 
-  canUndo() {
-    //
-  }
+  // canUndo() {
+  //   //
+  // }
 
-  canRedo() {
-    //
-  }
+  // canRedo() {
+  //   //
+  // }
   
   restart() {
     // this.model.reset()
@@ -187,19 +194,10 @@ export default class Sketch {
       sketch: this
     })
 
-    action.startDraw(point)
-
     this.actions.push(action)
     this.lastActionIndex += 1
     this.currentDrawingAction = action
-
-    this.reqAnimationFrameID = window.requestAnimationFrame(() => {
-      if (this.currentDrawingAction) {
-        this.currentDrawingAction.onAnimationFrame()
-      } else {
-        window.cancelAnimationFrame(this.reqAnimationFrameID)
-      }
-    })
+    action.startDraw(point)
   }
 
   moveTouch(point: Point) {
@@ -209,47 +207,45 @@ export default class Sketch {
 
   endTouch() {
     if (!this.currentDrawingAction) return
-    window.cancelAnimationFrame(this.reqAnimationFrameID)
-    this.reqAnimationFrameID = 0
     this.currentDrawingAction.endDraw()
     this.currentDrawingAction = null
   }
 
-	drawExistingSketch() {
-    if(this.model.lastActionIndex > -1){
-      this.model.actions.forEach(action => {
-        if (action.type === 'STROKE' && action.model){
-          this.drawExistingStroke(action.model)
-        } else if (action.type === 'IMAGE_MERGE') {
-          this.mergeImage(action.data as SketchActionMergeData, false)
-        }
-      })
-    }
-  }
+	// drawExistingSketch() {
+  //   if(this.model.lastActionIndex > -1){
+  //     this.model.actions.forEach(action => {
+  //       if (action.type === 'STROKE' && action.model){
+  //         this.drawExistingStroke(action.model)
+  //       } else if (action.type === 'IMAGE_MERGE') {
+  //         this.mergeImage(action.data as SketchActionMergeData, false)
+  //       }
+  //     })
+  //   }
+  // }
 
 
-  drawTransparentFillFinal(stroke) {
-    this.cacheLayer.clear()
-    this.cacheLayer.ctx.globalCompositeOperation = "source-over"
-    setDrawingStyle({ ...stroke.style, opacity: 1 }, this.cacheLayer.ctx)
-    trace(stroke, this.cacheLayer.ctx)
-    this.cacheLayer.ctx.closePath()
-    this.cacheLayer.ctx.stroke()
-    this.cacheLayer.ctx.fill()
+  // drawTransparentFillFinal(stroke) {
+  //   this.cacheLayer.clear()
+  //   this.cacheLayer.ctx.globalCompositeOperation = "source-over"
+  //   setDrawingStyle({ ...stroke.style, opacity: 1 }, this.cacheLayer.ctx)
+  //   trace(stroke, this.cacheLayer.ctx)
+  //   this.cacheLayer.ctx.closePath()
+  //   this.cacheLayer.ctx.stroke()
+  //   this.cacheLayer.ctx.fill()
 
-    this.drawingLayer.ctx.globalCompositeOperation = "source-over"
-    this.drawingLayer.ctx.globalAlpha = stroke.style.opacity
-    this.drawingLayer.ctx.drawImage(this.cacheLayer.ctx.canvas, 0, 0, this.width, this.height)
-    this.drawingLayer.ctx.globalAlpha = 1.0
-  }
+  //   this.drawingLayer.ctx.globalCompositeOperation = "source-over"
+  //   this.drawingLayer.ctx.globalAlpha = stroke.style.opacity
+  //   this.drawingLayer.ctx.drawImage(this.cacheLayer.ctx.canvas, 0, 0, this.width, this.height)
+  //   this.drawingLayer.ctx.globalAlpha = 1.0
+  // }
 
-	drawEraserUndoingFinal(stroke) {
-    this.drawingLayer.ctx.globalCompositeOperation = "destination-out"
-    trace(stroke, this.drawingLayer.ctx)
-    this.drawingLayer.ctx.stroke()
-  }
+	// drawEraserUndoingFinal(stroke) {
+  //   this.drawingLayer.ctx.globalCompositeOperation = "destination-out"
+  //   trace(stroke, this.drawingLayer.ctx)
+  //   this.drawingLayer.ctx.stroke()
+  // }
 
-findBoundingBox(ctx) {
+  findBoundingBox(ctx) {
     const imageData = ctx.getImageData(0, 0, this.width, this.height)
 
     const box = {
@@ -282,5 +278,18 @@ findBoundingBox(ctx) {
 
   getLayerToExport () {
     return this.templateLayer || this.drawingLayer
+  }
+
+  serialize() {
+    return JSON.stringify({
+      selectedOpacity: this.selectedOpacity
+    })
+  }
+
+  deserialize(serialized: string) {
+    const parsed = JSON.parse(serialized)
+    if (parsed.props) {
+      this.selectedOpacity = parsed.props.selectedOpacity || 1
+    }
   }
 }

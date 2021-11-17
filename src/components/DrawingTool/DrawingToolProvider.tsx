@@ -1,17 +1,14 @@
 /* eslint-env browser */
 import { useRef, useState, useCallback, useEffect } from 'react'
 import { createContainer } from 'unstated-next'
-import Sketch from './lib/Sketch'
+import Sketch, { BrushType } from './lib/sketch/Sketch'
 import SketchCut from './lib/SketchCut'
-import { SketchActionMergeData } from './lib/SketchModel'
 
 export const BrushSize = {
   small: 7,
   medium: 21,
   large: 42
 }
-
-export type BrushType = 'fill' | 'line' | 'eraser'
 
 export const Colours = [
   { rgb: [53,162,218], hex: '#35a2da' },
@@ -50,7 +47,7 @@ const DrawingToolState = (props?: Props) => {
   const [cacheKey, setCacheKey] = useState('nzk-sketch-cache')
 
   const [brushSize, setBrushSize] = useState(BrushSize.small)
-  const [brushType, setBrushType] = useState('line')
+  const [brushType, setBrushType] = useState<BrushType>('MultiLine')
   const [currentColour, setCurrentColour] = useState(Colours[0])
   const [brushOpacity, setBruchOpacity] = useState(1)
   
@@ -59,13 +56,14 @@ const DrawingToolState = (props?: Props) => {
   const setSketchRef = useCallback(node => {
     sketchRef.current = node
     if (sketchRef.current) {
-      sketchRef.current.setBrush({
-        size: brushSize,
-        colour: currentColour.rgb,
-        opacity: brushOpacity,
-        fill: brushType === 'fill',
-        eraser: brushType === 'eraser'
-      })
+      sketchRef.current.selectedLineSize = brushSize
+      sketchRef.current.selectedBrushType = brushType
+      sketchRef.current.selectedColor = {
+        r: currentColour.rgb[0],
+        g: currentColour.rgb[1],
+        b: currentColour.rgb[2]
+      }
+      sketchRef.current.selectedOpacity = 1
     }
   }, [])
 
@@ -75,13 +73,16 @@ const DrawingToolState = (props?: Props) => {
 
   // Sketch tool brush changes
   useEffect(() => {
-    if (sketchRef && sketchRef.current) sketchRef.current.setBrush({
-      size: brushSize,
-      colour: currentColour.rgb,
-      opacity: brushType === 'eraser' ? 1 : brushOpacity,
-      fill: brushType === 'fill',
-      eraser: brushType === 'eraser'
-    })
+    if (sketchRef && sketchRef.current) {
+      sketchRef.current.selectedLineSize = brushSize
+      sketchRef.current.selectedBrushType = brushType
+      sketchRef.current.selectedColor = {
+        r: currentColour.rgb[0],
+        g: currentColour.rgb[1],
+        b: currentColour.rgb[2]
+      }
+      sketchRef.current.selectedOpacity = brushType === 'Eraser' ? 1 : brushOpacity
+    }
   }, [sketchRef.current, brushSize, currentColour, brushOpacity, brushType])
 
   const onSketchChange = () => {
@@ -98,20 +99,19 @@ const DrawingToolState = (props?: Props) => {
   }
 
   const initSketch = (containerEl) => {
-    let data
+    // let data
 
     if (sketchRef.current) {
-      data = sketchRef.current.serialize()
+      // data = sketchRef.current.serialize()
     } else {
       const cachedRawData = getCache()
       if (cachedRawData) {
-        data = JSON.parse(cachedRawData)
+        // data = JSON.parse(cachedRawData)
       }
     }
 
     setSketchRef(new Sketch({
       containerEl,
-      sketchData: data,
       onChange: onSketchChange
     }))
   }
@@ -151,21 +151,21 @@ const DrawingToolState = (props?: Props) => {
     return null
   }
 
-  const mergeImage = (data: SketchActionMergeData) => {
-    if (sketchRef.current) {
-      return sketchRef.current.mergeImage(data)
-    }
-    return null
-  }
+  // const mergeImage = (data: SketchActionMergeData) => {
+  //   if (sketchRef.current) {
+  //     return sketchRef.current.mergeImage(data)
+  //   }
+  //   return null
+  // }
 
 
-  const undo = () => {
-    if (sketchRef.current) sketchRef.current.undo()
-  }
+  // const undo = () => {
+  //   if (sketchRef.current) sketchRef.current.undo()
+  // }
 
-  const redo = () => {
-    if (sketchRef.current) sketchRef.current.redo()
-  }
+  // const redo = () => {
+  //   if (sketchRef.current) sketchRef.current.redo()
+  // }
 
   const restart = () => {
     if (sketchRef.current) sketchRef.current.restart()
@@ -184,15 +184,15 @@ const DrawingToolState = (props?: Props) => {
     setBrushSize,
     brushType,
     setBrushType,
-    undo,
-    redo,
+    // undo,
+    // redo,
     restart,
     onSketchChange,
     setCacheKey,
     setAutoCache,
     clearCache,
     resetCut,
-    mergeImage,
+    // mergeImage,
     setToolMode,
     toolMode,
     exportCache

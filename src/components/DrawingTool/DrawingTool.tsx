@@ -74,13 +74,13 @@ const Drawing = (props: Props) => {
     setBrushSize,
     brushType,
     setBrushType,
-    undo,
-    redo,
+    // undo,
+    // redo,
     restart,
     setCacheKey,
     setAutoCache,
     resetCut,
-    mergeImage,
+    // mergeImage,
     setToolMode,
   } = useDrawingTool()
 
@@ -166,9 +166,9 @@ const Drawing = (props: Props) => {
     shadowColor: 'rgba(0,0,0,.5)'
   }
 
-  const eraserBrushColourProps = (brushType === 'eraser' ? selectedButtonColourProps : deselectedButtonColourProps) as ButtonProps
-  const fillBrushColourProps = (brushType === 'fill' ? selectedButtonColourProps : deselectedButtonColourProps) as ButtonProps
-  const lineBrushColourProps = (brushType === 'line' ? selectedButtonColourProps : deselectedButtonColourProps) as ButtonProps
+  const eraserBrushColourProps = (brushType === 'Eraser' ? selectedButtonColourProps : deselectedButtonColourProps) as ButtonProps
+  const fillBrushColourProps = (brushType === 'Fill' ? selectedButtonColourProps : deselectedButtonColourProps) as ButtonProps
+  const lineBrushColourProps = (brushType === 'Line' ? selectedButtonColourProps : deselectedButtonColourProps) as ButtonProps
   const smallLineColourProps = (brushSize === BrushSize.small ? selectedButtonColourProps : deselectedButtonColourProps) as ButtonProps
   const mediumLineColourProps = (brushSize === BrushSize.medium ? selectedButtonColourProps : deselectedButtonColourProps) as ButtonProps
   const largeLineColourProps = (brushSize === BrushSize.large ? selectedButtonColourProps : deselectedButtonColourProps) as ButtonProps
@@ -220,16 +220,16 @@ const Drawing = (props: Props) => {
       key: 'save-place',
       component: <IconButton icon={<Icon name="tick" />} theme='confirm' size={isMobile ? "small" : "regular"} onClick={() => {
         if (moveableRef.current) {
-          const rect = moveableRef.current.getRect()
-          mergeImage({
-            image: imageToPlace,
-            x: rect.left,
-            y: rect.top,
-            origin: rect.origin,
-            width: Math.hypot(rect.pos2[0]-rect.pos1[0], rect.pos2[1]-rect.pos1[1]),
-            height: Math.hypot(rect.pos3[0]-rect.pos2[0], rect.pos3[1]-rect.pos2[1]),
-            rotation: rect.rotation
-          })
+          // const rect = moveableRef.current.getRect()
+          // mergeImage({
+          //   image: imageToPlace,
+          //   x: rect.left,
+          //   y: rect.top,
+          //   origin: rect.origin,
+          //   width: Math.hypot(rect.pos2[0]-rect.pos1[0], rect.pos2[1]-rect.pos1[1]),
+          //   height: Math.hypot(rect.pos3[0]-rect.pos2[0], rect.pos3[1]-rect.pos2[1]),
+          //   rotation: rect.rotation
+          // })
           setToolMode('DRAW')
           setImageToPlace(undefined)
         }
@@ -255,26 +255,26 @@ const Drawing = (props: Props) => {
           </Button>
         </s.ButtonGroup>
         <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
-          <Button height={buttonSize} round theme="white" onClick={undo}>
+          {/* <Button height={buttonSize} round theme="white" onClick={undo}>
             <Icon fill={currentColour.hex} name='drawing-tool-undo' />
           </Button>
           <Button height={buttonSize} round theme="white" onClick={redo}>
             <Icon fill={currentColour.hex} name='drawing-tool-redo' />
-          </Button>
+          </Button> */}
         </s.ButtonGroup>
         { !props.disableCameraUpload && <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
           <Button data-tip="Upload a drawing" height={buttonSize} round theme='purple' onClick={onClickCamera}>
             <Icon name='drawing-tool-camera' />
           </Button></s.ButtonGroup>}
         <s.ButtonGroup orientation={orientation} buttonSize={buttonSize}>
-          <Button height={buttonSize} round {...eraserBrushColourProps} onClick={() => setBrushType('eraser')}>
-            <Icon data-tip="Eraser" fill={brushType === 'eraser' ? 'white' : currentColour.hex} name='drawing-tool-eraser' />
+          <Button height={buttonSize} round {...eraserBrushColourProps} onClick={() => setBrushType('Eraser')}>
+            <Icon data-tip="Eraser" fill={brushType === 'Eraser' ? 'white' : currentColour.hex} name='drawing-tool-eraser' />
           </Button>
-          <Button data-tip="Fill brush" height={buttonSize} round {...fillBrushColourProps} onClick={() => setBrushType('fill')}>
-            <Icon fill={brushType === 'fill' ? 'white' : currentColour.hex} name='drawing-tool-fill-brush' />
+          <Button data-tip="Fill brush" height={buttonSize} round {...fillBrushColourProps} onClick={() => setBrushType('Fill')}>
+            <Icon fill={brushType === 'Fill' ? 'white' : currentColour.hex} name='drawing-tool-fill-brush' />
           </Button>
-          <Button data-tip="Line brush" height={buttonSize} round {...lineBrushColourProps} onClick={() => setBrushType('line')}>
-            <Icon fill={brushType === 'line' ? 'white' : currentColour.hex} name='drawing-tool-line-brush' />
+          <Button data-tip="Line brush" height={buttonSize} round {...lineBrushColourProps} onClick={() => setBrushType('Line')}>
+            <Icon fill={brushType === 'Line' ? 'white' : currentColour.hex} name='drawing-tool-line-brush' />
           </Button>
           <Button height={buttonSize} round {...smallLineColourProps} onClick={() => setBrushSize(BrushSize.small)}>
             <Icon fill={brushSize === BrushSize.small ? 'white' : currentColour.hex} name='drawing-tool-small-line' />

@@ -6,9 +6,6 @@ import BrushAction from "./BrushAction"
 export interface Props {
   sketch: Sketch
   points?: Point[]
-  color?: Color
-  size?: number
-  opacity?: number
 }
 
 export default class LineBrushAction extends BrushAction {
@@ -28,9 +25,11 @@ export default class LineBrushAction extends BrushAction {
     super({ sketch: props.sketch })
 
     if (props.points) this.points = props.points
-    if (props.color) this.color = props.color
-    if (props.size) this.size = props.size
-    if (props.opacity) this.opacity = props.opacity
+
+    this.color = this.sketch.selectedColor
+    this.size = this.sketch.selectedLineSize
+    this.opacity = this.sketch.selectedOpacity
+    this.scale = this.sketch.pixelRatioScale
   }
 
   setDrawingStyle(ctx: CanvasRenderingContext2D) {
@@ -45,6 +44,7 @@ export default class LineBrushAction extends BrushAction {
   startDraw(point: Point) {
     this.points.push(point)
     this.setDrawingStyle(this.sketch.bufferLayer.ctx)
+    this.startDrawAnimation()
   }
 
   continueDraw (point: Point) {
@@ -52,42 +52,44 @@ export default class LineBrushAction extends BrushAction {
   }
 
   endDraw() {
+    this.stopDrawAnimation()
     this.sketch.bufferLayer.clear()
     this.draw()
   }
 
-  onAnimationFrame() {
+  onDrawAnimationFrame() {
     this.sketch.bufferLayer.clear()
-    this.trace(this.sketch.bufferLayer.ctx)
+    LineBrushAction.trace(this.sketch.bufferLayer.ctx, this.points)
     this.sketch.bufferLayer.ctx.stroke()
   }
 
-  trace (ctx: CanvasRenderingContext2D) {
-    if (this.points === undefined || this.points.length === 0) {
+  static trace (ctx: CanvasRenderingContext2D, points: Point[]) {
+    if (points === undefined || points.length === 0) {
       return
     }
 
     ctx.beginPath()
-    ctx.moveTo(this.points[0].x, this.points[0].y)
+    ctx.moveTo(points[0].x, points[0].y)
 
-    if (this.points.length === 1) {
-      ctx.lineTo(this.points[0].x, this.points[0].y)
-    } else if (this.points.length === 2) {
-      ctx.lineTo(this.points[1].x, this.points[1].y)
+    if (points.length === 1) {
+      ctx.lineTo(points[0].x, points[0].y)
+    } else if (points.length === 2) {
+      ctx.lineTo(points[1].x, points[1].y)
     } else {
       let i
-      for (i = 1; i < this.points.length - 2; i += 1) {
-        const xc = (this.points[i].x + this.points[i + 1].x) / 2
-        const yc = (this.points[i].y + this.points[i + 1].y) / 2
-        ctx.quadraticCurveTo(this.points[i].x, this.points[i].y, xc, yc)
+      for (i = 1; i < points.length - 2; i += 1) {
+        const xc = (points[i].x + points[i + 1].x) / 2
+        const yc = (points[i].y + points[i + 1].y) / 2
+        ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc)
       }
-      ctx.quadraticCurveTo(this.points[i].x, this.points[i].y, this.points[i+1].x, this.points[i+1].y)
+      ctx.quadraticCurveTo(points[i].x, points[i].y, points[i+1].x, points[i+1].y)
     }
   }
 
   draw() {
+    this.setDrawingStyle(this.sketch.drawingLayer.ctx)
     this.sketch.drawingLayer.ctx.globalCompositeOperation = "source-over"
-    this.trace(this.sketch.drawingLayer.ctx)
+    LineBrushAction.trace(this.sketch.drawingLayer.ctx, this.points)
     this.sketch.drawingLayer.ctx.stroke()
   }
 
