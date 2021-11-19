@@ -49,6 +49,9 @@ export const DrawingContainer = styled.div`
   color: white;
   text-align: center;
   margin-bottom: 20px;
+  @media (max-height: 750px) {
+    height: 300px;
+  }
   @media (max-height: 650px) {
     width: 50%;
     margin-bottom: 0px;
@@ -70,6 +73,7 @@ export const DrawingContainer = styled.div`
 export const Text = styled.div`
   color: white;
   width: 100%;
+  text-align: center;
   @media (max-height: 650px) {
     width: 50%;
     padding-left: 40px;

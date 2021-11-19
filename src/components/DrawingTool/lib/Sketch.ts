@@ -186,6 +186,7 @@ export default class Sketch {
       doMerge(data.image)
     } else if (data.imageSrc) {
       const img = new Image
+      img.crossOrigin = "Anonymous"
       img.onload = () => { doMerge(img) }
       img.src = data.imageSrc
     }
@@ -209,15 +210,10 @@ export default class Sketch {
     this.model.lastActionIndex -= 1
     this.drawingLayer.clear()
 
-    console.log('Last action Index before undo', this.model.lastActionIndex)
-
     for (let i = 0; i <= this.model.lastActionIndex; i += 1) {
-      console.log('I=', i)
       if (this.model.actions[i].type === 'STROKE' && this.model.actions[i].model) {
-        console.log('draw stroke')
         this.drawUndoStroke(this.model.actions[i].model)
       } else if (this.model.actions[i].type === 'IMAGE_MERGE' && this.model.actions[i]) {
-        console.log('merge image')
         this.mergeImage(this.model.actions[i].data as SketchActionMergeData, false)
       }
     }

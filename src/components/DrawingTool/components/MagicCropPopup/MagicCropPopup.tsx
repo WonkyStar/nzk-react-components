@@ -43,7 +43,7 @@ export default (props: Props) => {
       })
     }
     img.crossOrigin = "Anonymous"
-    img.src = `${changeExt(imageUrl, 'png')}?${Date.now()}`
+    img.src = `${changeExt(imageUrl.replace('/image/upload', '/image/upload/w_150'), 'png')}?${Date.now()}`
   }
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export default (props: Props) => {
         }
       </s.DrawingContainer>
       <s.Text>
-        If you are happy with this, select next then make final edits (e.g with the eraser) in our drawing tool.<br /><br />
+        Select next to make final edits.<br />
         Not happy? Try manual cut-out instead.
       </s.Text>
     </s.Container>
