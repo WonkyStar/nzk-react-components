@@ -62,7 +62,6 @@ export default (props: Props) => {
 
   useEffect(() => {
     if (acceptedFiles && acceptedFiles.length) {
-      console.log(acceptedFiles[0])
       const img = new Image()
       img.onload = () => {
         setImageToCrop(img)

@@ -30,10 +30,11 @@ export default (props: Props) => {
     img.onload = () => {
       fetch(img.src).then(resp => resp.blob()).then(blob => {
         if (retries === 0 || size === blob.size) {
-          const delay = retries === 0 ? 7000 : 2000
+          const delay = retries === 0 ? 10000 : 4000
           setTimeout(() => checkImageIsReady(imageUrl, blob.size, retries + 1), delay)
         } else {
           const croppedImg = new Image()
+          croppedImg.crossOrigin = "Anonymous"
           croppedImg.onload = () => {
             setCroppedImage(croppedImg)
           }
@@ -64,7 +65,7 @@ export default (props: Props) => {
       <s.DrawingContainer>
         { croppedImage
           ? <s.Image src={croppedImage.src} />
-          : <div><Loader color="#fff"/><br />Processing your image.<br />This can take up to a couple of minutes.</div>
+          : <div><Loader color="#fff"/><br />Processing your image.<br />This can take a couple of minutes.</div>
         }
       </s.DrawingContainer>
       <s.Text>
