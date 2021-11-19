@@ -42,9 +42,9 @@ const getButtonSizeForHeight = (height) => {
 }
 
 export default (props: Props) => {
-  const { toolMode } = useDrawingTool()
-
-  const disableButtons = toolMode !== 'DRAW'
+  const { imageToCrop, imageToPlace } = useDrawingTool()
+ 
+  const disableButtons = (imageToCrop || imageToPlace) && true
 
   const onSave = () => {
     if (!disableButtons) props.onSave()

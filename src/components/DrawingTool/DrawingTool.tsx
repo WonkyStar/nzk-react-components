@@ -14,10 +14,14 @@ import { ButtonProps } from '../Button/Button'
 import ColourToolbar from './components/ColourToolbar'
 import Modal from '../Modal'
 import { useDrawingTool, BrushSize } from './DrawingToolProvider'
-import FileInput from './components/FileInput'
+import ImageInputPopup from './components/ImageInputPopup'
 import Placeable from './components/Placeable'
 import OpacityToggle from './components/OpacityToggle'
 import Header from './components/Header'
+import CropChoicePopup from './components/CropChoicePopup'
+import ManualCropPopup from './components/ManualCropPopup'
+import MagicCropPopup from './components/MagicCropPopup'
+import Loader from './components/Loader'
 
 export interface Props {
   prompt: string
@@ -29,6 +33,8 @@ export interface Props {
   minImageUploadSize?: number
   disableAutoCache?: boolean
   openUploadPopupOnStart?: boolean
+  enableMagicCrop?: boolean
+  magicCropUploadPreset?: string
   cacheKey?: string
 }
 
@@ -60,15 +66,19 @@ const Drawing = (props: Props) => {
   const [buttonSize, setButtonSize] = useState<number>(50)
   const [isMobile, setIsMobile] = useState(false)
   const [resizing, setResizing] = useState(true)
-  const [showRestartConfirmModal, setShowRestartConfirmModal] = useState(false)
-  const [showFileInput, setShowFileInput] = useState(props.openUploadPopupOnStart)
-  const [imageToCut, setImageToCut] = useState<HTMLImageElement>()
-  const [showCutTutorial, setShowCutTutorial] = useState(true)
-  const [showSaveCutAction, setShowSaveCutAction] = useState(false)
-  const [imageToPlace, setImageToPlace] = useState<HTMLImageElement>()
+
+  const [showRestartConfirmPopup, setShowRestartConfirmPopup] = useState(false)
+  const [showImageInputPopup, setShowImageInputPopup] = useState(props.openUploadPopupOnStart)
+  const [showCropChoicePopup, setShowCropChoicePopup] = useState(false)
+  const [showMagicCropPopup, setShowMagicCropPopup] = useState(false)
+  const [showManualCropPopup, setShowManualCropPopup] = useState(false)
+  const [showManualCropTool, setShowManualCropTool] = useState(false)
+  const [showSaveCropAction, setShowSaveCropAction] = useState(false)
+
   const {
     initSketch,
     initSketchCut,
+    sketchLoading,
     exportSketchCut,
     currentColour,
     brushSize,
@@ -82,7 +92,10 @@ const Drawing = (props: Props) => {
     setAutoCache,
     resetCut,
     mergeImage,
-    setToolMode,
+    imageToCrop,
+    setImageToCrop,
+    imageToPlace,
+    setImageToPlace,
   } = useDrawingTool()
 
   useEffect(() => {
@@ -126,33 +139,26 @@ const Drawing = (props: Props) => {
 
   // Intialise sketch tool
   useEffect(() => {
-    if (!imageToCut && !resizing && sketchInnerRef.current) {
+    if (!showManualCropTool && !resizing && sketchInnerRef.current) {
       initSketch(sketchInnerRef.current)
     }
-  }, [resizing, sketchInnerRef, imageToCut])
+  }, [resizing, sketchInnerRef, imageToCrop, showManualCropTool])
 
-  // Intialise sketch cut tool
+  // Intialise crop tool
   useEffect(() => {
-    if (!resizing && sketchCutInnerRef.current && imageToCut) {
-        initSketchCut(sketchCutInnerRef.current, imageToCut, () => {
-          setShowSaveCutAction(true)
+    if (!resizing && sketchCutInnerRef.current && imageToCrop && showManualCropTool) {
+        initSketchCut(sketchCutInnerRef.current, imageToCrop, () => {
+          setShowSaveCropAction(true)
         })
       }
-    }, [resizing, sketchCutInnerRef, imageToCut])
+    }, [resizing, sketchCutInnerRef, imageToCrop, showManualCropTool])
 
   const onClickRestart = () => {
-    setShowRestartConfirmModal(true)
+    setShowRestartConfirmPopup(true)
   }
 
   const onClickCamera = () => {
-    setShowFileInput(true)
-  }
-
-  const onImageUploaded = (image: HTMLImageElement) => {
-    setShowFileInput(false)
-    setImageToCut(image)
-    setShowCutTutorial(true)
-    setToolMode("CUT")
+    setShowImageInputPopup(true)
   }
 
   const getImageToPlaceSize = (img) => {
@@ -201,28 +207,27 @@ const Drawing = (props: Props) => {
     }
   }
 
-  const disableToolbars = (showFileInput || showRestartConfirmModal || imageToCut|| imageToPlace ) as boolean
+  const disableToolbars = (showImageInputPopup || showRestartConfirmPopup || imageToCrop|| imageToPlace ) as boolean
 
   const inSketchActions: InSketchAction[] = []
 
-  if (showSaveCutAction) {
+  if (showSaveCropAction) {
     inSketchActions.push({
       key: 'retry-cut',
       component: <IconButton icon={<Icon name="drawing-tool-undo" fill="white" />} theme='orange' size={isMobile ? "small" : "regular"} onClick={() => {
-        setShowSaveCutAction(false)
-        setShowCutTutorial(true)
+        setShowSaveCropAction(false)
+        setShowManualCropPopup(true)
         resetCut()
       }}>Retry</IconButton>
     }, {
       key: 'save-cut',
       component: <IconButton icon={<Icon name="tick" />} theme='confirm' size={isMobile ? "small" : "regular"} onClick={() => {
-        setShowSaveCutAction(false)
-        setImageToCut(undefined)
+        setShowSaveCropAction(false)
+        setShowManualCropTool(false)
+        setImageToCrop(undefined)
         const newImage = new Image
         newImage.onload = () => {
-          setShowCutTutorial(true)
           setImageToPlace(newImage)
-          setToolMode('PLACE')
         }
         newImage.src = exportSketchCut()
       }}>Save</IconButton>
@@ -232,7 +237,6 @@ const Drawing = (props: Props) => {
       key: 'cancel-place',
       component: <IconButton icon={<Icon name="close" />} theme='red' size={isMobile ? "small" : "regular"} onClick={() => {
         setImageToPlace(undefined)
-        setToolMode('DRAW')
       }}>Cancel</IconButton>
     }, {
       key: 'save-place',
@@ -248,7 +252,6 @@ const Drawing = (props: Props) => {
             height: Math.hypot(rect.pos3[0]-rect.pos2[0], rect.pos3[1]-rect.pos2[1]),
             rotation: rect.rotation
           })
-          setToolMode('DRAW')
           setImageToPlace(undefined)
         }
       
@@ -262,6 +265,7 @@ const Drawing = (props: Props) => {
 
   return <s.Container ref={containerRef} maxWidth={maxContainerWidth} maxHeight={maxContainerHeight}>
     { props.showHeader && <Header height={headerHeight} prompt={props.prompt} onBack={props.onBack} onSave={props.onSave} />}
+    
     <s.Tool hasHeader={props.showHeader} headerHeight={headerHeight} orientation={orientation}>
       <ReactTooltip effect="solid" delayShow={750} multiline />
       <s.LeftToolbarContainer orientation={orientation} buttonSize={buttonSize} disabled={disableToolbars}>
@@ -305,9 +309,9 @@ const Drawing = (props: Props) => {
       </s.LeftToolbarContainer>
 
       <s.SketchContainer orientation={orientation} ref={sketchOuterRef}>
-        {props.showPaperBackground && <s.PaperBackground cutMode={imageToCut && true} />}
-        {!imageToCut && sketchStyles && <div style={sketchStyles} ref={sketchInnerRef} />}
-        {imageToCut && sketchStyles && <div style={sketchStyles} ref={sketchCutInnerRef} />}
+        {props.showPaperBackground && <s.PaperBackground cutMode={imageToCrop && true} />}
+        {!showManualCropTool && sketchStyles && <div style={sketchStyles} ref={sketchInnerRef} />}
+        {showManualCropTool && imageToCrop && sketchStyles && <div style={sketchStyles} ref={sketchCutInnerRef} />}
         {imageToPlace && sketchStyles && (
           <div style={{ ...sketchStyles, zIndex: '101'}}>
             <s.ImageToPlaceContainer><s.ImageToPlace size={getImageToPlaceSize(imageToPlace)} ref={imageToPlaceContainerRef} src={imageToPlace.src} /></s.ImageToPlaceContainer>
@@ -333,6 +337,10 @@ const Drawing = (props: Props) => {
             />
           </div>
         )}
+        { sketchLoading && <s.LoaderOverlay>
+            <Loader placeholder="Loading drawing..." color='white' />
+          </s.LoaderOverlay>
+        }
         {inSketchActions.length && (
           <s.InSketchActions>
             { inSketchActions.map((action) => (
@@ -340,11 +348,6 @@ const Drawing = (props: Props) => {
             ))}
           </s.InSketchActions>
         )}
-        { imageToCut && showCutTutorial && <s.CutImageTutorial onClick={() => setShowCutTutorial(false)}>
-          <div>Now cut out your animal: Click, hold and make sure you draw around it.</div>
-          <img alt="crop example" src="https://cdn.nightzookeeper.com/nzk-assets/crop-tutorial.png" />
-          <div><Button size={isMobile ? "small" : "regular"} theme="primary">Ok</Button></div>
-          </s.CutImageTutorial> }
       </s.SketchContainer>
 
       <s.RightToolbarContainer orientation={orientation} buttonSize={buttonSize} disabled={disableToolbars}>
@@ -355,25 +358,71 @@ const Drawing = (props: Props) => {
         />
       </s.RightToolbarContainer>
     </s.Tool>
-    { showRestartConfirmModal && <s.ModalOverlay><Modal
+
+    { showRestartConfirmPopup && <s.ModalOverlay><Modal
       title="Are you sure?"
       actions={[
         <Button key='cancel' size={isMobile ? "small" : "regular"} theme="red" onClick={() => {
-          setShowRestartConfirmModal(false)
+          setShowRestartConfirmPopup(false)
         }}>No</Button>,
         <Button key='confirm' size={isMobile ? "small" : "regular"} theme="confirm" onClick={() => {
           restart()
-          setShowRestartConfirmModal(false)
+          setShowRestartConfirmPopup(false)
         }}>Yes</Button>,
-      ]}/></s.ModalOverlay>}
-      { showFileInput && <s.ModalOverlay>
-        <FileInput
-          isMobile={isMobile}
-          dismiss={() => setShowFileInput(false)}
-          onImageUploaded={onImageUploaded}
-          minImageSize={props.minImageUploadSize}
-        />
+      ]}/>
     </s.ModalOverlay>}
+
+    { showImageInputPopup && <ImageInputPopup
+      isMobile={isMobile}
+      onDismiss={() => setShowImageInputPopup(false)}
+      minImageSize={props.minImageUploadSize}
+      onImageSelected={() => {
+        setShowImageInputPopup(false)
+        if (props.enableMagicCrop) {
+          setShowCropChoicePopup(true)
+        } else {
+          setShowManualCropTool(true)
+          setShowManualCropPopup(true)
+        }
+      }}
+    /> }
+
+    { showCropChoicePopup && <CropChoicePopup
+      onDismiss={() => {
+        setShowCropChoicePopup(false)
+        setImageToCrop(undefined)
+      }}
+      onMagicCrop={() => {
+        setShowCropChoicePopup(false)
+        setShowMagicCropPopup(true)
+      }}
+      onManualCrop={() => {
+        setShowCropChoicePopup(false)
+        setShowManualCropPopup(true)
+        setShowManualCropTool(true)
+      }}
+    />}
+
+    { showMagicCropPopup && props.magicCropUploadPreset && <MagicCropPopup
+        cloudinaryUploadPreset={props.magicCropUploadPreset}
+        onManual={() => {
+          setShowMagicCropPopup(false)
+          setShowManualCropPopup(true)
+          setShowManualCropTool(true)
+        }}
+        onDismiss={()=> {
+          setImageToCrop(undefined)
+          setShowMagicCropPopup(false)
+        }}
+      /> }
+
+    { showManualCropPopup && <ManualCropPopup
+      onNext={() => setShowManualCropPopup(false)}
+      onDismiss={() => {
+        setShowManualCropPopup(false)
+        setImageToCrop(undefined)
+      }} 
+    />}
   </s.Container>
 }
 
@@ -386,7 +435,8 @@ Drawing.defaultProps = {
   disableCameraUpload: false,
   disableAutoCache: false,
   cacheKey: 'nzk-sketch-cache',
-  openUploadPopupOnStart: false
+  openUploadPopupOnStart: false,
+  enableMagicCrop: false
 }
 
 export default Drawing

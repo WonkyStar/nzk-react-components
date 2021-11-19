@@ -29,7 +29,9 @@ const Template: Story<DrawingToolProps> = (args) => <Container>
     <DrawingToolProvider>
       <DrawingTool {...{
         ...args,
-        prompt: args.prompt || 'Draw your Animal'
+        prompt: args.prompt || 'Draw your Animal',
+        enableMagicCrop: true,
+        magicCropUploadPreset: 'not-real-preset'
       }} />
     </DrawingToolProvider>
   </Container>

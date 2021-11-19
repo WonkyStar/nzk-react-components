@@ -35,9 +35,6 @@ export interface Colour {
   rgb: number[],
   hex: string
 }
-
-type ToolMode = 'LOADING' | 'DRAW' | 'CUT' | 'PLACE' 
-
 export interface Props {
   cache?: string
 }
@@ -49,12 +46,15 @@ const DrawingToolState = (props?: Props) => {
   const [autoCache, setAutoCache] = useState(true)
   const [cacheKey, setCacheKey] = useState('nzk-sketch-cache')
 
+  const [sketchLoading, setSketchLoading] = useState(false)
+
   const [brushSize, setBrushSize] = useState(BrushSize.small)
   const [brushType, setBrushType] = useState('line')
   const [currentColour, setCurrentColour] = useState(Colours[0])
   const [brushOpacity, setBruchOpacity] = useState(1)
   
-  const [toolMode, setToolMode] = useState<ToolMode>('LOADING')
+  const [imageToCrop, setImageToCrop] = useState<HTMLImageElement>()
+  const [imageToPlace, setImageToPlace] = useState<HTMLImageElement>()
 
   const setSketchRef = useCallback(node => {
     sketchRef.current = node
@@ -98,8 +98,8 @@ const DrawingToolState = (props?: Props) => {
   }
 
   const initSketch = (containerEl) => {
-    setToolMode('LOADING')
     let data
+    setSketchLoading(true)
 
     if (sketchRef.current) {
       data = sketchRef.current.serialize()
@@ -115,7 +115,7 @@ const DrawingToolState = (props?: Props) => {
       sketchData: data,
       onChange: onSketchChange,
       onReady: () => {
-        setToolMode('DRAW')
+        setSketchLoading(false)
       }
     }))
   }
@@ -178,6 +178,7 @@ const DrawingToolState = (props?: Props) => {
   return {
     initSketch,
     initSketchCut,
+    sketchLoading,
     exportSketch,
     exportSketchCut,
     currentColour,
@@ -197,9 +198,11 @@ const DrawingToolState = (props?: Props) => {
     clearCache,
     resetCut,
     mergeImage,
-    setToolMode,
-    toolMode,
-    exportCache
+    exportCache,
+    imageToCrop,
+    setImageToCrop,
+    imageToPlace,
+    setImageToPlace
   }
 }
 

@@ -18,6 +18,8 @@ const useCloudinary = (props?: Props) => {
   const uploadTag = props && props.uploadTag
 
   const uploadImage = (file: Blob | string, onComplete?: (imageUrl: string) => void) => {
+    // onComplete(" http://files.nightzookeeper.com/image/upload/e_trim:10/v1637228803/tduahmdpbutd7zju38hf.png")
+    // return
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`
     const xhr = new XMLHttpRequest()
     const fd = new FormData()

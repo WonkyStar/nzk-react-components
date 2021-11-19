@@ -194,7 +194,7 @@ export const InSketchAction = styled.div`
 `
 
 export const ModalOverlay = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: 0px;
   width: 100%;
@@ -273,5 +273,19 @@ export const CutImageTutorial = styled.div`
     display: flex;
     justify-content: center;
   }
+`
 
+export const LoaderOverlay = styled.div`
+  background-color: rgba(0,0,0,.5);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 10;
+  font-size: 24px;
 `

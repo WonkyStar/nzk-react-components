@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import * as s from './FileInput.styles'
+import * as s from './ImageInputPopup.styles'
 import Button from '../../../Button'
-import Icon from '../../../Icon'
+import Popup from '../Popup'
+import { useDrawingTool } from '../../DrawingToolProvider'
 
 const bytesForHuman = (bytes: number) => {
   let bytes$ = bytes
@@ -16,10 +17,10 @@ const bytesForHuman = (bytes: number) => {
   return `${parseFloat(bytes$.toFixed(1))}${units[i]}`
 }
 export interface Props {
-  dismiss?: () => void
-  onImageUploaded?: (image: HTMLImageElement) => void
+  onDismiss?: () => void
   minImageSize?: number
-  isMobile: boolean
+  isMobile: boolean,
+  onImageSelected: () => void
 }
 
 export default (props: Props) => {
@@ -47,6 +48,8 @@ export default (props: Props) => {
     validator: fileSizeValidator
   })
 
+  const { setImageToCrop } = useDrawingTool()
+
   const [supportDragAndDrop, setSupportDragAndDrop] = useState(true)
 
   useEffect(() => {
@@ -59,11 +62,11 @@ export default (props: Props) => {
 
   useEffect(() => {
     if (acceptedFiles && acceptedFiles.length) {
+      console.log(acceptedFiles[0])
       const img = new Image()
       img.onload = () => {
-        if (props.onImageUploaded) {
-          props.onImageUploaded(img)
-        }
+        setImageToCrop(img)
+        props.onImageSelected()
       }
       const reader = new FileReader()
       reader.readAsDataURL(acceptedFiles[0])
@@ -79,27 +82,20 @@ export default (props: Props) => {
     ? <s.ErrorMessage>{fileRejections[0].errors[0].message}</s.ErrorMessage>
     : null
 
-  const onDismiss = (ev) => {
-    ev.stopPropagation()
-    if (props.dismiss) props.dismiss()
-  }
-
-  return <s.Container {...getRootProps()}>
-    <s.QuitButton onClick={onDismiss}>
-      <Button round theme='red' size={props.isMobile ? "small" : "regular"}>
-        <Icon name='close' />
-      </Button>
-    </s.QuitButton>
-    <input {...getInputProps()} />
-    { isDragActive
-      ? <p>Drop your image here...</p> 
-      : (<s.Instructions>
-          { ErrorMessage }
-          <p>{!supportDragAndDrop ? "Upload a drawing" : "Drag and drop a drawing here"}</p>
-          {supportDragAndDrop && <p>Or</p>}
-          <Button theme="primary" size={props.isMobile ? "small" : "regular"}>Select Image</Button>
-        </s.Instructions>
-      )
-    }
-  </s.Container>
+  return <Popup onDismiss={props.onDismiss}>
+    <s.Container {...getRootProps()}>
+      <input {...getInputProps()} />
+      { isDragActive
+        ? <p>Drop your image here...</p> 
+        : (<s.Instructions>
+            { ErrorMessage }
+            <p>{!supportDragAndDrop ? "Upload a drawing" : "Drag and drop a drawing here"}</p>
+            {supportDragAndDrop && <p>Or</p>}
+            <Button theme="primary" size={props.isMobile ? "small" : "regular"}>Select Image</Button>
+            <s.Copyright>Please do not upload copyrighted images.</s.Copyright>
+          </s.Instructions>
+        )
+      }
+    </s.Container>
+  </Popup>
 }
