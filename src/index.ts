@@ -8,6 +8,10 @@ import useAsync from './hooks/useAsync'
 import useConfettis from './hooks/useConfettis'
 import useMountState from './hooks/useMountState'
 import useCloudinary from './hooks/useCloudinary'
+import useInterval from './hooks/useInterval'
+import useEventListener from './hooks/useEventListener'
+import useElementSize from './hooks/useElementSize'
+import useDebounce from './hooks/useDebounce'
 import DrawingTool from './components/DrawingTool/DrawingTool'
 import { DrawingToolProvider, useDrawingTool } from './components/DrawingTool/DrawingToolProvider'
 
@@ -25,5 +29,9 @@ export {
   useAsync,
   useMountState,
   useConfettis,
-  useCloudinary
+  useCloudinary,
+  useInterval,
+  useElementSize,
+  useEventListener,
+  useDebounce
 }
