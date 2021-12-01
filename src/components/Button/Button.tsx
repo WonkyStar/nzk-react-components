@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { RefObject } from 'react'
 import { Wrapper } from './Button.styles'
 import { SIZES, THEMES } from './constants'
 
@@ -26,6 +26,7 @@ export interface ButtonProps extends BaseProps {
   children?: any;
   disabled?: boolean;
   onClick?: () => void;
+  ref?: ((instance: any | null) => void) | RefObject<any> | null
 }
 
 const Button = (props: ButtonProps) => {

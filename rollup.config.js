@@ -24,16 +24,13 @@ export default {
     "add",
     "polished",
     "canvas-confetti",
-    "moveable-helper",
-    "react-dropzone",
-    "react-moveable",
-    "react-tooltip",
     "resize-observer-polyfill",
     "shortid",
     "styled-components",
     "unstated-next",
     "tslib",
-    "lodash.after"
+    "lodash.after",
+    "react-datepicker"
   ],
   plugins: [
     // externals(),

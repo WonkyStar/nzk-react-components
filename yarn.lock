@@ -1537,6 +1537,11 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.9.3.tgz#8b68da1ebd7fc603999cf6ebee34a4899a14b88e"
   integrity sha512-xDu17cEfh7Kid/d95kB6tZsLOmSWKCZKtprnhVepjsSaCij+lM3mItSJDuuHDMbCWTh8Ejmebwb+KONcCJ0eXQ==
 
+"@popperjs/core@^2.9.2":
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.0.tgz#6734f8ebc106a0860dff7f92bf90df193f0935d7"
+  integrity sha512-zrsUxjLOKAzdewIDRWy9nsV1GQsKBCWaGwsZQlCgr6/q+vjyZhFgqedLfFBuI9anTPEUT4APq9Mu0SZBTzIcGQ==
+
 "@reach/router@^1.3.4":
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/@reach/router/-/router-1.3.4.tgz#d2574b19370a70c80480ed91f3da840136d10f8c"
@@ -1612,7 +1617,7 @@
     "@daybrush/utils" "1.6.0"
     "@scena/event-emitter" "^1.0.2"
 
-"@scena/event-emitter@^1.0.2", "@scena/event-emitter@^1.0.3":
+"@scena/event-emitter@^1.0.2":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@scena/event-emitter/-/event-emitter-1.0.5.tgz#047e3acef93cf238d7ce3a8cc5a12ec6bd9c3bb1"
   integrity sha512-AzY4OTb0+7ynefmWFQ6hxDdk0CySAq/D4efljfhtRHCOP7MBF9zUfhKG3TJiroVjASqVgkRJFdenS8ArZo6Olg==
@@ -3489,11 +3494,6 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-attr-accept@^2.2.1:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-2.2.2.tgz#646613809660110749e92f2c10833b70968d929b"
-  integrity sha512-7prDjvt9HmqiZ0cl5CRjtS84sEyhsHP2coDkaZKRKVfCDo9s7iw7ChVmar78Gu9pC4SoR/28wFu/G5JJhTnqEg==
-
 autoprefixer@^9.8.6:
   version "9.8.6"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.8.6.tgz#3b73594ca1bf9266320c5acf1588d74dea74210f"
@@ -4365,7 +4365,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.5:
+classnames@^2.2.5, classnames@^2.2.6:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
   integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
@@ -4972,6 +4972,11 @@ date-fns@^1.27.2:
   version "1.30.1"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
+
+date-fns@^2.24.0:
+  version "2.27.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.27.0.tgz#e1ff3c3ddbbab8a2eaadbb6106be2929a5a2d92b"
+  integrity sha512-sj+J0Mo2p2X1e306MHq282WS4/A8Pz/95GIFcsPNMPMZVI3EUrAdSv90al1k+p74WGLCruMXk23bfEDZa71X9Q==
 
 date-format@0.0.2:
   version "0.0.2"
@@ -6278,13 +6283,6 @@ file-loader@^6.2.0:
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
-
-file-selector@^0.2.2:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/file-selector/-/file-selector-0.2.4.tgz#7b98286f9dbb9925f420130ea5ed0a69238d4d80"
-  integrity sha512-ZDsQNbrv6qRi1YTDOEWzf5J2KjZ9KMI1Q2SGeTkCJmNNW25Jg4TW4UMcmoqcg4WrAyKRcpBXdbWRxkfrOzVRbA==
-  dependencies:
-    tslib "^2.0.3"
 
 file-system-cache@^1.0.5:
   version "1.0.5"
@@ -9035,14 +9033,6 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
-moveable-helper@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/moveable-helper/-/moveable-helper-0.4.0.tgz#95dbbc20258d827223a715d9d694f5d2f1b14d65"
-  integrity sha512-t1FK9PO187Gn0N6GVZcrQgePjiHmuj8eUhmJjH38LvTMnVVxiHzWYRx6ARFZvSFIIW4yb6BEAv4C99Bsx84nFw==
-  dependencies:
-    "@daybrush/utils" "^1.0.0"
-    scenejs "^1.4.2"
-
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -9536,13 +9526,6 @@ optionator@^0.9.1:
     prelude-ls "^1.2.1"
     type-check "^0.4.0"
     word-wrap "^1.2.3"
-
-order-map@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/order-map/-/order-map-0.2.2.tgz#dcdfd6f81e7eef61ba79c52cfb960be5166ddd9f"
-  integrity sha512-X//Db/lT11tdxxutWQfE+bmbTyieDJWrr/vSiwBwOf8RRw9yAgF7gqn1ihFmfX2E7l7gcPcucep3aWFjo5FpoA==
-  dependencies:
-    "@daybrush/utils" "^1.0.0"
 
 org-regex@^1.0.0:
   version "1.0.0"
@@ -10385,6 +10368,18 @@ react-css-styled@^1.0.1:
     css-styled "^1.0.0"
     framework-utils "^0.3.4"
 
+react-datepicker@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-4.5.0.tgz#aabcaa8d9c8492998cd0484b67077cbf9908e66a"
+  integrity sha512-mFP/SbtFSXx21Wx3Nfv+RREwd/x0q14x7QL79ZCi/PVkHSFLwLWhXyOtj3OIzi1AcVYb/fMMcvi8e5b12n8/sg==
+  dependencies:
+    "@popperjs/core" "^2.9.2"
+    classnames "^2.2.6"
+    date-fns "^2.24.0"
+    prop-types "^15.7.2"
+    react-onclickoutside "^6.12.0"
+    react-popper "^2.2.5"
+
 react-dev-utils@^11.0.3:
   version "11.0.4"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-11.0.4.tgz#a7ccb60257a1ca2e0efe7a83e38e6700d17aa37a"
@@ -10452,15 +10447,6 @@ react-draggable@^4.4.3:
   dependencies:
     classnames "^2.2.5"
     prop-types "^15.6.0"
-
-react-dropzone@^11.4.2:
-  version "11.4.2"
-  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-11.4.2.tgz#1eb99e9def4cc7520f4f58e85c853ce52c483d56"
-  integrity sha512-ocYzYn7Qgp0tFc1gQtUTOaHHSzVTwhWHxxY+r7cj2jJTPfMTZB5GWSJHdIVoxsl+EQENpjJ/6Zvcw0BqKZQ+Eg==
-  dependencies:
-    attr-accept "^2.2.1"
-    file-selector "^0.2.2"
-    prop-types "^15.7.2"
 
 react-element-to-jsx-string@^14.3.2:
   version "14.3.2"
@@ -10531,6 +10517,11 @@ react-moveable@^0.29.0:
     overlap-area "^1.0.0"
     react-css-styled "^1.0.1"
 
+react-onclickoutside@^6.12.0:
+  version "6.12.1"
+  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.12.1.tgz#92dddd28f55e483a1838c5c2930e051168c1e96b"
+  integrity sha512-a5Q7CkWznBRUWPmocCvE8b6lEYw1s6+opp/60dCunhO+G6E4tDTO2Sd2jKE+leEnnrLAE2Wj5DlDHNqj5wPv1Q==
+
 react-popper-tooltip@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-popper-tooltip/-/react-popper-tooltip-3.1.1.tgz#329569eb7b287008f04fcbddb6370452ad3f9eac"
@@ -10540,7 +10531,7 @@ react-popper-tooltip@^3.1.1:
     "@popperjs/core" "^2.5.4"
     react-popper "^2.2.4"
 
-react-popper@^2.2.4:
+react-popper@^2.2.4, react-popper@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.2.5.tgz#1214ef3cec86330a171671a4fbcbeeb65ee58e96"
   integrity sha512-kxGkS80eQGtLl18+uig1UIf9MKixFSyPxglsgLBxlYnyDf65BiY9B3nZSc6C9XUNDgStROB0fMQlTEz1KxGddw==
@@ -10582,14 +10573,6 @@ react-textarea-autosize@^8.3.0:
     "@babel/runtime" "^7.10.2"
     use-composed-ref "^1.0.0"
     use-latest "^1.0.0"
-
-react-tooltip@^4.2.21:
-  version "4.2.21"
-  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-4.2.21.tgz#840123ed86cf33d50ddde8ec8813b2960bfded7f"
-  integrity sha512-zSLprMymBDowknr0KVDiJ05IjZn9mQhhg4PRsqln0OZtURAJ1snt1xi5daZfagsh6vfsziZrc9pErPTDY1ACig==
-  dependencies:
-    prop-types "^15.7.2"
-    uuid "^7.0.3"
 
 react@^17.0.2:
   version "17.0.2"
@@ -10920,11 +10903,6 @@ require-from-string@^2.0.2:
   resolved "https://registry.yarnpkg.com/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
   integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
 
-resize-observer-polyfill@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
-  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
-
 resolve-cwd@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/resolve-cwd/-/resolve-cwd-3.0.0.tgz#0f0075f1bb2544766cf73ba6a6e2adfebcb13f2d"
@@ -11168,16 +11146,6 @@ sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
-
-scenejs@^1.4.2:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/scenejs/-/scenejs-1.5.0.tgz#326aa5b7db7d5829854d23f44be9445e694ffd04"
-  integrity sha512-Xo6LjUsaVcTbC+FGMMwUH1jthAQUj6bq2i55iEBBifrBn/nzm/++dGo8tqjCzMbm6KUPOpiry38N7r9QY2mWpQ==
-  dependencies:
-    "@daybrush/utils" "^1.3.1"
-    "@scena/event-emitter" "^1.0.3"
-    css-styled "^1.0.0"
-    order-map "^0.2.2"
 
 scheduler@^0.20.2:
   version "0.20.2"
@@ -12706,11 +12674,6 @@ uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
-
-uuid@^7.0.3:
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
-  integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
 
 uuid@^8.3.2:
   version "8.3.2"
