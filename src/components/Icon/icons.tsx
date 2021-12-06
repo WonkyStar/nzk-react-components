@@ -116,6 +116,8 @@ import { ReactComponent as DrawingToolArrowUp } from '../../assets/icons/drawing
 import { ReactComponent as DrawingToolArrowDown } from '../../assets/icons/drawing-tool-arrow-down.svg'
 import { ReactComponent as DrawingToolArrowLeft } from '../../assets/icons/drawing-tool-arrow-left.svg'
 import { ReactComponent as DrawingToolArrowRight } from '../../assets/icons/drawing-tool-arrow-right.svg'
+import { ReactComponent as DrawingToolColorMixer } from '../../assets/icons/drawing-tool-color-mixer.svg'
+import { ReactComponent as DrawingToolStickers } from '../../assets/icons/drawing-tool-stickers.svg'
 import { ReactComponent as IdeaCreator } from '../../assets/icons/idea-creator.svg'
 
 export const ICONS = {
@@ -232,10 +234,12 @@ export const ICONS = {
   'drawing-tool-large-line': <DrawingToolLargeLine />,
   'drawing-tool-opacity-half': <DrawingToolOpacityHalf />,
   'drawing-tool-opacity-full': <DrawingToolOpacityFull />,
+  'drawing-tool-color-mixer': <DrawingToolColorMixer />,
   'drawing-tool-arrow-up': <DrawingToolArrowUp />,
   'drawing-tool-arrow-down': <DrawingToolArrowDown />,
   'drawing-tool-arrow-left': <DrawingToolArrowLeft />,
   'drawing-tool-arrow-right': <DrawingToolArrowRight />,
+  'drawing-tool-sticker': <DrawingToolStickers />,
   'idea-creator': <IdeaCreator />
 }
 
