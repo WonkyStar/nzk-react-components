@@ -1,7 +1,7 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react'
-import styled, { css } from 'styled-components'
+import { darken, getLuminance, lighten } from 'polished'
+import React, { forwardRef, ReactElement, useEffect, useRef, useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
-import { darken, lighten, getLuminance } from 'polished'
+import styled, { css } from 'styled-components'
 // import Input from '../Input'
 import Button from '../Button'
 
@@ -9,6 +9,8 @@ export interface DatePickerProps {
   primary: string
   autoFocus?: boolean
   onChange?: (date: Date) => void
+  defaultValue?: Date
+  input?: ReactElement<{ onClick: any; ref: any; children: any; }>
 }
 
 interface WrapperProps {
@@ -98,6 +100,7 @@ const Wrapper = styled.div`
     display: flex;
     font-weight: bold;
     color: var(--primary);
+    background-color: var(--secondary);
     > * { flex: 1; padding: 10px 0; }
   }
   .react-datepicker__day {
@@ -110,6 +113,9 @@ const Wrapper = styled.div`
       background-color: var(--secondary);
       transition: background-color 0.2s ease-in-out;
     }
+  }
+  .react-datepicker__day--selected {
+    background-color: var(--secondary);
   }
   .react-datepicker__day--keyboard-selected {
     background-color: var(--secondary);
@@ -128,7 +134,7 @@ const Wrapper = styled.div`
 
 const DatePicker = (props: DatePickerProps) => {
   const datePickerRef = useRef<ReactDatePicker | null>(null)
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(props.defaultValue || new Date());
 
   useEffect(() => {
     if (props.autoFocus && datePickerRef.current && datePickerRef.current.input) {
@@ -137,6 +143,7 @@ const DatePicker = (props: DatePickerProps) => {
   }, [])
 
   const ButtonInput = forwardRef(({ value, onClick }: any, ref: any) => {
+    if (props.input) return React.cloneElement(props.input, { onClick, ref, children: value })
     return <Button onClick={onClick} ref={ref} theme='primary' size='small'>{value}</Button>
   })
 
@@ -167,7 +174,9 @@ DatePicker.defaultProps = {
   primary: '#1EA7FD',
   autoFocus: false,
   onChange: null,
-  range: false
+  range: false,
+  defaultValue: null,
+  input: null,
 }
 
 export default DatePicker
