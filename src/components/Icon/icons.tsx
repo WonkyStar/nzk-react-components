@@ -44,6 +44,7 @@ import { ReactComponent as Facebook } from '../../assets/icons/facebook.svg'
 import { ReactComponent as Filter } from '../../assets/icons/filter.svg'
 import { ReactComponent as Flag } from '../../assets/icons/flag.svg'
 import { ReactComponent as ForYou } from '../../assets/icons/for-you.svg'
+import { ReactComponent as Games } from '../../assets/icons/games.svg'
 import { ReactComponent as Gift } from '../../assets/icons/gift.svg'
 import { ReactComponent as Goals } from '../../assets/icons/goals.svg'
 import { ReactComponent as Heart } from '../../assets/icons/heart.svg'
@@ -144,6 +145,7 @@ export const ICONS = {
   'eye': <Eye />,
   'filter': <Filter />,
   'for-you': <ForYou />,
+  'games': <Games />,
   'goals': <Goals />,
   'heart': <Heart />,
   'help': <Help />,
