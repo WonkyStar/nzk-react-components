@@ -35,7 +35,9 @@ export default {
   plugins: [
     // externals(),
     peerDepsExternal(),
-    resolve(),
+    resolve({
+      browser: true,
+    }),
     commonjs({
       include: "node_modules",
     }),
