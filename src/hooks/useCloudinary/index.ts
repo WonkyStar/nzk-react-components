@@ -53,32 +53,36 @@ const useCloudinary = (props?: Props) => {
     }
   }
 
-  const promiseUploadImage = (file: Blob | string) => {
-    return new Promise((resolve, reject) => {
+  const promiseUploadImage = (file: Blob | string): Promise<string> => {
+    return new Promise((resolve, reject)=> {
       const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`
       const xhr = new XMLHttpRequest()
       const fd = new FormData()
 
       xhr.addEventListener('error', () => {
-        reject(new Error("Couldn't reach cloudinary to upload image"))
+        return reject(new Error("Couldn't reach cloudinary to upload image"))
       })
 
       xhr.open('POST', url, true)
       xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
   
       xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status < 300) {
+        if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
           const response = JSON.parse(xhr.responseText)
-          if (response.secure_url) {
-            resolve(response.secure_url)
-          } else {
-            reject(new Error("No secure_url returned by cloudinary"))
-          }
-        } else if (xhr.readyState === 4 && xhr.status >= 300) {
-          reject(new Error(`Cloudinary returned error code: ${xhr.status}`))
-        }
-      }
   
+          if (!response.secure_url) {
+            return reject(new Error("No secure_url returned by cloudinary"))
+          }
+          return resolve(response.secure_url)
+        }
+
+        if (xhr.readyState === 4 && xhr.status >= 300) {
+          return reject(new Error(`Cloudinary returned error code: ${xhr.status}`))
+        }
+
+        return null
+      }
+
       fd.append('upload_preset', unsignedUploadPreset)
 
       if (uploadTag) fd.append('tags', uploadTag)
