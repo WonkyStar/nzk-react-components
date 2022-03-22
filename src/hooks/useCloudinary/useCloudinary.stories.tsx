@@ -26,4 +26,21 @@ export const base64ImageUpload: Story = () => {
   </Wrapper>
 }
 
+export const base64ImagePromiseUpload: Story = () => {
+  const { promiseUploadImage } = useCloudinary({
+    uploadTag: 'storybook'
+  })
+  return <Wrapper>
+  <Button size='x-small' theme='primary' onClick={() => {
+    promiseUploadImage(b64Image).then(url => {
+      alert(url)
+    }).catch(err => {
+      console.log(err)
+    })
+  }}>Upload a b64 image</Button>
+  </Wrapper>
+}
+
+
+
 
