@@ -121,6 +121,10 @@ import { ReactComponent as WritingTypePoem } from '../../assets/icons/writing-ty
 import { ReactComponent as WritingTypeReport } from '../../assets/icons/writing-type-report.svg'
 import { ReactComponent as Writing } from '../../assets/icons/writing.svg'
 import { ReactComponent as ZooPoint } from '../../assets/icons/zoo-point.svg'
+import { ReactComponent as Giraffe } from '../../assets/icons/giraffe.svg'
+import { ReactComponent as Penguin } from '../../assets/icons/penguin.svg'
+import { ReactComponent as Flamingo } from '../../assets/icons/flamingo.svg'
+import { ReactComponent as Bear } from '../../assets/icons/bear.svg'
 
 export const ICONS = {
   'activities': <Activities />,
@@ -245,6 +249,10 @@ export const ICONS = {
   'drawing-tool-sticker': <DrawingToolStickers />,
   'idea-creator': <IdeaCreator />,
   'send': <Send />,
+  'giraffe': <Giraffe />,
+  'penguin': <Penguin />,
+  'flamingo': <Flamingo />,
+  'bear': <Bear />,
 }
 
 export default ICONS
