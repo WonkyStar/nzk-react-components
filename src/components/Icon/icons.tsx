@@ -125,6 +125,7 @@ import { ReactComponent as Giraffe } from '../../assets/icons/giraffe.svg'
 import { ReactComponent as Penguin } from '../../assets/icons/penguin.svg'
 import { ReactComponent as Flamingo } from '../../assets/icons/flamingo.svg'
 import { ReactComponent as Bear } from '../../assets/icons/bear.svg'
+import { ReactComponent as SeaLion } from '../../assets/icons/sealion.svg'
 
 export const ICONS = {
   'activities': <Activities />,
@@ -253,6 +254,7 @@ export const ICONS = {
   'penguin': <Penguin />,
   'flamingo': <Flamingo />,
   'bear': <Bear />,
+  'sealion': <SeaLion />
 }
 
 export default ICONS
