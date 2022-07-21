@@ -4,6 +4,7 @@ import { ReactComponent as Activities } from '../../assets/icons/activities.svg'
 import { ReactComponent as Archive } from '../../assets/icons/archive.svg'
 import { ReactComponent as ArrowLeft } from '../../assets/icons/arrow-left.svg'
 import { ReactComponent as ArrowRight } from '../../assets/icons/arrow-right.svg'
+import { ReactComponent as Awards } from '../../assets/icons/awards.svg'
 import { ReactComponent as CardSkills } from '../../assets/icons/card-skills.svg'
 import { ReactComponent as Challenges } from '../../assets/icons/challenges.svg'
 import { ReactComponent as Chart } from '../../assets/icons/chart.svg'
@@ -132,6 +133,7 @@ const ICONS = {
   'archive': <Archive />,
   'arrow-left': <ArrowLeft />,
   'arrow-right': <ArrowRight />,
+  'awards': <Awards />,
   'card-skills': <CardSkills />,
   'challenges': <Challenges />,
   'chart': <Chart />,

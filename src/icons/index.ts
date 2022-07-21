@@ -5,6 +5,7 @@ export { default as Activities } from "./Activities";
 export { default as Archive } from "./Archive";
 export { default as ArrowLeft } from "./ArrowLeft";
 export { default as ArrowRight } from "./ArrowRight";
+export { default as Awards } from "./Awards";
 export { default as Bear } from "./Bear";
 export { default as CardSkills } from "./CardSkills";
 export { default as Challenges } from "./Challenges";
