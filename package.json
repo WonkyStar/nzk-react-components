@@ -2,11 +2,13 @@
   "name": "nzk-react-components",
   "version": "0.4.6-1",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
   "files": [
     "dist"
   ],
+  "sideEffects": false,
   "types": "dist/index.d.ts",
+  "module": "dist/esm/index.js",
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@rollup/plugin-commonjs": "^20.0.0",
@@ -70,7 +72,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build": "rollup -c",
+    "build": "rm -rf dist && rollup -c",
     "build:before": "rm -rf dist",
     "svgr": "svgr --icon --typescript -d src src/assets",
     "deploy:storybook": "npx -p @storybook/storybook-deployer storybook-to-ghpages",

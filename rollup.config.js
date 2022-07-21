@@ -11,9 +11,18 @@ export default {
   input: "src/index.ts",
   output: [
     {
-      dir: "dist",
+      dir: "dist/cjs",
       exports: "auto",
       format: "cjs",
+      sourcemap: true,
+      preserveModules: true,
+      preserveModulesRoot: "src",
+      // entryFileNames: "[name].js",
+    },
+    {
+      dir: "dist/esm",
+      exports: "auto",
+      format: "esm",
       sourcemap: true,
       preserveModules: true,
       preserveModulesRoot: "src",
