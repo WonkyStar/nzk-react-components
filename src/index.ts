@@ -15,6 +15,8 @@ import useEventListener from './hooks/useEventListener'
 import useElementSize from './hooks/useElementSize'
 import useDebounce from './hooks/useDebounce'
 
+export * from './icons'
+
 export {
   // Components
   Avatar,

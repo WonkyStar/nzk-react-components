@@ -127,7 +127,7 @@ import { ReactComponent as Flamingo } from '../../assets/icons/flamingo.svg'
 import { ReactComponent as Bear } from '../../assets/icons/bear.svg'
 import { ReactComponent as SeaLion } from '../../assets/icons/sealion.svg'
 
-export const ICONS = {
+const ICONS = {
   'activities': <Activities />,
   'archive': <Archive />,
   'arrow-left': <ArrowLeft />,

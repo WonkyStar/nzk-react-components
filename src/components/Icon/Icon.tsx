@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ICONS } from './icons'
+import ICONS from './icons'
 
 export interface IconProps {
   name: string
