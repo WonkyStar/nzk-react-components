@@ -1,7 +1,6 @@
 import Avatar from './components/Avatar'
 import Button from "./components/Button"
 import DatePicker from './components/DatePicker'
-import Icon from './components/Icon'
 import IconButton from './components/IconButton'
 import Input from './components/Input'
 import Modal from './components/Modal'
@@ -23,7 +22,6 @@ export {
   IconButton,
   Button,
   DatePicker,
-  Icon,
   Input,
   Modal,
   ModalProvider,

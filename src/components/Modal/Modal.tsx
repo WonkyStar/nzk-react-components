@@ -1,6 +1,6 @@
+import { Close } from 'icons'
 import React, { ReactElement, useMemo } from 'react'
 import Button from '../Button/Button'
-import Icon from '../Icon/Icon'
 import * as s from './Modal.styles'
 
 export interface ModalProps {
@@ -32,7 +32,7 @@ const Modal = (props: ModalProps) => {
   return <s.Wrapper>
     { props.dismiss && <s.QuitButton onClick={props.dismiss}>
       <Button round theme='red' size='regular'>
-        <Icon name='close' />
+        <Close />
       </Button>
     </s.QuitButton> }
     <s.Title>{title}</s.Title>
