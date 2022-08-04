@@ -1,5 +1,5 @@
-import { Close } from 'icons'
 import React, { ReactElement, useMemo } from 'react'
+import { Close } from '../../icons'
 import Button from '../Button/Button'
 import * as s from './Modal.styles'
 
