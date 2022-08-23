@@ -118,6 +118,7 @@ export { default as Whatsapp } from "./Whatsapp";
 export { default as WritingTypeAdventureStory } from "./WritingTypeAdventureStory";
 export { default as WritingTypeBiography } from "./WritingTypeBiography";
 export { default as WritingTypeDiaryEntry } from "./WritingTypeDiaryEntry";
+export { default as WritingTypeExplanation } from "./WritingTypeExplanation";
 export { default as WritingTypeFreeWrite } from "./WritingTypeFreeWrite";
 export { default as WritingTypeInstructions } from "./WritingTypeInstructions";
 export { default as WritingTypeLetterWriting } from "./WritingTypeLetterWriting";
