@@ -3,20 +3,15 @@ import { Meta } from "@storybook/react/types-6-0";
 import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import useMountState from '../../hooks/useMountState';
-import Icon, { IconProps } from "./Icon";
-import ICONS from './icons';
+
+import * as icons2 from '../../icons';
 
 export default {
   title: "Components/Icon",
-  component: Icon
 } as Meta;
 
 // Create a master template for mapping args to render the Button component
-const Template: Story<IconProps> = (args) => <Icon {...args} />;
 
-// Reuse that template for creating different stories
-export const Primary = Template.bind({});
-Primary.args = { name: 'transfer' };
 
 const Wrapper = styled.div`
   display: flex;
@@ -37,7 +32,7 @@ const Wrapper = styled.div`
     display: grid;
     width: 100%;
     background-color: #ebebeb;
-    grid-template-columns: repeat(auto-fill, 75px);
+    grid-template-columns: repeat(auto-fill, 150px);
     grid-gap: 20px;
     padding: 15px;
   }
@@ -46,7 +41,7 @@ const Wrapper = styled.div`
 const IconWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 9px;
+  font-size: 12px;
   text-align: center;
   cursor: pointer;
   input {
@@ -70,7 +65,7 @@ export const AllIcons: Story = () => {
   }, [copied])
 
   const displayedIcons = useMemo(() => {
-    return Object.keys(ICONS).filter(key => new RegExp(search).test(key))
+    return Object.keys(icons2).filter(key => new RegExp(search.toLocaleLowerCase()).test(key.toLocaleLowerCase()))
   }, [search])
 
   return <Wrapper>
@@ -90,7 +85,7 @@ export const AllIcons: Story = () => {
           document.execCommand("copy");
         }}>
           <input id={`icon-${key}`} defaultValue={key} />
-          <Icon key={key} name={key} />
+          { icons2[key]({ height: '100%', width: '100%' }) }
           <div>{key}</div>
         </IconWrapper>)
       }

@@ -1,0 +1,13 @@
+<svg id="icon_-_target" data-name="icon - target" xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <path id="Path_3058" data-name="Path 3058" d="M60,0h0A60,60,0,1,1,0,60,60,60,0,0,1,60,0" transform="translate(0 0)" fill="#ffcfcf"/>
+  <path id="Path_3059" data-name="Path 3059" d="M60,120a60,60,0,1,1,60-60,60.068,60.068,0,0,1-60,60M60,9.375A50.625,50.625,0,1,0,110.625,60,50.683,50.683,0,0,0,60,9.375" transform="translate(0 0)" fill="#ff2624"/>
+  <path id="Path_3060" data-name="Path 3060" d="M60,99.5A39.5,39.5,0,1,1,99.5,60,39.546,39.546,0,0,1,60,99.5m0-70.09C43.451,29.411,29.988,43.133,29.988,60S43.451,90.589,60,90.589,90.012,76.866,90.012,60,76.549,29.411,60,29.411" transform="translate(0 0)" fill="#ff2624"/>
+  <path id="Path_3061" data-name="Path 3061" d="M60,79.259A19.259,19.259,0,1,1,79.259,60,19.281,19.281,0,0,1,60,79.259m0-31.025A11.768,11.768,0,1,0,71.544,60,11.67,11.67,0,0,0,60,48.234" transform="translate(0 0)" fill="#ff2624"/>
+  <path id="Path_3062" data-name="Path 3062" d="M60,63.848A3.848,3.848,0,1,1,63.848,60,3.852,3.852,0,0,1,60,63.848m0-6.2A2.351,2.351,0,1,0,62.306,60,2.331,2.331,0,0,0,60,57.649" transform="translate(0 0)" fill="#ff2624"/>
+  <path id="Path_3063" data-name="Path 3063" d="M88.324,29.353V17.668L105.992,0V12.178Z" transform="translate(0 0)" fill="#24c2ff"/>
+  <path id="Path_3064" data-name="Path 3064" d="M65.224,103.2l-3.638-3.638V60.221a1.981,1.981,0,0,0-3.963,0V99.879l-3.638,3.638.2,13.883,3.441-3.442v2.08a1.981,1.981,0,1,0,3.963,0v-2.4l3.638,3.638Z" transform="translate(0 0)" opacity="0.3"/>
+  <path id="Path_3065" data-name="Path 3065" d="M58.374,61.724h0a2.258,2.258,0,0,1-.031-3.194l48.49-49.455a2.259,2.259,0,1,1,3.226,3.163L61.568,61.693a2.26,2.26,0,0,1-3.194.031" transform="translate(0 0)" fill="#fff"/>
+  <path id="Path_3066" data-name="Path 3066" d="M110.317,9.391,58.374,61.724a2.258,2.258,0,0,0,3.194-.031l48.491-49.455a2.26,2.26,0,0,0,.258-2.847" transform="translate(0 0)" fill="#e6e6e6"/>
+  <path id="Path_3067" data-name="Path 3067" d="M120,13.707H108.315L90.647,31.375h12.178Z" transform="translate(0 0)" fill="#047cb8"/>
+  <rect id="Rectangle_1761" data-name="Rectangle 1761" width="120" height="120" transform="translate(0 0)" fill="none"/>
+</svg>
