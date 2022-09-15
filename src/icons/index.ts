@@ -138,6 +138,7 @@ export { default as WritingToolAlignLeft } from "./WritingToolAlignLeft";
 export { default as WritingToolAlignRight } from "./WritingToolAlignRight";
 export { default as WritingToolBold } from "./WritingToolBold";
 export { default as WritingToolItalic } from "./WritingToolItalic";
+export { default as WritingToolTextColor } from "./WritingToolTextColor";
 export { default as WritingToolUnderline } from "./WritingToolUnderline";
 export { default as WritingTypeAdventureStory } from "./WritingTypeAdventureStory";
 export { default as WritingTypeBiography } from "./WritingTypeBiography";
