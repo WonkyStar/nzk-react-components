@@ -132,6 +132,8 @@ export { default as Users } from "./Users";
 export { default as Video } from "./Video";
 export { default as Whatsapp } from "./Whatsapp";
 export { default as Wishlist } from "./Wishlist";
+export { default as WritingToolBold } from "./WritingToolBold";
+export { default as WritingToolItalic } from "./WritingToolItalic";
 export { default as WritingTypeAdventureStory } from "./WritingTypeAdventureStory";
 export { default as WritingTypeBiography } from "./WritingTypeBiography";
 export { default as WritingTypeDiaryEntry } from "./WritingTypeDiaryEntry";

@@ -8,6 +8,11 @@ import * as icons2 from '../../icons';
 
 export default {
   title: "Components/Icon",
+  argTypes: {
+    fill: {
+      control: { type: 'color' },
+    },
+  },
 } as Meta;
 
 // Create a master template for mapping args to render the Button component
@@ -51,7 +56,7 @@ const IconWrapper = styled.div`
   }
 `
 
-export const AllIcons: Story = () => {
+const Template: Story = (args) => {
   const [copied, setCopied] = useState<string | null>(null)
   const mounted = useMountState()
   const [search, setSearch] = useState('')
@@ -85,10 +90,13 @@ export const AllIcons: Story = () => {
           document.execCommand("copy");
         }}>
           <input id={`icon-${key}`} defaultValue={key} />
-          { icons2[key]({ height: '100%', width: '100%' }) }
+          { icons2[key]({ height: '100%', width: '100%', ...args }) }
           <div>{key}</div>
         </IconWrapper>)
       }
     </div>
   </Wrapper>
 }
+
+export const AllIcons = Template.bind({})
+AllIcons.args = { fill: '#f00' };
