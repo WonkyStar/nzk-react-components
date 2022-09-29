@@ -3,6 +3,7 @@ export { default as Nzk } from "./Nzk";
 export { default as AboutUs } from "./AboutUs";
 export { default as Achievements } from "./Achievements";
 export { default as Activities } from "./Activities";
+export { default as AdvancedTutoring } from "./AdvancedTutoring";
 export { default as Archive } from "./Archive";
 export { default as ArrowLeft } from "./ArrowLeft";
 export { default as ArrowRight } from "./ArrowRight";
