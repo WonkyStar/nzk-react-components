@@ -132,6 +132,7 @@ export { default as SoundOff } from "./SoundOff";
 export { default as SoundOn } from "./SoundOn";
 export { default as StarTutoring } from "./StarTutoring";
 export { default as StarWriting } from "./StarWriting";
+export { default as Stats } from "./Stats";
 export { default as StopWatch } from "./StopWatch";
 export { default as Target } from "./Target";
 export { default as Task } from "./Task";
