@@ -127,6 +127,11 @@ import { ReactComponent as Penguin } from '../../assets/icons/penguin.svg'
 import { ReactComponent as Flamingo } from '../../assets/icons/flamingo.svg'
 import { ReactComponent as Bear } from '../../assets/icons/bear.svg'
 import { ReactComponent as SeaLion } from '../../assets/icons/sealion.svg'
+import { ReactComponent as Stats } from '../../assets/icons/stats.svg'
+import { ReactComponent as Back } from '../../assets/icons/back.svg'
+import { ReactComponent as Next } from '../../assets/icons/next.svg'
+import { ReactComponent as Yes } from '../../assets/icons/yes.svg'
+import { ReactComponent as No } from '../../assets/icons/no.svg'
 
 const ICONS = {
   'activities': <Activities />,
@@ -256,7 +261,12 @@ const ICONS = {
   'penguin': <Penguin />,
   'flamingo': <Flamingo />,
   'bear': <Bear />,
-  'sealion': <SeaLion />
+  'sealion': <SeaLion />,
+  'stats': <Stats />,
+  'back': <Back />,
+  'next': <Next />,
+  'yes': <Yes />,
+  'no': <No />
 }
 
 export default ICONS
