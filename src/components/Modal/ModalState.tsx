@@ -1,5 +1,5 @@
 import React, { ReactElement, useMemo, useState } from 'react'
-import shortid from 'shortid'
+import { nanoid } from 'nanoid'
 import styled from 'styled-components'
 import { createContainer } from 'unstated-next'
 
@@ -37,7 +37,7 @@ const ModalState = () => {
   }
 
   const open = (modal: ReactElement, key?: string) => {
-    const id = `${key || shortid.generate()}`
+    const id = `${key || nanoid()}`
     setModals(modals => {
       const newModals = {...modals}
       newModals[id] = React.cloneElement(modal, { id, dismiss: () => close(id) })

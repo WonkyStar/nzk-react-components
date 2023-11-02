@@ -1,11 +1,13 @@
-interface Theme {
+import { Size, Theme } from './types';
+
+interface ITheme {
   backgroundColor: string;
   color: string;
   strokeColor: string;
   shadowColor: string;
 }
 
-export const THEMES: { [key: string]: Theme } = {
+export const THEMES: { [key in Theme]: ITheme } = {
   primary: {
     backgroundColor: '#009EE2',
     color: '#fff',
@@ -62,7 +64,7 @@ export const THEMES: { [key: string]: Theme } = {
   }
 }
 
-export const SIZES = {
+export const SIZES: { [key in Size]: number } = {
   'xx-large': 142,
   'x-large': 109,
   large: 71,

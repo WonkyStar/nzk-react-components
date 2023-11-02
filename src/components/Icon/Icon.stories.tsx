@@ -23,7 +23,13 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: -15px;
+  height: 100vh;
+  overflow: hidden;
 
+  .content {
+    flex: 1;
+    overflow: auto;
+  }
   > :first-child {
     text-align: center;
     margin-bottom: 20px;
@@ -37,7 +43,7 @@ const Wrapper = styled.div`
     display: grid;
     width: 100%;
     background-color: #ebebeb;
-    grid-template-columns: repeat(auto-fill, 150px);
+    grid-template-columns: repeat(auto-fill, 80px);
     grid-gap: 20px;
     padding: 15px;
   }
@@ -81,7 +87,7 @@ const Template: Story = (args) => {
     <div>
       <input type='text' placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)} />
     </div>
-    <div>
+    <div className='content'>
       {
         displayedIcons.map(key => <IconWrapper key={key} onClick={() => {
           setCopied(key)
@@ -91,7 +97,6 @@ const Template: Story = (args) => {
         }}>
           <input id={`icon-${key}`} defaultValue={key} />
           { icons2[key]({ height: '100%', width: '100%', ...args }) }
-          <div>{key}</div>
         </IconWrapper>)
       }
     </div>

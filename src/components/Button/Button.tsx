@@ -1,10 +1,11 @@
-import React, { RefObject } from 'react'
-import { Wrapper } from './Button.styles'
-import { SIZES, THEMES } from './constants'
+import { ReactHTML } from 'react';
+import { StyledSpanButton  } from './Button.styles'
+import { Size, Theme } from './types';
 
-export interface BaseProps {
-  backgroundColor: string;
-  height: number;
+export type BaseProps = {
+  as?: keyof ReactHTML
+  backgroundColor?: string;
+  height?: number;
   fullWidth?: boolean;
   children: any;
   color?: string;
@@ -15,35 +16,14 @@ export interface BaseProps {
   round?: boolean;
   disabled?: boolean;
   wiggle?: boolean;
+
+  size?: Size
+  theme?: Theme
 }
 
-// @ts-ignore
-export interface ButtonProps extends BaseProps {
-  size?: 'x-small' | 'small' | 'regular' | 'large' | 'x-large' | 'xx-large';
-  theme?: 'confirm' | 'primary' | 'the-pink' | 'purple' | 'red' | 'orange' | 'green' | 'yellow' | 'white';
-  height?: number;
-  backgroundColor?: string;
-  children?: any;
-  disabled?: boolean;
-  onClick?: () => void;
-  ref?: ((instance: any | null) => void) | RefObject<any> | null
-}
+export type ButtonProps = {
+} & BaseProps
 
-const Button = (props: ButtonProps) => {
-  return (
-    // @ts-ignore
-    <Wrapper
-      // @ts-ignore
-      height={props.size && SIZES[props.size]}
-      {...props}
-      {...(props.theme ? THEMES[props.theme] : {})}
-      onClick={() => {
-        if (props.onClick) {
-          props.onClick()
-        }
-      }}
-    />
-  )
-}
+const Button = StyledSpanButton
 
 export default Button

@@ -1,81 +1,83 @@
-import { darken, getLuminance, lighten } from 'polished'
 import styled, { css } from 'styled-components'
 import { BaseProps } from './Button'
-import { getPadding, getSizeComparedToBase, getTextColor, getTextSize } from './utils'
+import { getPadding, getShadows, getSizeComparedToBase, getTextColor, getTextSize } from './utils'
+import { SIZES, THEMES } from './constants'
 
 
-export const getShadows = (props: BaseProps) => {
-  const light = getLuminance(props.backgroundColor)
-  const shadowColor =
-    props.shadowColor
-    || light && darken(0.2, props.backgroundColor)
-    || !light && lighten(0.2, props.backgroundColor)
-  const dropShadowColor = props.dropShadowColor || `rgba(0,0,0,0.3)`
-  const strokeColor =
-    props.strokeColor
-    || light && lighten(0.1, props.backgroundColor)
-    || !light && darken(0.1, props.backgroundColor)
+const getBaseStyle = () => {
   return css`
-    box-shadow: 0 ${getSizeComparedToBase(props, 5)}px 0 ${shadowColor},
-      0 ${getSizeComparedToBase(props, 12)}px 0 ${dropShadowColor},
-      inset 0 0px 0px ${getSizeComparedToBase(props, 5)}px ${strokeColor};
-
-    :active {
-      transform: translateY(${getSizeComparedToBase(props, 7)}px);
-      box-shadow: 0 ${getSizeComparedToBase(props, 5)}px 0 ${shadowColor},
-        inset 0 0px 0px ${getSizeComparedToBase(props, 5)}px ${strokeColor};
-    }
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Rammetto One';
+    border-radius: 1000px;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
   `
 }
 
-export const Wrapper = styled.div`
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Rammetto One';
-  border-radius: 1000px;
-  cursor: pointer;
-  user-select: none;
-  ${(props: BaseProps) => css`
-    background-color: ${props.backgroundColor};
+const getSizes = (props: { height: number, fontSize?: number, round?: boolean }) => {
+  return css`
+    outline: none;
+    border: none;
     height: ${props.height}px;
-    margin-bottom: ${getSizeComparedToBase(props, 12)}px;
-    color: ${getTextColor(props)};
     font-size: ${getTextSize(props)};
+    margin-bottom: ${getSizeComparedToBase(props, 12)}px;
     padding: ${getPadding(props)};
-    ${getShadows(props)};
-    filter: ${props.disabled ? 'grayscale(100%)' : 'none'};
-  `};
-  ${(props: BaseProps) => props.fullWidth && css`width: 100%;`}
-  ${(props: BaseProps) => props.wiggle && css`
-  animation: wiggle alternate-reverse 2s linear infinite;
-  animation-delay: ${Math.random()}s;
-    @keyframes wiggle {
-      0% {
-        transform: rotate(-3deg);
-      }
-      10% {
-        transform: rotate(3deg);
-      }
-      20% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(0deg);
-      }
-    }
-  `}
-  ${(props: BaseProps) =>
-    props.round &&
-    css`
+    ${props.round && css`
       width: ${props.height}px;
       padding: 0;
       flex-shrink: 0;
     `}
+  `
+}
+
+const getColors = (props: BaseProps) => {
+  const theme = props.theme ? THEMES[props.theme] : undefined
+  const fallback = THEMES.primary
+
+  return {
+    backgroundColor: theme?.backgroundColor
+      || props.backgroundColor
+      || fallback.backgroundColor,
+    color: theme?.color || props.color,
+    strokeColor: theme?.strokeColor || props.strokeColor,
+    shadowColor: theme?.shadowColor || props.shadowColor,
+  }
+}
+
+
+const getHeight = (props: BaseProps) => {
+  const size = props.size ? SIZES[props.size] : undefined
+  return size || props.height || SIZES.regular
+}
+
+export const StyledSpanButton = styled.div.attrs(props => ({
+  role: 'button' || props.role
+}))<BaseProps>`
+  ${props => {
+    const colors = getColors(props)
+    const height = getHeight(props)
+  
+    return css`
+      // Base
+      ${getBaseStyle()}
+      // COLORS
+      background-color: ${colors.backgroundColor};
+      ${getShadows({ ...colors, height })};
+      color: ${getTextColor(colors) };
+      filter: ${props.disabled ? 'grayscale(100%)' : 'none'};
+
+      // Dimensions
+      ${getSizes({ height, round: props.round })}
+    `
+  }}
 
   svg {
     height: 100%;
     width: 100%;
   }
+
 `

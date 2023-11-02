@@ -15,6 +15,7 @@ import useElementSize from './hooks/useElementSize'
 import useDebounce from './hooks/useDebounce'
 
 export * from './icons'
+export * from './components/SyncedText'
 
 export {
   // Components
