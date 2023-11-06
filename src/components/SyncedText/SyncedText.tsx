@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { Howl } from 'howler'
 import { ISyncedTextProps } from './types'
+import { useAudioTimeout } from './hooks/useTimeout'
 
 export const SyncedText = (props: ISyncedTextProps) => {
   const { value } = props
@@ -10,6 +11,40 @@ export const SyncedText = (props: ISyncedTextProps) => {
   const hasStartedRef = useRef(false)
   const remainingElementsRef = useRef<HTMLSpanElement[]>([])
   const elementsRef = useRef<HTMLSpanElement[]>([])
+  const [startTimeout, stopTimeout] = useAudioTimeout({
+    timeoutMs: props.timeoutMs
+  })
+
+  const onHowlPlayError = (err) => {
+    stopTimeout()
+    if (props.onError) {
+      return props.onError({ type: 'PLAY_ERROR', error: err })
+    }
+    return null
+  }
+
+  const onHowlLoadError = (err) => {
+    stopTimeout()
+    if (props.onError) {
+      return props.onError({ type: 'LOAD_ERROR', error: err })
+    }
+    return null
+  }
+
+  const onTimeout = () => {
+    howlRef.current?.stop()
+    if (props.onError) {
+      return props.onError({ type: 'TIMEOUT' })
+    }
+    return null
+  }
+
+  const play = () => {
+    if (howlRef.current?.playing()) return
+    startTimeout(onTimeout)
+    howlRef.current?.play()
+  }
+
 
   useEffect(() => {
     if (value.audio) {
@@ -17,13 +52,14 @@ export const SyncedText = (props: ISyncedTextProps) => {
         src: value.audio,
         autoplay: props.autoPlay
       })
+      if (props.autoPlay) {
+        startTimeout(onTimeout)
+      }
 
       if (props.setRef) {
         props.setRef({
-          play: () => {
-            if (howlRef.current?.playing()) return
-            howlRef.current?.play()
-          },
+          play,
+          getHowl: () => howlRef.current,
           isPlaying: () => {
             return howlRef.current?.playing()
           },
@@ -33,6 +69,7 @@ export const SyncedText = (props: ISyncedTextProps) => {
       }
     }
     return () => {
+      stopTimeout()
       howlRef.current?.stop()
     }
   }, [])
@@ -64,6 +101,7 @@ export const SyncedText = (props: ISyncedTextProps) => {
     const onAnimationFrame = () => {
       // If the howl is still playing
       if (howlRef.current?.playing()) {
+        stopTimeout() // Deregister timeout if we managed to start playing
         const time = howlRef.current.seek()
         updateText(time)
         updateRaf.current = requestAnimationFrame(onAnimationFrame);
@@ -84,8 +122,6 @@ export const SyncedText = (props: ISyncedTextProps) => {
     })
   }
 
-
-  
   const onEnd = () => {
     cancelAnimationFrame(updateRaf.current);
     if (hasStartedRef.current) {
@@ -100,6 +136,10 @@ export const SyncedText = (props: ISyncedTextProps) => {
     howlRef.current?.on('play', onPlay)
     howlRef.current?.on('end', onEnd)
     howlRef.current?.on('stop', onEnd)
+    
+    howlRef.current?.on('playerror', onHowlPlayError)
+    howlRef.current?.on('loaderror', onHowlLoadError)
+
     if (elementsRef.current) {
       const els = textRef.current?.querySelectorAll('span.synced-test--part')
       if (els) {
@@ -112,6 +152,9 @@ export const SyncedText = (props: ISyncedTextProps) => {
       howlRef.current?.off('play', onPlay)
       howlRef.current?.off('end', onEnd)
       howlRef.current?.off('stop', onEnd)
+
+      howlRef.current?.off('playerror', onHowlPlayError)
+      howlRef.current?.off('loaderror', onHowlLoadError)
     }
   }, [props.value])
 
