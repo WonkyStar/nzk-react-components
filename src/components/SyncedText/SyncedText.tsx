@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Howl } from 'howler'
 import { ISyncedTextProps } from './types'
 import { useAudioTimeout } from './hooks/useTimeout'
+import Button from '../Button'
+import { TextToSpeech } from '../../icons'
 
 export const SyncedText = (props: ISyncedTextProps) => {
   const { value } = props
@@ -11,12 +13,15 @@ export const SyncedText = (props: ISyncedTextProps) => {
   const hasStartedRef = useRef(false)
   const remainingElementsRef = useRef<HTMLSpanElement[]>([])
   const elementsRef = useRef<HTMLSpanElement[]>([])
+  const [playing, setPlaying] = useState(false)
+
   const [startTimeout, stopTimeout] = useAudioTimeout({
     timeoutMs: props.timeoutMs
   })
 
   const onHowlPlayError = (err) => {
     stopTimeout()
+    setPlaying(false)
     if (props.onError) {
       return props.onError({ type: 'PLAY_ERROR', error: err })
     }
@@ -25,6 +30,7 @@ export const SyncedText = (props: ISyncedTextProps) => {
 
   const onHowlLoadError = (err) => {
     stopTimeout()
+    setPlaying(false)
     if (props.onError) {
       return props.onError({ type: 'LOAD_ERROR', error: err })
     }
@@ -33,6 +39,7 @@ export const SyncedText = (props: ISyncedTextProps) => {
 
   const onTimeout = () => {
     howlRef.current?.stop()
+    setPlaying(false)
     if (props.onError) {
       return props.onError({ type: 'TIMEOUT' })
     }
@@ -97,6 +104,7 @@ export const SyncedText = (props: ISyncedTextProps) => {
   const onPlay = () => {  
     hasStartedRef.current = true
     remainingElementsRef.current = elementsRef.current
+    setPlaying(true)
 
     const onAnimationFrame = () => {
       // If the howl is still playing
@@ -124,6 +132,7 @@ export const SyncedText = (props: ISyncedTextProps) => {
 
   const onEnd = () => {
     cancelAnimationFrame(updateRaf.current);
+    setPlaying(false)
     if (hasStartedRef.current) {
       resetHighlights()
       if (props.onComplete) {
@@ -163,6 +172,11 @@ export const SyncedText = (props: ISyncedTextProps) => {
   if (!value) return null
 
   return <div ref={textRef} className='synced-text'>
+    { props.showPlayButton && <Button theme={playing ? 'purple' : 'primary'} style={{
+      marginRight: '10px'
+    }} onClick={play} className='synced-text--play' size='x-small' round>
+      <TextToSpeech />
+    </Button> }
     {value.sequences.map((s, i) => <span
       className='synced-test--part'
       style={{

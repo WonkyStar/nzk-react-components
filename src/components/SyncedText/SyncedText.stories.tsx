@@ -87,3 +87,22 @@ Timeout.args = {
     "audio":"https://storage.googleapis.com/nzk-app-cdn/assets/content/audios/143f6bd0-d7ff-4fb1-bc80-d59180d6529b/default.mp3",
     "sequences":[{"text":"What","time":[0.8739461816773889,0.3647238095238095]},{"text":"sounds","time":[1.2715978626934261,0.9118095238095238]},{"text":"does","time":[1.7852157841388434,1.2765333333333333]},{"text":"your","time":[1.9739627939385915,1.6412571428571427]},{"text":"animal","time":[2.13625917632991,2.188342857142857]},{"text":"make?","time":[2.5354377410334212,2.644247619047619]}]}
 };
+
+
+export const WithReplay = Template.bind({
+  
+});
+WithReplay.args = {
+  autoPlay: true,
+  timeoutMs: 200,
+  showPlayButton: true,
+  onTimeout: () => {
+    console.error('Timed out')
+  },
+  onError: (err) => {
+    console.error(err)
+  },
+  value: {
+    "audio":"https://storage.googleapis.com/nzk-app-cdn/assets/content/audios/143f6bd0-d7ff-4fb1-bc80-d59180d6529b/default.mp3",
+    "sequences":[{"text":"What","time":[0.8739461816773889,0.3647238095238095]},{"text":"sounds","time":[1.2715978626934261,0.9118095238095238]},{"text":"does","time":[1.7852157841388434,1.2765333333333333]},{"text":"your","time":[1.9739627939385915,1.6412571428571427]},{"text":"animal","time":[2.13625917632991,2.188342857142857]},{"text":"make?","time":[2.5354377410334212,2.644247619047619]}]}
+};

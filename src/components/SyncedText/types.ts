@@ -20,6 +20,7 @@ export interface ISyncedTextRef {
 
 export interface ISyncedTextProps {
   value: IAudioSync
+  showPlayButton?: boolean
   setRef?: (ref: ISyncedTextRef) => void
   autoPlay?: boolean
   onComplete?: () => void
