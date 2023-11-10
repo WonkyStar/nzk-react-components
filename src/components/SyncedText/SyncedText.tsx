@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Howl } from 'howler'
+import type { Howl } from 'howler'
 import { ISyncedTextProps } from './types'
 import { useAudioTimeout } from './hooks/useTimeout'
 import Button from '../Button'
@@ -54,8 +54,8 @@ export const SyncedText = (props: ISyncedTextProps) => {
 
 
   useEffect(() => {
-    if (value.audio) {
-      howlRef.current = new Howl({
+    if (value.audio && props.Howl) {
+      howlRef.current = new props.Howl({
         src: value.audio,
         autoplay: props.autoPlay
       })

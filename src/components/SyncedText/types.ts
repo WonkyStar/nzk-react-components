@@ -1,4 +1,4 @@
-import { Howl } from 'howler'
+import type { Howl } from 'howler'
 
 export interface ISequence {
   text: string
@@ -20,6 +20,7 @@ export interface ISyncedTextRef {
 
 export interface ISyncedTextProps {
   value: IAudioSync
+  Howl?: typeof Howl
   showPlayButton?: boolean
   setRef?: (ref: ISyncedTextRef) => void
   autoPlay?: boolean
