@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+// eslint-disable-next-line import/no-unresolved
 import type { Howl } from 'howler'
 import { ISyncedTextProps } from './types'
 import { useAudioTimeout } from './hooks/useTimeout'
