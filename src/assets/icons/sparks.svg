@@ -1,0 +1,14 @@
+<svg id="sparks" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70">
+  <path id="Path_4808" data-name="Path 4808" d="M53.362,23.123H46.7l6.662-8.955-.043.016,4.208-5.679L51.31,3.17H29.815l-11.077,22L13.5,35.579l3.719,5.046h6.941L16.478,60.773,14.4,66.223,20.726,70,58.618,29.343Z" transform="translate(0 0)" fill-rule="evenodd" opacity="0.3"/>
+  <path id="Path_4809" data-name="Path 4809" d="M49.2,0,29.233,22H43.067L55.414,5.335Z" transform="translate(0 0)" fill="#efb640"/>
+  <path id="Path_4810" data-name="Path 4810" d="M51.249,11,43.067,22H32.5l4.337-5.8Z" transform="translate(0 0)" fill="#eb9437" fill-rule="evenodd"/>
+  <path id="Path_4811" data-name="Path 4811" d="M51.249,19.953l5.256,6.22L18.613,66.83l-6.325-3.777,27.06-36.445Z" transform="translate(0 0)" fill="#efb640" fill-rule="evenodd"/>
+  <path id="Path_4812" data-name="Path 4812" d="M11.381,32.409,15.1,37.455h8.864l2.888-7.842Z" transform="translate(0 0)" fill="#efb640" fill-rule="evenodd"/>
+  <path id="Path_4813" data-name="Path 4813" d="M22.637,30.375l-5.751,7.08h8.479l.792-5.951Z" transform="translate(0 0)" fill="#eb9437" fill-rule="evenodd"/>
+  <path id="Path_4814" data-name="Path 4814" d="M27.7,0,11.381,32.409H23.965L12.289,63.053l38.96-43.1H35.778L49.2,0Z" transform="translate(0 0)" fill="#ffff54"/>
+  <path id="Path_4815" data-name="Path 4815" d="M44.282,19.953s3.4.456,1.512,2.936S17.473,56.072,17.473,56.072,12.85,61.581,14.366,57.6l-2.077,5.45,38.96-43.1Z" transform="translate(0 0)" fill="#fff" fill-rule="evenodd"/>
+  <path id="Path_4816" data-name="Path 4816" d="M24.487,6.383s3.555-4.222,6.828-4.321,11.6,0,11.6,0,3.934,1.425.9,5.935L49.2,0H27.7Z" transform="translate(0 0)" fill="#fff" fill-rule="evenodd"/>
+  <path id="Path_4817" data-name="Path 4817" d="M53.218,22.465l-34.6,44.364L56.5,26.172Z" transform="translate(0 0)" fill="#eb9437" fill-rule="evenodd"/>
+  <path id="Path_4818" data-name="Path 4818" d="M16.625,22,13.018,31.5l7.966.9h-9.6Z" transform="translate(0 0)" fill="#fff" fill-rule="evenodd"/>
+  <rect id="frame" width="70" height="70" transform="translate(0 0)" fill="none"/>
+</svg>
