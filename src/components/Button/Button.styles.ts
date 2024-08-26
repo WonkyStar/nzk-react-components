@@ -55,6 +55,7 @@ const getColors = (props: BaseProps) => {
       fallback.backgroundColor,
     color: theme?.color || props.color,
     strokeColor: theme?.strokeColor || props.strokeColor,
+    dropShadowColor: props.dropShadowColor || "rgba(0,0,0,0.3)",
     shadowColor: theme?.shadowColor || props.shadowColor,
   };
 };
