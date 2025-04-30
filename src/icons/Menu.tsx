@@ -1,6 +1,5 @@
 import * as React from "react";
-import { SVGProps } from "react";
-
+import type { SVGProps } from "react";
 const SvgMenu = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -18,80 +17,79 @@ const SvgMenu = (props: SVGProps<SVGSVGElement>) => (
     </defs>
     <g transform="translate(17.667 74.023)">
       <rect
-        className="menu_svg__a"
         width={84}
         height={13}
+        className="menu_svg__a"
         rx={5}
         transform="translate(.333 6.977)"
       />
       <rect
-        className="menu_svg__b"
         width={84}
         height={12}
+        className="menu_svg__b"
         rx={5}
         transform="translate(.333 3.977)"
       />
       <rect
-        className="menu_svg__c"
         width={84}
         height={13}
+        className="menu_svg__c"
         rx={5}
         transform="translate(.333 -.023)"
       />
     </g>
     <g transform="translate(17.667 50.505)">
       <rect
-        className="menu_svg__a"
         width={84}
         height={12}
+        className="menu_svg__a"
         rx={5}
         transform="translate(.333 7.495)"
       />
       <rect
-        className="menu_svg__b"
         width={84}
         height={13}
+        className="menu_svg__b"
         rx={5}
         transform="translate(.333 3.495)"
       />
       <rect
-        className="menu_svg__c"
         width={84}
         height={12}
+        className="menu_svg__c"
         rx={5}
         transform="translate(.333 .495)"
       />
     </g>
     <g transform="translate(17.667 26.986)">
       <rect
-        className="menu_svg__a"
         width={84}
         height={13}
+        className="menu_svg__a"
         rx={5}
         transform="translate(.333 7.014)"
       />
       <rect
-        className="menu_svg__b"
         width={84}
         height={12}
+        className="menu_svg__b"
         rx={5}
         transform="translate(.333 4.014)"
       />
       <rect
-        className="menu_svg__c"
         width={84}
         height={13}
+        className="menu_svg__c"
         rx={5}
         transform="translate(.333 .014)"
       />
     </g>
     <path
+      d="M0 0h120v120H0z"
       style={{
         fill: "none",
       }}
-      d="M0 0h120v120H0z"
     />
   </svg>
 );
-
 export default SvgMenu;

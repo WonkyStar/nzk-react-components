@@ -1,6 +1,5 @@
 import * as React from "react";
-import { SVGProps } from "react";
-
+import type { SVGProps } from "react";
 const SvgWritingTypeLetterWriting = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -13,14 +12,14 @@ const SvgWritingTypeLetterWriting = (props: SVGProps<SVGSVGElement>) => (
       <style>{".writing-type-letter-writing_svg__b{fill:#3ba6dd}"}</style>
     </defs>
     <path
+      d="M0 0h120v120H0z"
       style={{
         fill: "none",
       }}
-      d="M0 0h120v120H0z"
     />
     <path
-      className="writing-type-letter-writing_svg__b"
       d="m72.108 63.313 24.138-19.31v38.62ZM47.893 63.313l-24.138-19.31v38.62ZM26.614 84.853l33.237-26.59 33.237 26.59ZM88.075 40.288v5.7l7.13-5.7ZM31.627 40.288h-7.128l7.129 5.7Z"
+      className="writing-type-letter-writing_svg__b"
     />
     <path
       d="M5169.6 579.306v19.012l15.969 12.774 9.285-7.426 9.285 7.426 15.969-12.774v-19.012Zm6.706 4.455h11.141v1.858h-11.141Zm29.689 15.6h-29.71v-2.228h29.71Zm0-4.457h-29.71v-2.228h29.71Zm0-4.456h-29.71v-2.229h29.71Z"
@@ -38,5 +37,4 @@ const SvgWritingTypeLetterWriting = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-
 export default SvgWritingTypeLetterWriting;

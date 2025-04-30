@@ -1,6 +1,5 @@
 import * as React from "react";
-import { SVGProps } from "react";
-
+import type { SVGProps } from "react";
 const SvgStarWriting = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -13,14 +12,14 @@ const SvgStarWriting = (props: SVGProps<SVGSVGElement>) => (
       <style>{".star-writing_svg__b{fill:rgba(0,0,0,.3)}"}</style>
     </defs>
     <path
+      d="M0 0h120v120H0z"
       style={{
         fill: "none",
       }}
-      d="M0 0h120v120H0z"
     />
     <path
-      className="star-writing_svg__b"
       d="M102.728 44.91 74.22 40.176l-14.078-28.83-14.324 28.71-28.545 4.493v6.161l9.525 7.3 22.934-3.234 10.337-20.728 10.165 20.813 22.911 3.431 9.583-7.224ZM89.839 102.444l-.2-.136.3.182-7.036-40.443-6.417 6.185v6.161l2.936 16.751-19.573-14.182-19.8 14.749 3.271-17.454v-6.161l-6.351-6.249-7.387 40.393.219-.133-.219.337v5.957l.219-.133-.219.337h7.037l23-15.4h.176l23.007 15.4h7.043l-.2-.136.3.182Z"
+      className="star-writing_svg__b"
     />
     <path
       d="m-476.7 567.154-28.508-4.734-14.078-28.83-14.324 28.71-28.545 4.493v6.161l9.525 7.3 22.934-3.234 10.337-20.728 10.165 20.813 22.911 3.431 9.583-7.224Z"
@@ -52,5 +51,4 @@ const SvgStarWriting = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-
 export default SvgStarWriting;
