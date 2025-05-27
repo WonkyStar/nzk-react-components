@@ -80,7 +80,7 @@ const Template: Story = (args) => {
   }, [search])
 
   return <Wrapper>
-    { copied
+    {copied
       ? <div style={{ color: '#40A240' }}>Copied to clipboard: {copied}</div>
       : <div>Click on an icon to copy its name</div>
     }
@@ -96,9 +96,10 @@ const Template: Story = (args) => {
           document.execCommand("copy");
         }}>
           <input id={`icon-${key}`} defaultValue={key} />
-          { icons2[key]({ height: '100%', width: '100%', ...args }) }
+          {icons2[key]({ height: '100%', width: '100%', ...args })}
         </IconWrapper>)
       }
+      <icons2.Zook />
     </div>
   </Wrapper>
 }
