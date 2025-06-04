@@ -9,6 +9,7 @@ export { default as Ant } from "./Ant";
 export { default as AppClose } from "./AppClose";
 export { default as AppCreate } from "./AppCreate";
 export { default as AppDraft } from "./AppDraft";
+export { default as AppGames } from "./AppGames";
 export { default as AppItems } from "./AppItems";
 export { default as AppMenu } from "./AppMenu";
 export { default as AppReport } from "./AppReport";
