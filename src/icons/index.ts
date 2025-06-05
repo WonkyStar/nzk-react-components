@@ -240,3 +240,4 @@ export { default as Xp } from "./Xp";
 export { default as Yes } from "./Yes";
 export { default as ZooPoint } from "./ZooPoint";
 export { default as Zook } from "./Zook";
+export { default as Chapters } from "./Chapters";
