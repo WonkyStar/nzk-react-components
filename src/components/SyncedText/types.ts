@@ -1,6 +1,7 @@
 
 // eslint-disable-next-line import/no-unresolved
 import type { Howl } from 'howler'
+import type { ReactElement } from 'react'
 
 export interface ISequence {
   text: string
@@ -24,6 +25,7 @@ export interface ISyncedTextProps {
   value: IAudioSync
   Howl: typeof Howl
   showPlayButton?: boolean
+  playButton?: ReactElement
   setRef?: (ref: ISyncedTextRef) => void
   autoPlay?: boolean
   onComplete?: () => void

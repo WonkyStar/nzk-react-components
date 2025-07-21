@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 // eslint-disable-next-line import/no-unresolved
 import type { Howl } from 'howler'
 import { ISyncedTextProps } from './types'
 import { useAudioTimeout } from './hooks/useTimeout'
 import Button from '../Button'
-import { TextToSpeech } from '../../icons'
+import { PurpleMegaphone, Megaphone } from '../../icons'
 
 export const SyncedText = (props: ISyncedTextProps) => {
   const { value } = props
@@ -102,7 +102,7 @@ export const SyncedText = (props: ISyncedTextProps) => {
     }
   }
 
-  const onPlay = () => {  
+  const onPlay = () => {
     hasStartedRef.current = true
     remainingElementsRef.current = elementsRef.current
     setPlaying(true)
@@ -146,7 +146,7 @@ export const SyncedText = (props: ISyncedTextProps) => {
     howlRef.current?.on('play', onPlay)
     howlRef.current?.on('end', onEnd)
     howlRef.current?.on('stop', onEnd)
-    
+
     howlRef.current?.on('playerror', onHowlPlayError)
     howlRef.current?.on('loaderror', onHowlLoadError)
 
@@ -168,16 +168,36 @@ export const SyncedText = (props: ISyncedTextProps) => {
     }
   }, [props.value])
 
+  const playButton = useMemo(() => {
+    if (!props.showPlayButton) return null
+    const buttonProps = {
+      className: 'synced-text--play',
+      onClick: play,
+      style: { marginRight: '10px' }
+    }
+
+    if (props.playButton) {
+      return <div {...buttonProps} data-playing={playing}>
+        {props.playButton}
+      </div>
+    }
+    return <Button
+      theme={playing ? 'purple' : 'primary'}
+      {...buttonProps}
+      size='x-small'
+      round
+    >
+      {playing ? <Megaphone /> : <PurpleMegaphone />}
+    </Button>
+
+  }, [props.showPlayButton, playing])
+
 
 
   if (!value) return null
 
   return <div ref={textRef} className='synced-text'>
-    { props.showPlayButton && <Button theme={playing ? 'purple' : 'primary'} style={{
-      marginRight: '10px'
-    }} onClick={play} className='synced-text--play' size='x-small' round>
-      <TextToSpeech />
-    </Button> }
+    {playButton}
     {value.sequences.map((s, i) => <span
       className='synced-test--part'
       style={{
