@@ -1,0 +1,44 @@
+<svg id="leave" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="70" viewBox="0 0 70 70">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_5269" data-name="Rectangle 5269" width="70" height="70" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-3">
+      <rect id="Rectangle_5266" data-name="Rectangle 5266" width="69.793" height="45.357" transform="translate(0.207 13.253)" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-4">
+      <rect id="Rectangle_5265" data-name="Rectangle 5265" width="69.792" height="45.356" transform="translate(0.208 13.253)" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-5">
+      <rect id="Rectangle_5267" data-name="Rectangle 5267" width="54.423" height="25.661" transform="translate(5.697 18.084)" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_14819" data-name="Group 14819" clip-path="url(#clip-path)">
+    <g id="Group_14818" data-name="Group 14818">
+      <g id="Group_14817" data-name="Group 14817" clip-path="url(#clip-path)">
+        <g id="Group_14813" data-name="Group 14813" opacity="0.3" style="mix-blend-mode: normal;isolation: isolate">
+          <g id="Group_14812" data-name="Group 14812">
+            <g id="Group_14811" data-name="Group 14811" clip-path="url(#clip-path-3)">
+              <g id="Group_14810" data-name="Group 14810">
+                <g id="Group_14809" data-name="Group 14809" clip-path="url(#clip-path-4)">
+                  <path id="Path_12679" data-name="Path 12679" d="M69.689,32.818c-.673-2-20.856-18.729-23.638-19.522-2.023-.577-1.545,4.9-3.1,5.348S.438,15.638.221,18.083c-.027.314-.014,1.108.038,2.25a.227.227,0,0,0-.031.087C.011,22.87,2.105,58.357,5,58.57c.28.243,4.419-.659,10.366-2.059,3.725-.87,8.008-1.907,12.109-2.892h.01c11.766-2.812,16.437-3.491,16.437-3.491,2,.44,2.907,5.778,4.687,5.775a1.366,1.366,0,0,0,.5-.169c3.591-1.776,21.5-16.88,20.869-18.764-.075-.224.229-3.562-.292-4.152"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+        <path id="Path_12680" data-name="Path 12680" d="M46.057,11.655c2.47.7,19.518,12.5,23.632,17.186.518.59.214,3.928.292,4.152.67,2-19.593,18.93-21.373,18.934s-2.683-5.334-4.688-5.775S7.892,54.813,5,54.6.011,18.9.228,16.45s41.171,1.007,42.727.558,1.08-5.925,3.1-5.348" fill="#bdbdbd"/>
+        <path id="Path_12681" data-name="Path 12681" d="M46.051,9.319c2.782.793,22.966,17.522,23.638,19.522S50.382,49.584,48.6,49.591s-2.683-5.334-4.688-5.775S8.1,48.581,5.2,48.366.006,16.556.222,14.108s41.171,1.008,42.727.558,1.08-5.925,3.1-5.348" fill="#fff"/>
+        <path id="Path_12682" data-name="Path 12682" d="M43.919,46.153c.834-.225.1-2.414-.844-2.35s-22.843,2.992-30.028,3.773S4.55,54.209,5,54.6s10.72-2.142,22.485-4.953,16.436-3.494,16.436-3.494" fill="#8a8a8a"/>
+        <path id="Path_12683" data-name="Path 12683" d="M69.718,33.806s-.968-2.284-6.625,3.177S49.933,48.641,49.325,49.589a2.862,2.862,0,0,0-.223,2.17s12.867-8.851,20.616-17.953" fill="#8a8a8a"/>
+        <g id="Group_14816" data-name="Group 14816" style="mix-blend-mode: normal;isolation: isolate">
+          <g id="Group_14815" data-name="Group 14815">
+            <g id="Group_14814" data-name="Group 14814" clip-path="url(#clip-path-5)">
+              <text id="Leave-2" data-name="Leave" transform="translate(7.06 36.508) rotate(-6.024)" fill="#662d80" font-size="14.583" font-family="RammettoOne-Regular, Rammetto One"><tspan x="0" y="0">L</tspan><tspan y="0" letter-spacing="-0.021em">e</tspan><tspan y="0">a</tspan><tspan y="0" letter-spacing="-0.043em">v</tspan><tspan y="0">e</tspan></text>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
