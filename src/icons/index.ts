@@ -131,6 +131,7 @@ export { default as Guglum } from "./Guglum";
 export { default as Heart } from "./Heart";
 export { default as Help } from "./Help";
 export { default as Heroes } from "./Heroes";
+export { default as HighFive } from "./HighFive";
 export { default as IdeaCreator } from "./IdeaCreator";
 export { default as Info } from "./Info";
 export { default as Instagram } from "./Instagram";
