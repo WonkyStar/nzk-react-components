@@ -42,6 +42,7 @@ export { default as AppTeamwork } from "./AppTeamwork";
 export { default as AppTrash } from "./AppTrash";
 export { default as AppWrite } from "./AppWrite";
 export { default as AppWriting } from "./AppWriting";
+export { default as AppPlay } from "./AppPlay";
 export { default as Archive } from "./Archive";
 export { default as ArrowDown } from "./ArrowDown";
 export { default as ArrowLeftAlt } from "./ArrowLeftAlt";
