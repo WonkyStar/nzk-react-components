@@ -135,6 +135,7 @@ export { default as Help } from "./Help";
 export { default as Heroes } from "./Heroes";
 export { default as HighFive } from "./HighFive";
 export { default as HomeProgram } from "./HomeProgram";
+export { default as Home } from "./Home";
 export { default as HomeschoolProgram } from "./HomeschoolProgram";
 export { default as IdeaCreator } from "./IdeaCreator";
 export { default as Ignite } from "./Ignite";
