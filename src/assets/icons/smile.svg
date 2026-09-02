@@ -1,0 +1,32 @@
+<svg id="personality" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="69.549" height="69.55" viewBox="0 0 69.549 69.55">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_6108" data-name="Rectangle 6108" width="69.549" height="69.549" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_6107" data-name="Rectangle 6107" width="69.55" height="69.55" transform="translate(0 -0.001)" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-3">
+      <rect id="Rectangle_6106" data-name="Rectangle 6106" width="51.559" height="51.559" transform="translate(8.995 9.406)" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_16919" data-name="Group 16919" clip-path="url(#clip-path)">
+    <g id="Group_16918" data-name="Group 16918">
+      <g id="Group_16917" data-name="Group 16917" clip-path="url(#clip-path-2)">
+        <g id="Group_16916" data-name="Group 16916" opacity="0.3">
+          <g id="Group_16915" data-name="Group 16915">
+            <g id="Group_16914" data-name="Group 16914" clip-path="url(#clip-path-3)">
+              <path id="Path_13673" data-name="Path 13673" d="M60.554,35.186a25.78,25.78,0,1,1-25.78-25.78,25.78,25.78,0,0,1,25.78,25.78"/>
+            </g>
+          </g>
+        </g>
+        <path id="Path_13674" data-name="Path 13674" d="M60.554,32.993a25.78,25.78,0,1,1-25.78-25.78,25.78,25.78,0,0,1,25.78,25.78" fill="#ffc83e"/>
+        <path id="Path_13675" data-name="Path 13675" d="M34.775,42.138A25.672,25.672,0,0,1,24.184,39.86a12.85,12.85,0,0,0,21.183,0,25.681,25.681,0,0,1-10.592,2.278" fill="#503834"/>
+        <path id="Path_13676" data-name="Path 13676" d="M58.565,23.05A25.782,25.782,0,0,1,9.47,37.915,25.781,25.781,0,1,0,58.565,23.05" fill="#f8b33b"/>
+        <path id="Path_13677" data-name="Path 13677" d="M27.771,12.346c.71,1.113-.586,3.208-2.894,4.679s-4.753,1.762-5.462.649.586-3.208,2.893-4.679,4.753-1.762,5.463-.649" fill="#ffd977"/>
+        <path id="Path_13678" data-name="Path 13678" d="M28.446,29.905a3.087,3.087,0,1,1-3.087-3.086,3.087,3.087,0,0,1,3.087,3.086" fill="#503834"/>
+        <path id="Path_13679" data-name="Path 13679" d="M46.97,29.905a3.088,3.088,0,1,1-3.087-3.086,3.087,3.087,0,0,1,3.087,3.086" fill="#503834"/>
+      </g>
+    </g>
+  </g>
+</svg>
