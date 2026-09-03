@@ -6,6 +6,8 @@ export { default as Activities } from "./Activities";
 export { default as AddChapter } from "./AddChapter";
 export { default as AddFriend } from "./AddFriend";
 export { default as AdvancedTutoring } from "./AdvancedTutoring";
+export { default as AnimalSummary } from "./AnimalSummary";
+export { default as AnimalTemplate } from "./AnimalTemplate";
 export { default as Ant } from "./Ant";
 export { default as AppArrowDown } from "./AppArrowDown";
 export { default as AppArrowLeft } from "./AppArrowLeft";
